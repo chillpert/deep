@@ -12,7 +12,16 @@ public class ControllerPlayer2 : MonoBehaviour
   [SerializeField]
   GameObject submarine;
   [SerializeField]
+  GameObject headLight;
+  [SerializeField]
   float verticalSpeed;
+  [SerializeField]
+  float headLightSpeed;
+
+  [HideInInspector]
+  public Vector2 joystick;
+  [HideInInspector]
+  public bool actionPressed;
 
   void Start()
   {
@@ -24,11 +33,17 @@ public class ControllerPlayer2 : MonoBehaviour
   {
     Vector3 dir = Vector3.zero;
 
-    dir.z = -acceleration.z;
+    dir.z = acceleration.y;
 
     if (dir.sqrMagnitude > 1)
       dir.Normalize();
 
     submarine.transform.Translate(dir * verticalSpeed * Time.deltaTime);
+
+    Vector3 lightDir = Vector3.zero;
+    lightDir.x = -joystick.y;
+    lightDir.y = joystick.x;
+
+    headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
   }
 }

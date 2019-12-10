@@ -15,6 +15,7 @@ public class UDPParser : MonoBehaviour
 
   string prevMessageGyro;
   string prevMessageAccelerometer;
+  string prevJoystick;
 
   List<string> localIPs = new List<string>();
 
@@ -118,10 +119,66 @@ public class UDPParser : MonoBehaviour
                 player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                 player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
               }
-              
             }
 
             prevMessageAccelerometer = listener.message;
+          }
+
+          // pares joystick data
+          int joystickPos = listener.message.IndexOf("{J(");
+          if (joystickPos != -1)
+          {
+            // check if field has changed
+            if (listener.message != prevJoystick)
+            {
+              string joystickData = listener.message.Substring(joystickPos + 3);
+              joystickData = joystickData.Substring(0, joystickData.IndexOf("}") - 1);
+
+              string[] vec = joystickData.Split(',');
+              if (hit == 0)
+              {
+                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
+                player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+              }
+              else if (hit == 1)
+              {
+                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
+                player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+              }
+            }
+
+            prevJoystick = listener.message;
+          }
+
+          // parse action button pressed
+          int buttonPos = listener.message.IndexOf("{B(1)}");
+          if (buttonPos != -1)
+          {
+            if (hit == 0)
+            {
+              ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
+              player.actionPressed = true;
+            }
+            else if (hit == 1)
+            {
+              ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
+              player.actionPressed = true;
+            }
+          }
+          else
+          {
+            if (hit == 0)
+            {
+              ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
+              player.actionPressed = false;
+            }
+            else if (hit == 1)
+            {
+              ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
+              player.actionPressed = false;
+            }
           }
         }
       }   

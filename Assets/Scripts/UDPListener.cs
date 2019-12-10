@@ -21,6 +21,8 @@ public class UDPListener : MonoBehaviour
 
   public void Start()
   {
+    message = "";
+
     Thread receiveThread = new Thread(new ThreadStart(() =>
     {
       client = new UdpClient(port);
