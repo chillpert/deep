@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 5555
-  printToConsole: 0
+  printToConsole: 1
   message: 
 --- !u!1 &409517064
 GameObject:
@@ -618,6 +618,7 @@ MonoBehaviour:
   headLightSpeed: 25
   joystick: {x: 0, y: 0}
   actionPressed: 0
+  available: 0
 --- !u!1 &836444221
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,10 +662,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5c03ecf4adc4549ace6f26bd8a6f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  port: 5556
   listener: {fileID: 170201559}
   player1: {fileID: 1549909811}
   player2: {fileID: 823274926}
-  printToConsole: 1
+  printConnectionAttempts: 0
+  printMessageOut: 0
+  localIPs: []
 --- !u!1 &869418963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,6 +1142,7 @@ MonoBehaviour:
   headLightSpeed: 25
   joystick: {x: 0, y: 0}
   actionPressed: 0
+  available: 0
 --- !u!1 &1579713752
 GameObject:
   m_ObjectHideFlags: 0

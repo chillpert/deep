@@ -22,23 +22,24 @@ public class ControllerPlayer2 : MonoBehaviour
   public Vector2 joystick;
   [HideInInspector]
   public bool actionPressed;
-
+  [HideInInspector]
+  public bool available;
+  
   void Start()
   {
-        
+    available = true;
   }
-
 
   void Update()
   {
     Vector3 dir = Vector3.zero;
 
-    dir.z = acceleration.y;
+    dir.x = -acceleration.z;
 
     if (dir.sqrMagnitude > 1)
       dir.Normalize();
 
-    submarine.transform.Translate(dir * verticalSpeed * Time.deltaTime);
+    submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
 
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;

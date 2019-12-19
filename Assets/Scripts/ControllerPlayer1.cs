@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ControllerPlayer1 : MonoBehaviour
 {
@@ -22,23 +20,24 @@ public class ControllerPlayer1 : MonoBehaviour
   public Vector2 joystick;
   [HideInInspector]
   public bool actionPressed;
-
+  [HideInInspector]
+  public bool available;
+  
   void Start()
   {
-        
+    available = true;
   }
-
 
   void Update()
   {
     Vector3 dir = Vector3.zero;
-    
-    dir.x = -acceleration.x;
+
+    dir.z = acceleration.x;
 
     if (dir.sqrMagnitude > 1)
       dir.Normalize();
 
-    submarine.transform.Translate(dir * horizontalSpeed * Time.deltaTime);
+    submarine.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
 
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;
