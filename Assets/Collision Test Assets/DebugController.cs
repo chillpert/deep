@@ -22,6 +22,7 @@ public class DebugController : MonoBehaviour
   {
     Debug.Log(collision.collider.name);
     transform.position = initialPosition;
+    transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
   }
 
   void Update()
