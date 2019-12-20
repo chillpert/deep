@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 5555
-  printToConsole: 1
+  printToConsole: 0
   message: 
 --- !u!1 &409517064
 GameObject:
