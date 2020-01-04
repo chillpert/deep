@@ -59,6 +59,7 @@ public class DebugController : MonoBehaviour
     }
     else if (collision.gameObject.tag == "TunnelLeft")
     {
+      Debug.Log("left wall collision");
       rb.AddForce(transform.right * bounceIntensity, ForceMode.Impulse);
       hasCollided = true;
       turnRight = true;
@@ -87,6 +88,7 @@ public class DebugController : MonoBehaviour
       hasCollided = false;
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
+      Debug.Log("reset");
     }
 
     if (turnLeft)
