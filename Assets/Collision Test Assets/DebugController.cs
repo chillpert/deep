@@ -15,6 +15,17 @@ public class DebugController : MonoBehaviour
   [SerializeField]
   GameObject camera;
 
+  [SerializeField]
+  float maxHealth;
+  [SerializeField]
+  float currentHealth;
+  [SerializeField]
+  float damageTunnelMesh;
+  [SerializeField]
+  float damageTunnelWall;
+  [SerializeField]
+  float damageDestuctables;
+
   float bounceLeft = 0f;
   float bounceRight = 0f;
   float bounceTop = 0f;
@@ -25,6 +36,11 @@ public class DebugController : MonoBehaviour
   bool turnDown = false;
   bool turnUp = false;
 
+  bool isInvincible = false;
+  float invincibilityTimeOffset = 0.0f;
+  [SerializeField]
+  float invincibilityTime;
+
   Vector3 initialPosition;
   float lockPos = 0f;
 
@@ -32,10 +48,14 @@ public class DebugController : MonoBehaviour
 
   void Start()
   {
+    currentHealth = maxHealth;
+
     lockPos = 0f;
     initialPosition = transform.position;
     rb = GetComponent<Rigidbody>();
   }
+
+  Collision prevCollision;
 
   void OnCollisionStay(Collision collision)
   {
@@ -43,45 +63,71 @@ public class DebugController : MonoBehaviour
 
     if (collision.gameObject.tag == "TunnelMesh")
     {
-      Debug.Log("ok");
+      if (!isInvincible) currentHealth -= damageTunnelMesh;
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-      return;
     }
 
     if (collision.gameObject.tag == "TunnelTop")
     {
+      if (!isInvincible) currentHealth -= damageTunnelWall;
       rb.AddForce(-transform.up * bounceIntensity, ForceMode.Impulse);
       turnDown = true;
     }
     else if (collision.gameObject.tag == "TunnelBottom")
     {
+      if (!isInvincible) currentHealth -= damageTunnelWall;
       rb.AddForce(transform.up * bounceIntensity, ForceMode.Impulse);
       turnUp = true;
     }
     else if (collision.gameObject.tag == "TunnelLeft")
     {
-      Debug.Log("left wall collision");
+      if (!isInvincible) currentHealth -= damageTunnelWall;
       rb.AddForce(transform.right * bounceIntensity, ForceMode.Impulse);
       turnRight = true;
     }
     else if (collision.gameObject.tag == "TunnelRight")
     {
+      if (!isInvincible) currentHealth -= damageTunnelWall;
       rb.AddForce(-transform.right * bounceIntensity, ForceMode.Impulse);
       turnLeft = true;
     }
 
     if (collision.gameObject.tag == "Destructables")
+    {
+      if (!isInvincible) currentHealth -= damageDestuctables;
       Destroy(collision.gameObject);
+    }
 
     if (collision.gameObject.tag == "Finish")
     {
-      transform.position = initialPosition;
-      transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
+      resetSubmarine();
     }
+
+    isInvincible = true;
+  }
+
+  void resetSubmarine()
+  {
+    transform.position = initialPosition;
+    transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
   }
 
   void Update()
   {
+    if (Time.time > invincibilityTimeOffset)
+    {
+      invincibilityTimeOffset += invincibilityTime;
+      isInvincible = false;
+    }
+
+    if (currentHealth <= 0f)
+    {
+      resetSubmarine();
+      currentHealth = maxHealth;
+    }
+
+    Debug.Log(currentHealth);
+
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
 
