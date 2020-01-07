@@ -29,45 +29,44 @@ public class DebugController : MonoBehaviour
   float lockPos = 0f;
 
   Rigidbody rb;
-  bool hasCollided = false;
 
   void Start()
   {
     lockPos = 0f;
     initialPosition = transform.position;
     rb = GetComponent<Rigidbody>();
-    
   }
 
   void OnCollisionStay(Collision collision)
   {
-    //Debug.Log(collision.collider.name);
-
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
+
+    if (collision.gameObject.tag == "TunnelMesh")
+    {
+      Debug.Log("ok");
+      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+      return;
+    }
 
     if (collision.gameObject.tag == "TunnelTop")
     {
       rb.AddForce(-transform.up * bounceIntensity, ForceMode.Impulse);
-      hasCollided = true;
       turnDown = true;
     }
     else if (collision.gameObject.tag == "TunnelBottom")
     {
       rb.AddForce(transform.up * bounceIntensity, ForceMode.Impulse);
-      hasCollided = true;
       turnUp = true;
     }
     else if (collision.gameObject.tag == "TunnelLeft")
     {
       Debug.Log("left wall collision");
       rb.AddForce(transform.right * bounceIntensity, ForceMode.Impulse);
-      hasCollided = true;
       turnRight = true;
     }
     else if (collision.gameObject.tag == "TunnelRight")
     {
       rb.AddForce(-transform.right * bounceIntensity, ForceMode.Impulse);
-      hasCollided = true;
       turnLeft = true;
     }
 
@@ -83,13 +82,8 @@ public class DebugController : MonoBehaviour
 
   void Update()
   {
-    if (hasCollided)
-    {
-      hasCollided = false;
-      rb.velocity = Vector3.zero;
-      rb.angularVelocity = Vector3.zero;
-      Debug.Log("reset");
-    }
+    rb.velocity = Vector3.zero;
+    rb.angularVelocity = Vector3.zero;
 
     if (turnLeft)
     {
@@ -122,8 +116,6 @@ public class DebugController : MonoBehaviour
       else
         transform.Rotate(-turnSpeed * Time.deltaTime, 0f, 0f);
     }
-
-    //Debug.Log(transform.rotation.eulerAngles.x);
 
     transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
 

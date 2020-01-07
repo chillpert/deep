@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 8581873892470312784}
   m_Layer: 0
   m_Name: bottom
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 650381962583142614}
   m_Layer: 0
   m_Name: top
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

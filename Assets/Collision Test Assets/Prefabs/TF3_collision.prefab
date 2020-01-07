@@ -448,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CavePart1_SD3
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ff11cd3310f7cab4398b32c7f392547c,
+        type: 3}
+      propertyPath: m_TagString
+      value: TunnelMesh
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ff11cd3310f7cab4398b32c7f392547c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -538,6 +543,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CavePart1_SD3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ff11cd3310f7cab4398b32c7f392547c,
+        type: 3}
+      propertyPath: m_TagString
+      value: TunnelMesh
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ff11cd3310f7cab4398b32c7f392547c,
         type: 3}
