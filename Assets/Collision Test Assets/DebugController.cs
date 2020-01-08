@@ -44,6 +44,8 @@ public class DebugController : MonoBehaviour
   Vector3 initialPosition;
   float lockPos = 0f;
 
+  bool start = false;
+
   Rigidbody rb;
 
   void Start()
@@ -126,7 +128,13 @@ public class DebugController : MonoBehaviour
       currentHealth = maxHealth;
     }
 
-    Debug.Log(currentHealth);
+    if (Input.GetKeyDown(KeyCode.Space))
+      start = !start;
+
+    if (!start)
+      return;
+
+    // Debug.Log(currentHealth);
 
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
