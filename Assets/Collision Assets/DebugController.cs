@@ -25,11 +25,8 @@ public class DebugController : MonoBehaviour
   float damageTunnelWall;
   [SerializeField]
   float damageDestuctables;
-
-  float bounceLeft = 0f;
-  float bounceRight = 0f;
-  float bounceTop = 0f;
-  float bounceBottom = 0f;
+  [SerializeField]
+  bool canDie;
 
   bool turnLeft = false;
   bool turnRight = false;
@@ -56,8 +53,6 @@ public class DebugController : MonoBehaviour
     initialPosition = transform.position;
     rb = GetComponent<Rigidbody>();
   }
-
-  Collision prevCollision;
 
   void OnCollisionStay(Collision collision)
   {
@@ -112,10 +107,14 @@ public class DebugController : MonoBehaviour
   {
     transform.position = initialPosition;
     transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
+    currentHealth = maxHealth;
   }
 
   void Update()
   {
+    if (!canDie)
+      currentHealth = maxHealth;
+
     if (Time.time > invincibilityTimeOffset)
     {
       invincibilityTimeOffset += invincibilityTime;
@@ -133,8 +132,6 @@ public class DebugController : MonoBehaviour
 
     if (!start)
       return;
-
-    // Debug.Log(currentHealth);
 
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
@@ -195,11 +192,5 @@ public class DebugController : MonoBehaviour
 
     // lock z-axis
     transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, lockPos);
-
-    // reset once end of tunnel has been reached
-    if (transform.position.z >= 60f)
-    {
-      transform.position = initialPosition;
-    }
   }
 }

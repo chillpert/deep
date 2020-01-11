@@ -32,7 +32,7 @@ public class ControllerPlayer1 : MonoBehaviour
   {
     Vector3 dir = Vector3.zero;
 
-    dir.z = acceleration.x;
+    dir.y = acceleration.x;
 
     if (dir.sqrMagnitude > 1)
       dir.Normalize();
