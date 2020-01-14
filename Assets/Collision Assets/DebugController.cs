@@ -9,12 +9,7 @@ public class DebugController : MonoBehaviour
   [SerializeField]
   float constantVelocity;
   [SerializeField]
-  float bounceIntensity;
-  [SerializeField]
-  float turnSpeed;
-  [SerializeField]
   GameObject camera;
-
   [SerializeField]
   float maxHealth;
   [SerializeField]
@@ -27,21 +22,28 @@ public class DebugController : MonoBehaviour
   float damageDestuctables;
   [SerializeField]
   bool canDie;
-
-  bool turnLeft = false;
-  bool turnRight = false;
-  bool turnDown = false;
-  bool turnUp = false;
-
-  bool isInvincible = false;
-  float invincibilityTimeOffset = 0.0f;
+  [SerializeField]
+  GameObject straightElement;
+  [SerializeField]
+  GameObject rotatedElement;
+  [SerializeField]
+  float lerpSpeed;
   [SerializeField]
   float invincibilityTime;
 
-  Vector3 initialPosition;
-  float lockPos = 0f;
+  bool turnCamStraight = false;
+  bool isInvincible = false;
+  float invincibilityTimeOffset = 0.0f;
 
+  [HideInInspector]
+  public Vector3 respawnPosition;
+  [HideInInspector]
+  public Quaternion respawnOrientation;
+
+  float lockPos = 0f;
   bool start = false;
+  Vector3 directionToLerpTo;
+  Vector3 directionOnCollision;
 
   Rigidbody rb;
 
@@ -50,52 +52,39 @@ public class DebugController : MonoBehaviour
     currentHealth = maxHealth;
 
     lockPos = 0f;
-    initialPosition = transform.position;
+    respawnPosition = transform.position;
     rb = GetComponent<Rigidbody>();
   }
 
   void OnCollisionStay(Collision collision)
   {
+    if (collision.gameObject.tag == "EndOfTunnelSegment")
+    {
+      turnCamStraight = false;
+      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+      return;
+    }
+
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
 
-    if (collision.gameObject.tag == "TunnelMesh")
+    if (collision.gameObject.tag != "TunnelMesh")
+    {
+      if (!isInvincible) currentHealth -= damageTunnelWall;
+      directionOnCollision = transform.forward;
+      directionToLerpTo = collision.gameObject.transform.parent.transform.forward;
+      turnCamStraight = true;
+    }
+    else if (collision.gameObject.tag == "TunnelMesh")
     {
       if (!isInvincible) currentHealth -= damageTunnelMesh;
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
     }
-
-    if (collision.gameObject.tag == "TunnelTop")
-    {
-      if (!isInvincible) currentHealth -= damageTunnelWall;
-      rb.AddForce(-transform.up * bounceIntensity, ForceMode.Impulse);
-      turnDown = true;
-    }
-    else if (collision.gameObject.tag == "TunnelBottom")
-    {
-      if (!isInvincible) currentHealth -= damageTunnelWall;
-      rb.AddForce(transform.up * bounceIntensity, ForceMode.Impulse);
-      turnUp = true;
-    }
-    else if (collision.gameObject.tag == "TunnelLeft")
-    {
-      if (!isInvincible) currentHealth -= damageTunnelWall;
-      rb.AddForce(transform.right * bounceIntensity, ForceMode.Impulse);
-      turnRight = true;
-    }
-    else if (collision.gameObject.tag == "TunnelRight")
-    {
-      if (!isInvincible) currentHealth -= damageTunnelWall;
-      rb.AddForce(-transform.right * bounceIntensity, ForceMode.Impulse);
-      turnLeft = true;
-    }
-
-    if (collision.gameObject.tag == "Destructables")
+    else if (collision.gameObject.tag == "Destructables")
     {
       if (!isInvincible) currentHealth -= damageDestuctables;
       Destroy(collision.gameObject);
     }
-
-    if (collision.gameObject.tag == "Finish")
+    else if (collision.gameObject.tag == "Finish")
     {
       resetSubmarine();
     }
@@ -105,13 +94,20 @@ public class DebugController : MonoBehaviour
 
   void resetSubmarine()
   {
-    transform.position = initialPosition;
+    // needs to be changed to respawn position
+    transform.position = respawnPosition;
     transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
     currentHealth = maxHealth;
   }
 
   void Update()
   {
+    if (Input.GetKeyDown(KeyCode.Space))
+      start = !start;
+
+    if (!start)
+      return;
+
     if (!canDie)
       currentHealth = maxHealth;
 
@@ -127,45 +123,15 @@ public class DebugController : MonoBehaviour
       currentHealth = maxHealth;
     }
 
-    if (Input.GetKeyDown(KeyCode.Space))
-      start = !start;
-
-    if (!start)
-      return;
-
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
 
-    if (turnLeft)
+    if (turnCamStraight)
     {
-      if (transform.rotation.eulerAngles.y >= 0f && transform.rotation.eulerAngles.y <= 180f)
-        transform.Rotate(0f, -turnSpeed * Time.deltaTime, 0f);
-      else
-        turnLeft = false;
-    }
+      transform.forward = Vector3.Lerp(directionOnCollision, directionToLerpTo, lerpSpeed * Time.deltaTime);
 
-    if (turnRight)
-    {
-      if (transform.rotation.eulerAngles.y >= 270f && transform.rotation.eulerAngles.y <= 360f)
-        transform.Rotate(0f, turnSpeed * Time.deltaTime, 0f);
-      else
-        turnRight = false;
-    }
-
-    if (turnDown)
-    {
-      if (transform.rotation.eulerAngles.x >= 0f && transform.rotation.eulerAngles.x <= 180f)
-        turnDown = false;
-      else
-        transform.Rotate(turnSpeed * Time.deltaTime, 0f, 0f);
-    }
-
-    if (turnUp)
-    {
-      if (transform.rotation.eulerAngles.x >= 270f && transform.rotation.eulerAngles.x <= 360f)
-        turnUp = false;
-      else
-        transform.Rotate(-turnSpeed * Time.deltaTime, 0f, 0f);
+      if (Vector3.Distance(transform.forward, directionToLerpTo) <= 0.1f)
+        turnCamStraight = false;
     }
 
     transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
