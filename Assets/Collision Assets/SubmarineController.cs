@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugController : MonoBehaviour
+public class SubmarineController : MonoBehaviour
 {
   [SerializeField]
   float speedControls;
@@ -22,10 +22,6 @@ public class DebugController : MonoBehaviour
   float damageDestuctables;
   [SerializeField]
   bool canDie;
-  [SerializeField]
-  GameObject straightElement;
-  [SerializeField]
-  GameObject rotatedElement;
   [SerializeField]
   float lerpSpeed;
   [SerializeField]
