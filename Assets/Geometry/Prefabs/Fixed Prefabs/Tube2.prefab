@@ -82,7 +82,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291577791771281096}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 3099046542806117621}
   - component: {fileID: 5205314033831554543}
   - component: {fileID: 5866166753321958024}
+  - component: {fileID: 8696796764565238789}
   m_Layer: 0
   m_Name: TopMesh
   m_TagString: TunnelMesh
@@ -235,6 +236,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8696796764565238789
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941392792013381077}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -462981019419857548, guid: 1c4aa3524c111784f8f6f4c712eb4139, type: 3}
 --- !u!1 &1311527964497836546
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +362,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2623873365871704905}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -534,7 +549,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3338233204193002699}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -721,7 +736,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4469781578191550919}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1083,6 +1098,7 @@ GameObject:
   - component: {fileID: 9222096517570152902}
   - component: {fileID: 6274838676158455400}
   - component: {fileID: 8047603756509056048}
+  - component: {fileID: 6973848126932319113}
   m_Layer: 0
   m_Name: BottomMesh
   m_TagString: TunnelMesh
@@ -1150,6 +1166,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6973848126932319113
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707737175524486779}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -462981019419857548, guid: 49f17685e7449b8408b3269bd43f9b05, type: 3}
 --- !u!1 &7736356793371967316
 GameObject:
   m_ObjectHideFlags: 0

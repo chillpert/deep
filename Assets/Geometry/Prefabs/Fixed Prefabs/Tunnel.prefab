@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 7582489840264805500}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &3848956308606191577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 2071602318459412082}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &5546523255924428978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 3367680234686273825}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &6841080736331097319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 6161448579103076264}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &5992865122950160836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 56430824574710381}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &6345419824625803216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 3389613144337843566}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &1977356112974932379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 3123099352756848023}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &1931149807742893166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1147526527458859620}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &3973009145817281846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 555749329511761760}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &4743243567541685618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1234752275075538114}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!1 &4019994025107494885
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1050402809160951538}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &4851859029263011688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 7394714005078074550}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!1 &4807562175298958488
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 9220698780069798741}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &8729427086179690305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 4400951736102943683}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &3755460184371159013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 9057268639901589491}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!1 &7586964707548568692
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1520142201041261638}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &569721730680727203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 8966238518191019653}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &6879612832775625233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 7901458418744559786}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &3425879593546131125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 8441533229365646759}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &6286074667378170046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 2030679974222018624}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &1942076009948424711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 8789744347337010163}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!114 &8589419455277177024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 7865914838560644586}
-  renderBridge: 0
+  renderBridge: 1
 --- !u!1001 &291664104489633368
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -23,6 +23,8 @@ public class MeshGenerator : MonoBehaviour
     // calculate forward direction of bridge
     Vector3 newForward = next.transform.position - transform.position;
     //Vector3 newForward = next.transform.GetChild(0).transform.GetChild(0).position - transform.GetChild(0).transform.GetChild(2).position;
+    
+    /* move this calculation to the submarine collision (then check what side has been hit and calculate a better forward position) */
 
     container.transform.forward = newForward;
 

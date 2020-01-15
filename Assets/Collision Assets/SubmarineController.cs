@@ -63,9 +63,11 @@ public class SubmarineController : MonoBehaviour
 
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
 
-    if (collision.gameObject.tag != "TunnelMesh")
+    if (collision.gameObject.tag != "TunnelMesh" && collision.gameObject.tag != "Destructables" && collision.gameObject.tag != "Finish")
     {
-      if (!isInvincible) currentHealth -= damageTunnelWall;
+      if (!isInvincible)
+        currentHealth -= damageTunnelWall;
+
       directionOnCollision = transform.forward;
       directionToLerpTo = collision.gameObject.transform.parent.transform.forward;
       turnCamStraight = true;
