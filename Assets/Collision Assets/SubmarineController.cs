@@ -58,17 +58,8 @@ public class SubmarineController : MonoBehaviour
   void OnCollisionStay(Collision collision)
   {
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
-
-    if (collision.gameObject.tag != "TunnelMesh" && collision.gameObject.tag != "Destructables" && collision.gameObject.tag != "Finish")
-    {
-      if (!isInvincible)
-        currentHealth -= damageTunnelWall;
-
-      directionOnCollision = transform.forward;
-      directionToLerpTo = collision.gameObject.transform.parent.transform.forward;
-      turnCamStraight = true;
-    }
-    else if (collision.gameObject.tag == "TunnelMesh")
+    
+    if (collision.gameObject.tag == "TunnelMesh")
     {
       if (!isInvincible) currentHealth -= damageTunnelMesh;
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
@@ -81,6 +72,29 @@ public class SubmarineController : MonoBehaviour
     else if (collision.gameObject.tag == "Finish")
     {
       resetSubmarine();
+    }
+    else if (collision.gameObject.tag == "Wall")
+    {
+      if (!isInvincible)
+        currentHealth -= damageTunnelWall;
+
+      directionOnCollision = transform.forward;
+
+      directionToLerpTo = collision.gameObject.transform.parent.transform.forward;
+      turnCamStraight = true;
+    }
+    else if (collision.gameObject.tag == "Bridge")
+    {
+      if (!isInvincible)
+        currentHealth -= damageTunnelWall;
+
+      directionOnCollision = transform.forward;
+
+      transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
+      //directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
+
+      transform.forward = collision.gameObject.GetComponent<VectorContainer>().forward;
+      //turnCamStraight = true;
     }
 
     isInvincible = true;
@@ -155,7 +169,7 @@ public class SubmarineController : MonoBehaviour
     
     if (Input.GetKeyDown("f")) // Fire the missile
     {
-		Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-	}
+		  Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+	  }
   }
 }

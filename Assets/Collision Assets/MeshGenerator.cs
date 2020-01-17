@@ -30,6 +30,8 @@ public class MeshGenerator : MonoBehaviour
 
     for (int i = 0; i < 4; ++i)
     {
+      Vector3 forwardOfWall = Vector3.zero;
+
       string name = "__UNDEF__";
       switch (i)
       {
@@ -38,6 +40,7 @@ public class MeshGenerator : MonoBehaviour
           break;
         case 1:
           name = "Top";
+
           break;
         case 2:
           name = "Left";
@@ -49,10 +52,10 @@ public class MeshGenerator : MonoBehaviour
 
       newVertices = new Vector3[]
       {
-        transform.GetChild(i).transform.GetChild(2).position,
-        transform.GetChild(i).transform.GetChild(3).position,
-        next.transform.GetChild(i).transform.GetChild(0).position,
-        next.transform.GetChild(i).transform.GetChild(1).position
+        transform.GetChild(i).transform.GetChild(2).position, // secondLeft
+        transform.GetChild(i).transform.GetChild(3).position, // secondRight
+        next.transform.GetChild(i).transform.GetChild(0).position, // firstLeft
+        next.transform.GetChild(i).transform.GetChild(1).position // firstRight
       };
 
       newTriangles = new int[]
@@ -115,6 +118,25 @@ public class MeshGenerator : MonoBehaviour
 
       bridge.AddComponent<MeshCollider>();
       bridge.GetComponent<MeshCollider>().sharedMesh = newMesh;
+
+      bridge.AddComponent<VectorContainer>();
+
+      Vector3 startPos = transform.GetChild(i).transform.GetChild(2).position - (transform.GetChild(i).transform.GetChild(2).position - transform.GetChild(i).transform.GetChild(3).position) / 2f;
+      Vector3 endPos = next.transform.GetChild(i).transform.GetChild(0).position - (next.transform.GetChild(i).transform.GetChild(0).position - next.transform.GetChild(i).transform.GetChild(1).position) / 2f;
+      
+      bridge.GetComponent<VectorContainer>().startPosition = startPos;
+      bridge.GetComponent<VectorContainer>().endPosition = endPos;
+      bridge.GetComponent<VectorContainer>().forward = endPos - startPos;
+
+      Vector3 straight = next.transform.GetChild(i).transform.GetChild(0).position - transform.GetChild(i).transform.GetChild(2).position;
+      Vector3 right = transform.GetChild(i).transform.GetChild(3).position - transform.GetChild(i).transform.GetChild(2).position;
+      
+      if (i == 1 || i == 3)
+        bridge.GetComponent<VectorContainer>().orthogonal = -Vector3.Cross(straight, right) / 100f;
+      else
+        bridge.GetComponent<VectorContainer>().orthogonal = Vector3.Cross(straight, right) / 100f;
+
+      bridge.tag = "Bridge";
 
       // add them to a separate node keep hierarchy viewer clean
       container.transform.parent = GameObject.Find("Bridges").transform;
