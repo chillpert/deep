@@ -175,7 +175,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770177417427633500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -215,7 +215,7 @@ MeshCollider:
   m_GameObject: {fileID: 770177417427633500}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -462,7 +462,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049930602851390284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -502,7 +502,7 @@ MeshCollider:
   m_GameObject: {fileID: 2049930602851390284}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 4872675205052196451}
   - component: {fileID: 2606675088030756193}
   - component: {fileID: 3497565231559900928}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LerpReset (out)
   m_TagString: EndOfTunnelSegment
   m_Icon: {fileID: 0}
@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 6923631263848204961}
   - component: {fileID: 6834229343733644224}
   - component: {fileID: 4034147055704873987}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LerpReset (in)
   m_TagString: EndOfTunnelSegment
   m_Icon: {fileID: 0}

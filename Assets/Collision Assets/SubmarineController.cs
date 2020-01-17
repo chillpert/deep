@@ -29,7 +29,8 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   GameObject missile;
 
-  bool turnCamStraight = false;
+  [HideInInspector]
+  public bool turnCamStraight = false;
   bool isInvincible = false;
   float invincibilityTimeOffset = 0.0f;
 
@@ -56,13 +57,6 @@ public class SubmarineController : MonoBehaviour
 
   void OnCollisionStay(Collision collision)
   {
-    if (collision.gameObject.tag == "EndOfTunnelSegment")
-    {
-      turnCamStraight = false;
-      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-      return;
-    }
-
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
 
     if (collision.gameObject.tag != "TunnelMesh" && collision.gameObject.tag != "Destructables" && collision.gameObject.tag != "Finish")

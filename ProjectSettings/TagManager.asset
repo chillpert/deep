@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Phone User
   - Gamepad User
+  - TunnelMesh
+  - EndOfTunnelSegment
+  - TunnelPrefab
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Submarine
+  - LerpStop
+  - SubmarineCollisionHelper
   - 
   - 
   - 

@@ -180,7 +180,7 @@ Transform:
   m_LocalScale: {x: 34.79633, y: 34.42199, z: 472.38666}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &44673181
 ParticleSystemRenderer:
@@ -5069,7 +5069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 81265597}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5203,7 +5203,7 @@ GameObject:
   - component: {fileID: 110186719}
   - component: {fileID: 110186718}
   - component: {fileID: 110186717}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Submarine
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -5250,6 +5250,7 @@ MonoBehaviour:
   lerpSpeed: 5
   invincibilityTime: 1.5
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
+  turnCamStraight: 0
   respawnPosition: {x: 0, y: 0, z: 0}
   respawnOrientation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!65 &110186719
@@ -5755,7 +5756,7 @@ Transform:
   m_LocalScale: {x: 33.179, y: 32.898, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &219455513
 GameObject:
@@ -5789,7 +5790,7 @@ Transform:
   - {fileID: 1146487906}
   - {fileID: 1995544391}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -5.7070003, y: 9.001, z: -3.5340002}
 --- !u!1 &231969186
 GameObject:
@@ -5941,7 +5942,7 @@ Transform:
   m_LocalScale: {x: 4.1846237, y: 78.207504, z: 71.83661}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: -2.778, y: 11.281, z: 38.710003}
 --- !u!1 &256490408
 GameObject:
@@ -6244,7 +6245,7 @@ GameObject:
   - component: {fileID: 370758028}
   - component: {fileID: 370758029}
   - component: {fileID: 370758030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LampRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6504,7 +6505,7 @@ Transform:
   - {fileID: 2033745307}
   - {fileID: 1098123399}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: -21.915, y: 10.065001, z: -3.7900002}
 --- !u!114 &577492048
 MonoBehaviour:
@@ -6560,7 +6561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627598556}
   - component: {fileID: 627598557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6638,6 +6639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dome Projector
       objectReference: {fileID: 0}
+    - target: {fileID: 120082, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 419338, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6694,6 +6699,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 149398, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 154380, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
 --- !u!4 &669089338 stripped
@@ -6735,7 +6748,7 @@ Transform:
   - {fileID: 2020281296}
   - {fileID: 1205509855}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &738407529
 MonoBehaviour:
@@ -6823,7 +6836,7 @@ GameObject:
   - component: {fileID: 790840947}
   - component: {fileID: 790840946}
   - component: {fileID: 790840948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -6968,6 +6981,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1859198973}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &951049061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 951049062}
+  m_Layer: 10
+  m_Name: SubmarineColliderHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &951049062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951049061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.689569, y: 8.244715, z: 10.44957}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989799484
 GameObject:
@@ -8427,7 +8470,7 @@ GameObject:
   - component: {fileID: 1727349191}
   - component: {fileID: 1727349192}
   - component: {fileID: 1727349193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LampLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9287,7 +9330,7 @@ PrefabInstance:
     - target: {fileID: 2707628016148124520, guid: 7c34ca0450e4b4344a1b67f17dba0cc2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2707628016148124520, guid: 7c34ca0450e4b4344a1b67f17dba0cc2,
         type: 3}
