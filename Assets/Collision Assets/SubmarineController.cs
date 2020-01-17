@@ -26,6 +26,8 @@ public class SubmarineController : MonoBehaviour
   float lerpSpeed;
   [SerializeField]
   float invincibilityTime;
+  [SerializeField]
+  GameObject missile;
 
   bool turnCamStraight = false;
   bool isInvincible = false;
@@ -156,5 +158,10 @@ public class SubmarineController : MonoBehaviour
 
     // lock z-axis
     transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, lockPos);
+    
+    if (Input.GetKeyDown("f")) // Fire the missile
+    {
+		Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+	}
   }
 }
