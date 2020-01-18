@@ -9,6 +9,8 @@ TagManager:
   - TunnelMesh
   - EndOfTunnelSegment
   - TunnelPrefab
+  - Bridge
+  - Wall
   layers:
   - Default
   - TransparentFX
