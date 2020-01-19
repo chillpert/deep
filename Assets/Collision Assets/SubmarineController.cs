@@ -73,17 +73,7 @@ public class SubmarineController : MonoBehaviour
     {
       resetSubmarine();
     }
-    else if (collision.gameObject.tag == "Wall")
-    {
-      if (!isInvincible)
-        currentHealth -= damageTunnelWall;
-
-      directionOnCollision = transform.forward;
-
-      directionToLerpTo = collision.gameObject.transform.parent.transform.forward;
-      turnCamStraight = true;
-    }
-    else if (collision.gameObject.tag == "Bridge")
+    else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
       if (!isInvincible)
         currentHealth -= damageTunnelWall;
