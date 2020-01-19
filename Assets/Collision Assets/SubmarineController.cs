@@ -23,11 +23,11 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   bool canDie;
   [SerializeField]
-  float lerpSpeed;
-  [SerializeField]
   float invincibilityTime;
   [SerializeField]
   GameObject missile;
+  [SerializeField]
+  float lerpDuration;
 
   [HideInInspector]
   public bool turnCamStraight = false;
@@ -44,12 +44,12 @@ public class SubmarineController : MonoBehaviour
   Vector3 directionToLerpTo;
   Vector3 directionOnCollision;
 
-  float timeSumInvincibility = 0.0f;
-  float invincibilityPeriod = 2f;
-  float timeSumBounce = 0f;
-  float bouncePeriod = 0.5f;
-  float timeOnCollision;
+  [SerializeField]
+  float invincibilityPeriod;
+  [SerializeField]
+  float bouncePeriod;
 
+  float timeOnCollision;
   bool startInvincibilityFrames = false;
   bool startBouncing = false;
 
@@ -82,10 +82,9 @@ public class SubmarineController : MonoBehaviour
     {
       resetSubmarine();
     }
-    else if (startInvincibilityFrames == false && collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
+    else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
       timeOnCollision = Time.time;
-      timeSumInvincibility = timeOnCollision;
 
       startInvincibilityFrames = true;
       startBouncing = true;
@@ -98,10 +97,9 @@ public class SubmarineController : MonoBehaviour
 
       directionOnCollision = transform.forward;
       directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
-    
-      transform.forward = collision.gameObject.GetComponent<VectorContainer>().forward;
+      //transform.forward = collision.gameObject.GetComponent<VectorContainer>().forward;
 
-      //turnCamStraight = true;
+      turnCamStraight = true;
     }
 
     isInvincible = true;
@@ -140,8 +138,6 @@ public class SubmarineController : MonoBehaviour
       currentHealth = maxHealth;
     }
 
-    //Debug.Log(startInvincibilityFrames);
-
     // on wall collision make submarine invincible for a certain amount of time
     if (startInvincibilityFrames)
     {
@@ -160,12 +156,14 @@ public class SubmarineController : MonoBehaviour
         startBouncing = false;
       }
     }
-
+    
     if (turnCamStraight)
     {
-      transform.forward = Vector3.Lerp(directionOnCollision, directionToLerpTo, lerpSpeed * Time.deltaTime);
+      float fracComplete = (Time.time - timeOnCollision) / lerpDuration;
 
-      if (Vector3.Distance(transform.forward, directionToLerpTo) <= 0.1f)
+      transform.forward = Vector3.Lerp(directionOnCollision, directionToLerpTo, fracComplete);
+
+      if (Vector3.Angle(transform.forward, directionToLerpTo) <= 5f)
         turnCamStraight = false;
     }
 

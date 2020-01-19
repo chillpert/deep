@@ -56,9 +56,9 @@ public class MeshGenerator : MonoBehaviour
       var right = transform.GetChild(i).transform.GetChild(3).position - transform.GetChild(i).transform.GetChild(2).position;
 
       if (i == 1 || i == 3)
-        transform.GetChild(i).gameObject.GetComponent<VectorContainer>().orthogonal = Vector3.Cross(straight, right) / 100f;
+        transform.GetChild(i).gameObject.GetComponent<VectorContainer>().orthogonal = Vector3.Cross(straight, right).normalized;
       else
-        transform.GetChild(i).gameObject.GetComponent<VectorContainer>().orthogonal = -Vector3.Cross(straight, right) / 100f;
+        transform.GetChild(i).gameObject.GetComponent<VectorContainer>().orthogonal = -Vector3.Cross(straight, right).normalized;
 
       // start generating bridge meshes
       newVertices = new Vector3[]
@@ -143,9 +143,9 @@ public class MeshGenerator : MonoBehaviour
       right = transform.GetChild(i).transform.GetChild(3).position - transform.GetChild(i).transform.GetChild(2).position;
       
       if (i == 1 || i == 3)
-        bridge.GetComponent<VectorContainer>().orthogonal = -Vector3.Cross(straight, right) / 100f;
+        bridge.GetComponent<VectorContainer>().orthogonal = -Vector3.Cross(straight, right).normalized;
       else
-        bridge.GetComponent<VectorContainer>().orthogonal = Vector3.Cross(straight, right) / 100f;
+        bridge.GetComponent<VectorContainer>().orthogonal = Vector3.Cross(straight, right).normalized;
 
       bridge.tag = "Bridge";
 
