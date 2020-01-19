@@ -44,6 +44,15 @@ public class SubmarineController : MonoBehaviour
   Vector3 directionToLerpTo;
   Vector3 directionOnCollision;
 
+  float timeSumInvincibility = 0.0f;
+  float invincibilityPeriod = 2f;
+  float timeSumBounce = 0f;
+  float bouncePeriod = 0.5f;
+  float timeOnCollision;
+
+  bool startInvincibilityFrames = false;
+  bool startBouncing = false;
+
   Rigidbody rb;
 
   void Start()
@@ -73,17 +82,25 @@ public class SubmarineController : MonoBehaviour
     {
       resetSubmarine();
     }
-    else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
+    else if (startInvincibilityFrames == false && collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
+      timeOnCollision = Time.time;
+      timeSumInvincibility = timeOnCollision;
+
+      startInvincibilityFrames = true;
+      startBouncing = true;
+
       if (!isInvincible)
         currentHealth -= damageTunnelWall;
 
+      //transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
+      rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
+
       directionOnCollision = transform.forward;
-
-      transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
-      //directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
-
+      directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
+    
       transform.forward = collision.gameObject.GetComponent<VectorContainer>().forward;
+
       //turnCamStraight = true;
     }
 
@@ -100,6 +117,8 @@ public class SubmarineController : MonoBehaviour
 
   void Update()
   {
+    Debug.DrawRay(transform.position, transform.forward * 100f);
+
     if (Input.GetKeyDown(KeyCode.Space))
       start = !start;
 
@@ -121,8 +140,26 @@ public class SubmarineController : MonoBehaviour
       currentHealth = maxHealth;
     }
 
-    rb.velocity = Vector3.zero;
-    rb.angularVelocity = Vector3.zero;
+    //Debug.Log(startInvincibilityFrames);
+
+    // on wall collision make submarine invincible for a certain amount of time
+    if (startInvincibilityFrames)
+    {
+      if (Time.time - timeOnCollision > invincibilityPeriod)
+        startInvincibilityFrames = false;
+    }
+
+    // reset bounce of rb every period of time
+    if (startBouncing)
+    {
+      if (Time.time - timeOnCollision > bouncePeriod)
+      {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        startBouncing = false;
+      }
+    }
 
     if (turnCamStraight)
     {
