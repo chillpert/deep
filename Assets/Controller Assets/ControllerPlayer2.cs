@@ -15,6 +15,8 @@ public class ControllerPlayer2 : MonoBehaviour
   float verticalSpeed;
   [SerializeField]
   float headLightSpeed;
+  [SerializeField]
+  float threshold = 0.1f;
 
   [HideInInspector]
   public Vector2 joystick;
@@ -22,6 +24,8 @@ public class ControllerPlayer2 : MonoBehaviour
   public bool actionPressed;
   [HideInInspector]
   public bool available;
+
+  float prevX;
   
   void Start()
   {
@@ -33,11 +37,14 @@ public class ControllerPlayer2 : MonoBehaviour
     Vector3 dir = Vector3.zero;
 
     dir.x = -acceleration.z;
+    
+    if (prevX > dir.y + threshold || prevX < dir.y - threshold)
+    {
+      if (dir.sqrMagnitude > 1)
+        dir.Normalize();
 
-    if (dir.sqrMagnitude > 1)
-      dir.Normalize();
-
-    submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
+      submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
+    }
 
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;

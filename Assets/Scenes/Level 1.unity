@@ -5249,12 +5249,14 @@ MonoBehaviour:
   damageTunnelWall: 25
   damageDestuctables: 30
   canDie: 0
-  lerpSpeed: 0.001
   invincibilityTime: 1.5
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
+  lerpDuration: 2
   turnCamStraight: 0
   respawnPosition: {x: 0, y: 0, z: 0}
   respawnOrientation: {x: 0, y: 0, z: 0, w: 0}
+  invincibilityPeriod: 2
+  bouncePeriod: 0.5
 --- !u!65 &110186719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5435,7 +5437,7 @@ SphereCollider:
   m_GameObject: {fileID: 110186716}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
