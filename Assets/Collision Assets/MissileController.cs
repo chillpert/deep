@@ -6,6 +6,7 @@ public class MissileController : MonoBehaviour
 {
     void Start()
     {
+		Destroy(transform.root.gameObject, 10);
     }
 
     void Update()

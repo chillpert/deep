@@ -197,6 +197,7 @@ public class SubmarineController : MonoBehaviour
     if (Input.GetKeyDown("f")) // Fire the missile
     {
 		  Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+		  GetComponent<AudioSource>().Play();
 	  }
   }
 }
