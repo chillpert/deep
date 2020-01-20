@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeshGenerator : MonoBehaviour
 {
   [SerializeField]
-  GameObject next;
+  public GameObject next;
   [SerializeField]
   bool renderBridge;
 

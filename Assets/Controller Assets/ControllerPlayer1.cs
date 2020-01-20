@@ -17,6 +17,8 @@ public class ControllerPlayer1 : MonoBehaviour
   float headLightSpeed;
   [SerializeField]
   float threshold = 0.1f;
+  [SerializeField]
+  float clampAngle = 80f;
 
   [HideInInspector]
   public Vector2 joystick;
@@ -25,11 +27,14 @@ public class ControllerPlayer1 : MonoBehaviour
   [HideInInspector]
   public bool available;
 
-  float prevY = 0f;
+  readonly float initialVal = 0f;
+
+  GameObject rotationDummy;
   
   void Start()
   {
     available = true;
+    rotationDummy = new GameObject("HorziontalRotationDummy");
   }
 
   void Update()
@@ -38,12 +43,19 @@ public class ControllerPlayer1 : MonoBehaviour
 
     dir.y = acceleration.x;
 
-    if (prevY > dir.y + threshold || prevY < dir.y - threshold)
+    if (initialVal > dir.y + threshold || initialVal < dir.y - threshold)
     {
       if (dir.sqrMagnitude > 1)
         dir.Normalize();
 
-      submarine.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
+      rotationDummy.transform.position = submarine.transform.position;
+      rotationDummy.transform.rotation = submarine.transform.rotation;
+      rotationDummy.transform.forward = submarine.transform.forward;
+
+      rotationDummy.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
+
+      if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
+        submarine.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
     }
 
     Vector3 lightDir = Vector3.zero;
