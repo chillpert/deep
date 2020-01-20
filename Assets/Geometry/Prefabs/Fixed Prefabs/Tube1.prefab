@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 8615588589587905988}
   m_Layer: 9
   m_Name: LerpReset (out)
-  m_TagString: EndOfTunnelSegment
+  m_TagString: LerpStopOut
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1199,7 +1199,7 @@ GameObject:
   - component: {fileID: 7143667595581012348}
   m_Layer: 9
   m_Name: LerpReset (in)
-  m_TagString: EndOfTunnelSegment
+  m_TagString: LerpStopIn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
