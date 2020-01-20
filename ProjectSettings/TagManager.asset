@@ -11,6 +11,8 @@ TagManager:
   - TunnelPrefab
   - Wall
   - Bridge
+  - LerpStopIn
+  - LerpStopOut
   layers:
   - Default
   - TransparentFX

@@ -8614,6 +8614,8 @@ MonoBehaviour:
   headLight: {fileID: 370758027}
   verticalSpeed: 25
   headLightSpeed: 25
+  threshold: 0.1
+  clampAngle: 45
   joystick: {x: 0, y: 0}
   actionPressed: 0
   available: 0
@@ -8881,6 +8883,8 @@ MonoBehaviour:
   headLight: {fileID: 1727349190}
   horizontalSpeed: 25
   headLightSpeed: 25
+  threshold: 0.1
+  clampAngle: 45
   joystick: {x: 0, y: 0}
   actionPressed: 0
   available: 0
@@ -9041,7 +9045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 5555
-  printToConsole: 1
+  printToConsole: 0
   message: 
 --- !u!4 &1905708179
 Transform:
