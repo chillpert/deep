@@ -34,7 +34,7 @@ public class ControllerPlayer2 : MonoBehaviour
   void Start()
   {
     available = true;
-    rotationDummy = new GameObject("HorziontalRotationDummy");
+    rotationDummy = new GameObject("VerticalRotationDummy");
   }
 
   void Update()

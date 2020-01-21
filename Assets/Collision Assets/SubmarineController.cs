@@ -115,7 +115,7 @@ public class SubmarineController : MonoBehaviour
 
   void Update()
   {
-    Debug.DrawRay(transform.position, transform.forward * 100f);
+    // Debug.DrawRay(transform.position, transform.forward * 100f);
 
     if (Input.GetKeyDown(KeyCode.Space))
       start = !start;

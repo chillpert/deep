@@ -6,8 +6,10 @@ public class MeshGenerator : MonoBehaviour
 {
   [SerializeField]
   public GameObject next;
-  [SerializeField]
-  bool renderBridge;
+  [HideInInspector]
+  public bool renderBridge = false;
+  [HideInInspector]
+  public bool renderTunnelMesh = false;
 
   Vector3[] newVertices;
   int[] newTriangles;
@@ -17,6 +19,13 @@ public class MeshGenerator : MonoBehaviour
 
   void Start()
   {
+    // only display planes in debug mode
+    for (int i = 0; i < 4; ++i)
+      transform.GetChild(i).GetComponent<MeshRenderer>().enabled = renderBridge;
+
+    for (int i = 4; i < 6; ++i)
+      transform.GetChild(i).GetComponent<MeshRenderer>().enabled = renderTunnelMesh;
+
     GameObject container = new GameObject("Bridge_" + index.ToString());
     ++index;
 
@@ -138,6 +147,7 @@ public class MeshGenerator : MonoBehaviour
       bridge.GetComponent<VectorContainer>().startPosition = startPos;
       bridge.GetComponent<VectorContainer>().endPosition = endPos;
       bridge.GetComponent<VectorContainer>().forward = endPos - startPos;
+      bridge.GetComponent<VectorContainer>().debugMode = renderBridge;
 
       straight = next.transform.GetChild(i).transform.GetChild(0).position - transform.GetChild(i).transform.GetChild(2).position;
       right = transform.GetChild(i).transform.GetChild(3).position - transform.GetChild(i).transform.GetChild(2).position;

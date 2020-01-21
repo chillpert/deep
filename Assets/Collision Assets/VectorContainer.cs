@@ -19,10 +19,15 @@ public class VectorContainer : MonoBehaviour
   public Vector3 startPosition;
   [HideInInspector]
   public Vector3 endPosition;
+  [HideInInspector]
+  public bool debugMode = false;
 
   void Update()
   {
-    Debug.DrawRay(startPosition, forward);
-    Debug.DrawRay(startPosition + (endPosition - startPosition) / 2, orthogonal);
+    if (debugMode)
+    {
+      Debug.DrawRay(startPosition, forward);
+      Debug.DrawRay(startPosition + (endPosition - startPosition) / 2, orthogonal);
+    }
   }
 }

@@ -48,7 +48,7 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   void Update()
   {
-    Debug.DrawRay(position, forward);
+    //Debug.DrawRay(position, forward);
 
     transform.position = submarine.transform.position;
     transform.forward = submarine.transform.forward;
