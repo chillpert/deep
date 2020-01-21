@@ -710,9 +710,10 @@ GameObject:
   - component: {fileID: 6911502853191510222}
   - component: {fileID: 6568267121029677005}
   - component: {fileID: 8179096507012511830}
-  m_Layer: 0
+  - component: {fileID: 6340289074883449168}
+  m_Layer: 11
   m_Name: CavePart4
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -777,6 +778,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6340289074883449168
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687832355090423691}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -462981019419857548, guid: 49f17685e7449b8408b3269bd43f9b05, type: 3}
 --- !u!1 &6306914918480040120
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,9 +956,10 @@ GameObject:
   - component: {fileID: 1562891527693502392}
   - component: {fileID: 6195198839994813341}
   - component: {fileID: 7737247197824609734}
-  m_Layer: 0
+  - component: {fileID: 1030902648260711182}
+  m_Layer: 11
   m_Name: CavePart1
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1008,6 +1024,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1030902648260711182
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789807510349448809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -462981019419857548, guid: 1c4aa3524c111784f8f6f4c712eb4139, type: 3}
 --- !u!1 &6807366706979041302
 GameObject:
   m_ObjectHideFlags: 0

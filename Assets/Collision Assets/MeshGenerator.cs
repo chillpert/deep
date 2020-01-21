@@ -7,9 +7,11 @@ public class MeshGenerator : MonoBehaviour
   [SerializeField]
   public GameObject next;
   [HideInInspector]
-  public bool renderBridge = false;
+  public bool renderBridge;
   [HideInInspector]
-  public bool renderTunnelMesh = false;
+  public bool renderTunnelMesh;
+  [HideInInspector]
+  public bool enableTunnelMeshCollider;
 
   Vector3[] newVertices;
   int[] newTriangles;
@@ -24,7 +26,10 @@ public class MeshGenerator : MonoBehaviour
       transform.GetChild(i).GetComponent<MeshRenderer>().enabled = renderBridge;
 
     for (int i = 4; i < 6; ++i)
+    {
       transform.GetChild(i).GetComponent<MeshRenderer>().enabled = renderTunnelMesh;
+      transform.GetChild(i).GetComponent<MeshCollider>().enabled = enableTunnelMeshCollider;
+    }
 
     GameObject container = new GameObject("Bridge_" + index.ToString());
     ++index;
@@ -60,6 +65,7 @@ public class MeshGenerator : MonoBehaviour
       transform.GetChild(i).gameObject.GetComponent<VectorContainer>().startPosition = startPos;
       transform.GetChild(i).gameObject.GetComponent<VectorContainer>().endPosition = endPos;
       transform.GetChild(i).gameObject.GetComponent<VectorContainer>().forward = endPos - startPos;
+      transform.GetChild(i).gameObject.GetComponent<VectorContainer>().debugMode = renderBridge;
 
       var straight = transform.GetChild(i).transform.GetChild(0).position - transform.GetChild(i).transform.GetChild(2).position;
       var right = transform.GetChild(i).transform.GetChild(3).position - transform.GetChild(i).transform.GetChild(2).position;

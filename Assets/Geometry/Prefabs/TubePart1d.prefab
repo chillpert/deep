@@ -605,9 +605,9 @@ GameObject:
   - component: {fileID: 2432950188349353969}
   - component: {fileID: 9177011126327826877}
   - component: {fileID: 7023197055603909818}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CavePart2
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -963,9 +963,9 @@ GameObject:
   - component: {fileID: 5443646921324799799}
   - component: {fileID: 2580004518391741782}
   - component: {fileID: 3709235538998840405}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CavePart1
-  m_TagString: Untagged
+  m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

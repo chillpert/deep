@@ -23,7 +23,17 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   void OnCollisionEnter(Collision collision)
   {
-    if (collision.gameObject.tag == "LerpStopIn")
+    if (collision.gameObject.tag == "TunnelMesh")
+    {
+      StartCoroutine(submarine.GetComponent<SubmarineController>().camera.GetComponent<CameraShake>().Shake());
+
+      if (!submarine.GetComponent<SubmarineController>().isInvincible)
+        submarine.GetComponent<SubmarineController>().currentHealth -= submarine.GetComponent<SubmarineController>().damageTunnelMesh;
+
+      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+      return;
+    }
+    else if (collision.gameObject.tag == "LerpStopIn")
     {
       forward = collision.gameObject.transform.parent.transform.forward;
       position = collision.gameObject.transform.position;

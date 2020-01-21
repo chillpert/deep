@@ -9,13 +9,13 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   float constantVelocity;
   [SerializeField]
-  GameObject camera;
+  public GameObject camera;
   [SerializeField]
   float maxHealth;
   [SerializeField]
-  float currentHealth;
+  public float currentHealth;
   [SerializeField]
-  float damageTunnelMesh;
+  public float damageTunnelMesh;
   [SerializeField]
   float damageTunnelWall;
   [SerializeField]
@@ -31,7 +31,8 @@ public class SubmarineController : MonoBehaviour
 
   [HideInInspector]
   public bool turnCamStraight = false;
-  bool isInvincible = false;
+  [HideInInspector]
+  public bool isInvincible = false;
   float invincibilityTimeOffset = 0.0f;
 
   [HideInInspector]
@@ -68,12 +69,7 @@ public class SubmarineController : MonoBehaviour
   {
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
     
-    if (collision.gameObject.tag == "TunnelMesh")
-    {
-      if (!isInvincible) currentHealth -= damageTunnelMesh;
-      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-    }
-    else if (collision.gameObject.tag == "Destructables")
+    if (collision.gameObject.tag == "Destructables")
     {
       if (!isInvincible) currentHealth -= damageDestuctables;
       Destroy(collision.gameObject);

@@ -147,6 +147,7 @@ MonoBehaviour:
   next: {fileID: 154407004}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &5937247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5316,6 +5317,7 @@ MonoBehaviour:
   next: {fileID: 567875308}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &109937798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6889943963486254573, guid: c4e385aebdc9a084fa006498e43bb04a,
@@ -5343,6 +5345,7 @@ MonoBehaviour:
   next: {fileID: 1633879604}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &110186716
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,6 +5410,7 @@ MonoBehaviour:
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
   lerpDuration: 2
   turnCamStraight: 0
+  isInvincible: 0
   respawnPosition: {x: 0, y: 0, z: 0}
   respawnOrientation: {x: 0, y: 0, z: 0, w: 0}
   invincibilityPeriod: 2
@@ -5420,7 +5424,7 @@ BoxCollider:
   m_GameObject: {fileID: 110186716}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -5591,7 +5595,7 @@ SphereCollider:
   m_GameObject: {fileID: 110186716}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -5782,6 +5786,7 @@ MonoBehaviour:
   next: {fileID: 1451910527}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &193184964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6889943963486254573, guid: c4e385aebdc9a084fa006498e43bb04a,
@@ -5809,6 +5814,7 @@ MonoBehaviour:
   next: {fileID: 2056015694}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &207176962 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9094227551591997118, guid: 44434c9bfea2ef849b3e43a00ab0105b,
@@ -5836,6 +5842,7 @@ MonoBehaviour:
   next: {fileID: 1829960798}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &269987383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6120,6 +6127,7 @@ MonoBehaviour:
   next: {fileID: 193184964}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &329922035 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5172213679885024784, guid: fe16946b6871723429a423ed7d570e31,
@@ -6147,6 +6155,7 @@ MonoBehaviour:
   next: {fileID: 336917507}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &336917507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4527687641279600373, guid: ec2f0afd4d8a1ac43a55d544382df398,
@@ -6174,6 +6183,7 @@ MonoBehaviour:
   next: {fileID: 1624540479}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &370758027
 GameObject:
   m_ObjectHideFlags: 0
@@ -6386,8 +6396,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438583407}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 16.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 19.1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 93298625}
   - {fileID: 567875309}
@@ -6434,6 +6444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   renderTunnelMesh: 1
+  enableTunnelMeshCollider: 1
 --- !u!1001 &503475001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6449,17 +6460,17 @@ PrefabInstance:
     - target: {fileID: 5688371308236484616, guid: f11d74816ddc093448d0da33cdf9a705,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 97.72636
+      value: 94.04
       objectReference: {fileID: 0}
     - target: {fileID: 5688371308236484616, guid: f11d74816ddc093448d0da33cdf9a705,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -31.910011
+      value: -29.27
       objectReference: {fileID: 0}
     - target: {fileID: 5688371308236484616, guid: f11d74816ddc093448d0da33cdf9a705,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 246.966
+      value: 251.7
       objectReference: {fileID: 0}
     - target: {fileID: 5688371308236484616, guid: f11d74816ddc093448d0da33cdf9a705,
         type: 3}
@@ -6599,6 +6610,7 @@ MonoBehaviour:
   next: {fileID: 319712700}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &574264115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6967,6 +6979,7 @@ MonoBehaviour:
   next: {fileID: 1691547895}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &714966575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6889943963486254573, guid: c4e385aebdc9a084fa006498e43bb04a,
@@ -6994,6 +7007,7 @@ MonoBehaviour:
   next: {fileID: 4660430}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &752794434
 GameObject:
   m_ObjectHideFlags: 0
@@ -7051,6 +7065,7 @@ MonoBehaviour:
   next: {fileID: 817617035}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &770780522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4264213367990195738, guid: 0058c3eb15b473e4c8b5c24e8f7bc9c8,
@@ -7188,6 +7203,7 @@ MonoBehaviour:
   next: {fileID: 1133013821}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &823534294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7485,17 +7501,17 @@ PrefabInstance:
     - target: {fileID: 4692622907909077868, guid: 0058c3eb15b473e4c8b5c24e8f7bc9c8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 64.50255
+      value: 60.816193
       objectReference: {fileID: 0}
     - target: {fileID: 4692622907909077868, guid: 0058c3eb15b473e4c8b5c24e8f7bc9c8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.860413
+      value: -13.220402
       objectReference: {fileID: 0}
     - target: {fileID: 4692622907909077868, guid: 0058c3eb15b473e4c8b5c24e8f7bc9c8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 269.79926
+      value: 274.53323
       objectReference: {fileID: 0}
     - target: {fileID: 4692622907909077868, guid: 0058c3eb15b473e4c8b5c24e8f7bc9c8,
         type: 3}
@@ -7635,6 +7651,7 @@ MonoBehaviour:
   next: {fileID: 1406309105}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1133751256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5172213679885024784, guid: fe16946b6871723429a423ed7d570e31,
@@ -7662,6 +7679,7 @@ MonoBehaviour:
   next: {fileID: 1444515778}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &1205990514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7827,6 +7845,7 @@ MonoBehaviour:
   next: {fileID: 767823152}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &1314918902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7997,6 +8016,7 @@ MonoBehaviour:
   next: {fileID: 1133751256}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1406309105 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7174289113960045799, guid: f11d74816ddc093448d0da33cdf9a705,
@@ -8024,6 +8044,7 @@ MonoBehaviour:
   next: {fileID: 770780522}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1444515778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6889943963486254573, guid: c4e385aebdc9a084fa006498e43bb04a,
@@ -8051,6 +8072,7 @@ MonoBehaviour:
   next: {fileID: 329922035}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1451910527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3989012453804537068, guid: 4b43050181ba3bb4291b22b51cc2f170,
@@ -8078,6 +8100,7 @@ MonoBehaviour:
   next: {fileID: 207176962}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1491071327
 GameObject:
   m_ObjectHideFlags: 0
@@ -8260,6 +8283,7 @@ MonoBehaviour:
   next: {fileID: 109937798}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1633879604 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9146319364809804096, guid: acf5ecb3f3916c74cba9e7beda82201b,
@@ -8287,6 +8311,7 @@ MonoBehaviour:
   next: {fileID: 1299117414}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &1666459977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8383,6 +8408,7 @@ MonoBehaviour:
   next: {fileID: 714966575}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1718936624
 GameObject:
   m_ObjectHideFlags: 0
@@ -8705,6 +8731,7 @@ MonoBehaviour:
   next: {fileID: 1390027127}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1 &1905708177
 GameObject:
   m_ObjectHideFlags: 0
@@ -8916,6 +8943,7 @@ MonoBehaviour:
   next: {fileID: 676249542}
   renderBridge: 1
   renderTunnelMesh: 0
+  enableTunnelMeshCollider: 0
 --- !u!1001 &2134613620
 PrefabInstance:
   m_ObjectHideFlags: 0
