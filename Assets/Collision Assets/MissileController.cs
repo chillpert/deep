@@ -11,16 +11,17 @@ public class MissileController : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(0.0f, -2.0f, 0.0f); // This speed should be coherent with the exhaust particle speed
+        transform.Translate(0.0f, -10.0f * Time.deltaTime, 0.0f); // This speed should be coherent with the exhaust particle speed
     }
     
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log("Missile collide: " + collision.gameObject.name);
-		if(collision.gameObject.name.Contains("Tube"))
+		//~ Debug.Log("Missile collide: " + collision.gameObject.name);
+		if(collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
+				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
 		{
 			// TODO some smoke
-			Debug.Log("Deleted self");
+			//~ Debug.Log("Deleted self");
 			Object.Destroy(this.gameObject);
 		}
 		if(collision.gameObject.name.Contains("Obstacle"))

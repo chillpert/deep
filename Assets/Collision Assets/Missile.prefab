@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3513528477927313093}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3513528477999408285}
   - component: {fileID: 3513528477999408283}
   - component: {fileID: 3513528477999408282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4795,7 +4795,7 @@ GameObject:
   - component: {fileID: 3513528478587242997}
   - component: {fileID: 3513528478587242995}
   - component: {fileID: 3513528478587242994}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke (old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9551,7 +9551,7 @@ GameObject:
   - component: {fileID: 2356702322190507207}
   - component: {fileID: 2356702322190507202}
   - component: {fileID: 2171542241196197215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Placeholder Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
