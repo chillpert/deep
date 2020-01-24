@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
+	float startTime;
+	
     void Start()
     {
 		Destroy(transform.root.gameObject, 10);
+		
+		startTime = Time.timeSinceLevelLoad;
     }
 
     void Update()
@@ -16,13 +20,12 @@ public class MissileController : MonoBehaviour
     
 	void OnCollisionEnter(Collision collision)
 	{
-		//~ Debug.Log("Missile collide: " + collision.gameObject.tag);
-		if(collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
+		if((collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
 				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
+				&& (Time.timeSinceLevelLoad - startTime) > 5.0f)
 		{
 			// TODO some smoke
-			//~ Debug.Log("Deleted self");
-			//~ Object.Destroy(this.gameObject);
+			Object.Destroy(this.gameObject);
 		}
 		if(collision.gameObject.tag == "Destructables")
 		{
