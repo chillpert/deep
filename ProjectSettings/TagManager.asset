@@ -13,6 +13,7 @@ TagManager:
   - Bridge
   - LerpStopIn
   - LerpStopOut
+  - Destructables
   layers:
   - Default
   - TransparentFX

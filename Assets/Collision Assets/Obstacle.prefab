@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3260310980686838973}
   m_Layer: 0
   m_Name: Placeholder Cube
-  m_TagString: Untagged
+  m_TagString: Destructables
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1234317101499269545}
   m_Layer: 0
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Destructables
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

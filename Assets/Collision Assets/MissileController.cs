@@ -16,18 +16,19 @@ public class MissileController : MonoBehaviour
     
 	void OnCollisionEnter(Collision collision)
 	{
-		//~ Debug.Log("Missile collide: " + collision.gameObject.name);
+		//~ Debug.Log("Missile collide: " + collision.gameObject.tag);
 		if(collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
 				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
 		{
 			// TODO some smoke
 			//~ Debug.Log("Deleted self");
-			Object.Destroy(this.gameObject);
+			//~ Object.Destroy(this.gameObject);
 		}
-		if(collision.gameObject.name.Contains("Obstacle"))
+		if(collision.gameObject.tag == "Destructables")
 		{
 			// TODO explosion
 			Object.Destroy(collision.gameObject);
+			Object.Destroy(this.gameObject);
 		}
 	}
 }
