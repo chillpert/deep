@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
+	[SerializeField]
+	public GameObject trailFX;
+	[SerializeField]
+	public GameObject explosionFX;
+	
 	float startTime;
 	
     void Start()
@@ -24,14 +29,22 @@ public class MissileController : MonoBehaviour
 				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
 				&& (Time.timeSinceLevelLoad - startTime) > 5.0f)
 		{
-			// TODO some smoke
-			Object.Destroy(this.gameObject);
+			explode();
 		}
 		if(collision.gameObject.tag == "Destructables")
 		{
-			// TODO explosion
 			Object.Destroy(collision.gameObject);
-			Object.Destroy(this.gameObject);
+			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+			explode();
 		}
+	}
+	
+	void explode()
+	{
+		GetComponent<AudioSource>().Play();
+		explosionFX.SetActive(true);
+		trailFX.SetActive(false);
+		transform.localScale = new Vector3(0, 0, 0);
+		Destroy(transform.root.gameObject, 2);
 	}
 }
