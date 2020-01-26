@@ -57,11 +57,13 @@ public class ControllerPlayer2 : MonoBehaviour
       if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
         submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
     }
-
+    
+    /*
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;
     lightDir.y = joystick.x;
 
     headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
+    */
   }
 }

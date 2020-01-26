@@ -58,10 +58,12 @@ public class ControllerPlayer1 : MonoBehaviour
         submarine.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
     }
 
+    /*
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;
     lightDir.y = joystick.x;
 
     headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
+    */
   }
 }
