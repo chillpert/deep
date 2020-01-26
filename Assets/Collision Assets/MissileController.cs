@@ -8,30 +8,38 @@ public class MissileController : MonoBehaviour
 	public GameObject trailFX;
 	[SerializeField]
 	public GameObject explosionFX;
-	
+	[SerializeField]
+	float controlSpeed = 1.5f;
+
 	float startTime;
 	
-    void Start()
-    {
+  void Start()
+  {
 		Destroy(transform.root.gameObject, 10);
-		
 		startTime = Time.timeSinceLevelLoad;
-    }
+	}
 
-    void Update()
-    {
-        transform.Translate(0.0f, -10.0f * Time.deltaTime, 0.0f); // This speed should be coherent with the exhaust particle speed
-    }
+  void Update()
+  {
+		transform.Translate(0.0f, -10.0f * Time.deltaTime, 0.0f); // This speed should be coherent with the exhaust particle speed
+  }
     
 	void OnCollisionEnter(Collision collision)
 	{
-		if((collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
+		/*
+		 * bottom, top, left, right are now all "wall"
+		 * maybe activate explostion on "tunnel_mesh" as well
+		 * or generally speaking on all possible colliders?
+		 */
+
+		if ((collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
 				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
 				&& (Time.timeSinceLevelLoad - startTime) > 5.0f)
 		{
 			explode();
 		}
-		if(collision.gameObject.tag == "Destructables")
+
+		if (collision.gameObject.tag == "Destructables")
 		{
 			Object.Destroy(collision.gameObject);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());

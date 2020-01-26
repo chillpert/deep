@@ -16,6 +16,9 @@ public class ControllerPlayer3 : MonoBehaviour
   [SerializeField]
   float controlSpeed;
 
+  [SerializeField]
+  GameObject lampDynamic;
+
   bool buttonA;
 
   [HideInInspector]
@@ -66,8 +69,14 @@ public class ControllerPlayer3 : MonoBehaviour
 
   void Update()
   {
+    float x = Input.GetAxis("Horizontal");
+    float y = Input.GetAxis("Vertical");
+
+    lampDynamic.transform.Rotate(-y * controlSpeed * Time.deltaTime, x * controlSpeed * Time.deltaTime, 0);
+
     buttonA = Input.GetKeyDown("joystick button 0");
 
+    /*
     if (buttonA)
     {
       Debug.Log("FIRREEE");
@@ -97,6 +106,7 @@ public class ControllerPlayer3 : MonoBehaviour
       transform.GetComponent<Renderer>().enabled = false;
     }
 
+    */
     resetButtons();
   }
 }
