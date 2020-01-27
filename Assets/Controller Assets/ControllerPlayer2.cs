@@ -27,7 +27,7 @@ public class ControllerPlayer2 : MonoBehaviour
   [HideInInspector]
   public bool available;
 
-  readonly float intialVal = 0f;
+  readonly float initialVal = 0f;
 
   GameObject rotationDummy;
 
@@ -42,8 +42,8 @@ public class ControllerPlayer2 : MonoBehaviour
     Vector3 dir = Vector3.zero;
 
     dir.x = -acceleration.z;
-    
-    if (intialVal > dir.y + threshold || intialVal < dir.y - threshold)
+
+    if (initialVal > dir.x + threshold || initialVal < dir.x - threshold)
     {
       if (dir.sqrMagnitude > 1)
         dir.Normalize();
@@ -57,7 +57,7 @@ public class ControllerPlayer2 : MonoBehaviour
       if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
         submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
     }
-    
+
     /*
     Vector3 lightDir = Vector3.zero;
     lightDir.x = -joystick.y;

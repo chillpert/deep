@@ -18,7 +18,7 @@ public class ControllerPlayer1 : MonoBehaviour
   [SerializeField]
   float threshold = 0.1f;
   [SerializeField]
-  float clampAngle = 80f;
+  float clampAngle;
 
   [HideInInspector]
   public Vector2 joystick;

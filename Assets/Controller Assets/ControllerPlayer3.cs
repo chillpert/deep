@@ -9,21 +9,16 @@ public class ControllerPlayer3 : MonoBehaviour
 {
   [SerializeField]
   GameObject submarine;
-
   [SerializeField]
   float missileSpeed;
-
   [SerializeField]
   float controlSpeed;
-
   [SerializeField]
   GameObject lampDynamic;
-
-  bool buttonA;
-
   [HideInInspector]
   public bool fired;
 
+  bool buttonA;
   bool positionRefresh;
 
   void resetButtons()
@@ -49,7 +44,6 @@ public class ControllerPlayer3 : MonoBehaviour
 
     Debug.Log(collision.gameObject.name);
 
-    Debug.Log("BOOOOOM");
     fired = false;
     transform.GetComponent<Renderer>().enabled = false;
     updatePosition();
@@ -69,15 +63,17 @@ public class ControllerPlayer3 : MonoBehaviour
 
   void Update()
   {
-    lampDynamic.transform.Rotate(Input.GetAxis("Controller Mouse Y") * controlSpeed * Time.deltaTime, Input.GetAxis("Controller Mouse X") * controlSpeed * Time.deltaTime, 0);
+    // move head light using left-joystick of xbox controller
+    float x = Input.GetAxis("Controller Mouse Y");
+    float y = Input.GetAxis("Controller Mouse X");
+
+    lampDynamic.transform.Rotate(x * controlSpeed * Time.deltaTime, y * controlSpeed * Time.deltaTime, 0f, Space.World);
 
     /*
     buttonA = Input.GetKeyDown("joystick button 0");
 
     if (buttonA)
     {
-      Debug.Log("FIRREEE");
-
       fired = true;
       positionRefresh = true;
       transform.GetComponent<Renderer>().enabled = true;
