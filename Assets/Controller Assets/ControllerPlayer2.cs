@@ -19,6 +19,8 @@ public class ControllerPlayer2 : MonoBehaviour
   float threshold = 0.1f;
   [SerializeField]
   float clampAngle = 80f;
+  [SerializeField]
+  GameObject player1;
 
   [HideInInspector]
   public Vector2 joystick;
@@ -30,6 +32,9 @@ public class ControllerPlayer2 : MonoBehaviour
   readonly float initialVal = 0f;
 
   GameObject rotationDummy;
+
+  [HideInInspector]
+  public bool firedTorpedo = false;
 
   void Start()
   {
@@ -65,5 +70,14 @@ public class ControllerPlayer2 : MonoBehaviour
 
     headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
     */
+
+    if (actionPressed)
+    {
+      if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+      {
+        Debug.Log("Phone: Fired Torpedo");
+        firedTorpedo = true;
+      }
+    }
   }
 }

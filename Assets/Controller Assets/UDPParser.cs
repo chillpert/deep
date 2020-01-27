@@ -199,11 +199,13 @@ public class UDPParser : MonoBehaviour
             {
               if (hit == 0)
               {
+                Debug.Log("reloaded button");
                 ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
                 player.actionPressed = true;
               }
               else if (hit == 1)
               {
+                Debug.Log("fired button");
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.actionPressed = true;
               }
@@ -225,9 +227,11 @@ public class UDPParser : MonoBehaviour
         }
       }
     }
+
+    listener.message = "";
   }
 
-  private void Send(string message, string ip)
+  public void Send(string message, string ip)
   {
     IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
     UdpClient client = new UdpClient();

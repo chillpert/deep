@@ -5,6 +5,14 @@ using UnityEngine;
 public class SubmarineController : MonoBehaviour
 {
   [SerializeField]
+  GameObject player1;
+  [SerializeField]
+  GameObject player2;
+  [SerializeField]
+  GameObject udpParser;
+  [HideInInspector]
+  public static int currentLevel = 1;
+  [SerializeField]
   float speedControls;
   [SerializeField]
   float constantVelocity;
@@ -65,6 +73,23 @@ public class SubmarineController : MonoBehaviour
     rb = GetComponent<Rigidbody>();
   }
 
+  // sends message to both phones containing the number of the current level
+  void updateLevel()
+  {
+    var ips = udpParser.GetComponent<UDPParser>().localIPs;
+
+    if (ips.Count == 1)
+    {
+      Debug.Log(ips[0]);
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
+    }
+    else if (ips.Count == 2)
+    {
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[1]);
+    }
+  }
+
   void OnCollisionStay(Collision collision)
   {
     Debug.Log(collision.gameObject.name);
@@ -114,6 +139,29 @@ public class SubmarineController : MonoBehaviour
   void Update()
   {
     // Debug.DrawRay(transform.position, transform.forward * 100f);
+
+    // demo code for swapping control schemes
+    if (Input.GetKeyDown(KeyCode.Alpha1))
+    {
+      currentLevel = 1;
+      updateLevel();
+    }
+    else if (Input.GetKeyDown(KeyCode.Alpha2))
+    {
+      currentLevel = 2;
+      updateLevel();
+    }
+
+    //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
+
+    if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo && player2.GetComponent<ControllerPlayer2>().firedTorpedo)
+    {
+      Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+      GetComponent<AudioSource>().Play();
+
+      player1.GetComponent<ControllerPlayer1>().reloadedTorpedo = false;
+      player2.GetComponent<ControllerPlayer2>().firedTorpedo = false;
+    }
 
     if (Input.GetKeyDown(KeyCode.Space))
       start = !start;

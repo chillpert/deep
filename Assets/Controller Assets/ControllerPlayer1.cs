@@ -30,6 +30,9 @@ public class ControllerPlayer1 : MonoBehaviour
   readonly float initialVal = 0f;
 
   GameObject rotationDummy;
+
+  [HideInInspector]
+  public bool reloadedTorpedo = false;
   
   void Start()
   {
@@ -65,5 +68,11 @@ public class ControllerPlayer1 : MonoBehaviour
 
     headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
     */
+    
+    if (actionPressed)
+    {
+      Debug.Log("Phone: Reloaded Torpedo");
+      reloadedTorpedo = true;
+    }
   }
 }
