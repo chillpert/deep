@@ -69,14 +69,11 @@ public class ControllerPlayer3 : MonoBehaviour
 
   void Update()
   {
-    float x = Input.GetAxis("Horizontal");
-    float y = Input.GetAxis("Vertical");
-
-    lampDynamic.transform.Rotate(-y * controlSpeed * Time.deltaTime, x * controlSpeed * Time.deltaTime, 0);
-
-    buttonA = Input.GetKeyDown("joystick button 0");
+    lampDynamic.transform.Rotate(Input.GetAxis("Controller Mouse Y") * controlSpeed * Time.deltaTime, Input.GetAxis("Controller Mouse X") * controlSpeed * Time.deltaTime, 0);
 
     /*
+    buttonA = Input.GetKeyDown("joystick button 0");
+
     if (buttonA)
     {
       Debug.Log("FIRREEE");
@@ -106,7 +103,7 @@ public class ControllerPlayer3 : MonoBehaviour
       transform.GetComponent<Renderer>().enabled = false;
     }
 
-    */
     resetButtons();
+    */
   }
 }

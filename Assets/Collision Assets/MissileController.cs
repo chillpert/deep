@@ -21,30 +21,29 @@ public class MissileController : MonoBehaviour
 
   void Update()
   {
-		transform.Translate(0.0f, -10.0f * Time.deltaTime, 0.0f); // This speed should be coherent with the exhaust particle speed
+		transform.Rotate(-Input.GetAxis("Controller Vertical") * Time.deltaTime * controlSpeed, Input.GetAxis("Controller Horizontal") * Time.deltaTime * controlSpeed, 0f, Space.World);
+		transform.Translate(0f,	-10.0f * Time.deltaTime, 0f); // This speed should be coherent with the exhaust particle speed
   }
     
 	void OnCollisionEnter(Collision collision)
 	{
 		/*
-		 * bottom, top, left, right are now all "wall"
-		 * maybe activate explostion on "tunnel_mesh" as well
-		 * or generally speaking on all possible colliders?
-		 */
-
 		if ((collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
 				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
 				&& (Time.timeSinceLevelLoad - startTime) > 5.0f)
 		{
 			explode();
 		}
+		*/
 
 		if (collision.gameObject.tag == "Destructables")
 		{
 			Object.Destroy(collision.gameObject);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-			explode();
+			//explode();
 		}
+
+		explode();
 	}
 	
 	void explode()
