@@ -199,13 +199,13 @@ public class UDPParser : MonoBehaviour
             {
               if (hit == 0)
               {
-                Debug.Log("reloaded button");
+                Debug.Log("pressed reloaded button");
                 ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
                 player.actionPressed = true;
               }
               else if (hit == 1)
               {
-                Debug.Log("fired button");
+                Debug.Log("pressed fired button");
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.actionPressed = true;
               }
@@ -226,6 +226,11 @@ public class UDPParser : MonoBehaviour
           }
         }
       }
+    }
+    else
+    {
+      player1.GetComponent<ControllerPlayer1>().actionPressed = false;
+      player2.GetComponent<ControllerPlayer2>().actionPressed = false;
     }
 
     listener.message = "";

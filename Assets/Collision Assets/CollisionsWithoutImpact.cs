@@ -54,6 +54,18 @@ public class CollisionsWithoutImpact : MonoBehaviour
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
       return;
     }
+    else if (collision.gameObject.tag == "Destructables")
+    {
+      StartCoroutine(submarine.GetComponent<SubmarineController>().camera.GetComponent<CameraShake>().Shake());
+
+      if (!submarine.GetComponent<SubmarineController>().isInvincible)
+        submarine.GetComponent<SubmarineController>().currentHealth -= submarine.GetComponent<SubmarineController>().damageDestuctables;
+
+      Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+
+      Object.Destroy(collision.gameObject); // or play destruction animation or similar effects
+      return;
+    }
   }
 
   void Update()

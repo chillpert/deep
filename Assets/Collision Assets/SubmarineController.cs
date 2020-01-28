@@ -25,9 +25,9 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   public float damageTunnelMesh;
   [SerializeField]
-  float damageTunnelWall;
+  public float damageTunnelWall;
   [SerializeField]
-  float damageDestuctables;
+  public float damageDestuctables;
   [SerializeField]
   bool canDie;
   [SerializeField]
