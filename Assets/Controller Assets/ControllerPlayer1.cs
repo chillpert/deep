@@ -46,6 +46,8 @@ public class ControllerPlayer1 : MonoBehaviour
 
     dir.y = acceleration.x;
 
+    //Debug.Log("Player 1: " + dir.y);
+
     if (initialVal > dir.y + threshold || initialVal < dir.y - threshold)
     {
       if (dir.sqrMagnitude > 1)

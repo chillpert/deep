@@ -17,7 +17,7 @@ public class CollisionsWithoutImpact : MonoBehaviour
   GameObject submarine;
 
   [HideInInspector]
-  public static Vector3 forward;
+  public static Vector3 forward = new Vector3(0f, 0f, 1f);
 
   Vector3 position;
 

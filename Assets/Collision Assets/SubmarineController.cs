@@ -92,8 +92,6 @@ public class SubmarineController : MonoBehaviour
 
   void OnCollisionStay(Collision collision)
   {
-    Debug.Log(collision.gameObject.name);
-
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
     
     if (collision.gameObject.tag == "Destructables")
