@@ -48,6 +48,9 @@ public class SubmarineController : MonoBehaviour
   [HideInInspector]
   public Quaternion respawnOrientation;
 
+  [HideInInspector]
+  public float timeSinceLastTorepdo = 0f;
+
   float lockPos = 0f;
   bool start = false;
   Vector3 directionToLerpTo;
@@ -159,6 +162,8 @@ public class SubmarineController : MonoBehaviour
 
       player1.GetComponent<ControllerPlayer1>().reloadedTorpedo = false;
       player2.GetComponent<ControllerPlayer2>().firedTorpedo = false;
+
+      timeSinceLastTorepdo = Time.time;
     }
 
     if (Input.GetKeyDown(KeyCode.Space))

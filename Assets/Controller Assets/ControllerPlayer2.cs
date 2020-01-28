@@ -33,6 +33,8 @@ public class ControllerPlayer2 : MonoBehaviour
 
   GameObject rotationDummy;
 
+  readonly float coolDown = 4f;
+
   [HideInInspector]
   public bool firedTorpedo = false;
 
@@ -77,8 +79,11 @@ public class ControllerPlayer2 : MonoBehaviour
     {
       if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
       {
-        Debug.Log("Phone: Fired Torpedo");
-        firedTorpedo = true;
+        if (Time.time - submarine.GetComponent<SubmarineController>().timeSinceLastTorepdo > coolDown)
+        {
+          //Debug.Log("Phone: Fired Torpedo");
+          firedTorpedo = true;
+        }
       }
     }
   }

@@ -73,7 +73,7 @@ public class ControllerPlayer1 : MonoBehaviour
     
     if (actionPressed)
     {
-      Debug.Log("Phone: Reloaded Torpedo");
+      //Debug.Log("Phone: Reloaded Torpedo");
       reloadedTorpedo = true;
     }
   }
