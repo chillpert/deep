@@ -33,10 +33,17 @@ public class ControllerPlayer2 : MonoBehaviour
 
   GameObject rotationDummy;
 
-  readonly float coolDown = 4f;
+  readonly float coolDown = 5f;
+
+  [HideInInspector]
+  public float timeSinceLastFire = 0f;
+  bool actionPressedFirst = true;
+  bool actionPressedFirst2 = true;
 
   [HideInInspector]
   public bool firedTorpedo = false;
+
+  float timerTemp = 0f;
 
   void Start()
   {
@@ -77,14 +84,42 @@ public class ControllerPlayer2 : MonoBehaviour
 
     if (actionPressed)
     {
-      if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+      if (actionPressedFirst2)
       {
-        if (Time.time - submarine.GetComponent<SubmarineController>().timeSinceLastTorepdo > coolDown)
+        timerTemp = Time.time;
+        actionPressedFirst2 = false;
+      }
+    }
+    else
+    {
+      if (Time.time - timeSinceLastFire > coolDown)
+      {
+        actionPressedFirst2 = true;
+      }
+    }
+
+    if (actionPressed && player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+    {
+      if (actionPressedFirst)
+      {
+        timeSinceLastFire = Time.time;
+
+        if (player1.GetComponent<ControllerPlayer1>().timeSinceLastReload < timerTemp)
         {
-          //Debug.Log("Phone: Fired Torpedo");
+          Debug.Log("Phone 2: Fired Torpedo @" + timeSinceLastFire);
           firedTorpedo = true;
         }
+        actionPressedFirst = false;
       }
+    }
+    else
+    {
+      if (Time.time - timeSinceLastFire > coolDown)
+      {
+        actionPressedFirst = true;
+      }
+
+      firedTorpedo = false;
     }
   }
 }

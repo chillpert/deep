@@ -208,13 +208,13 @@ public class UDPParser : MonoBehaviour
             {
               if (receivedRole == 1)
               {
-                Debug.Log("pressed reloaded button");
+                //Debug.Log("pressed reloaded button");
                 ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
                 player.actionPressed = true;
               }
               else if (receivedRole == 2)
               {
-                Debug.Log("pressed fired button");
+                //Debug.Log("pressed fired button");
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.actionPressed = true;
               }
