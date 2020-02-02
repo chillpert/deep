@@ -27,20 +27,10 @@ public class MissileController : MonoBehaviour
     
 	void OnCollisionEnter(Collision collision)
 	{
-		/*
-		if ((collision.gameObject.name.Contains("Bottom") || collision.gameObject.name.Contains("Top")
-				|| collision.gameObject.name.Contains("Left") || collision.gameObject.name.Contains("Right"))
-				&& (Time.timeSinceLevelLoad - startTime) > 5.0f)
-		{
-			explode();
-		}
-		*/
-
 		if (collision.gameObject.tag == "Destructables")
 		{
 			Object.Destroy(collision.gameObject);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-			//explode();
 		}
 
 		explode();
