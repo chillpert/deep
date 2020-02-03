@@ -5387,6 +5387,7 @@ MonoBehaviour:
   invincibilityTime: 1.5
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
   lerpDuration: 2
+  submarineColliderHelper: {fileID: 951049061}
   turnCamStraight: 0
   isInvincible: 0
   respawnPosition: {x: 0, y: 0, z: 0}
