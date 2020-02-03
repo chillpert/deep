@@ -61,13 +61,16 @@ public class ControllerPlayer1 : MonoBehaviour
 
       rotationDummy.transform.position = submarine.transform.position;
       rotationDummy.transform.rotation = submarine.transform.rotation;
-      rotationDummy.transform.forward = submarine.transform.forward;
+      //rotationDummy.transform.forward = submarine.transform.forward;
 
-      rotationDummy.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
+      rotationDummy.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);      
 
       if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
         submarine.transform.Rotate(dir * horizontalSpeed * Time.deltaTime);
     }
+
+    Debug.DrawRay(rotationDummy.transform.position, rotationDummy.transform.forward * 5f, Color.green);
+    Debug.DrawRay(rotationDummy.transform.position, CollisionsWithoutImpact.forward * 5f, Color.red);
 
     /*
     Vector3 lightDir = Vector3.zero;

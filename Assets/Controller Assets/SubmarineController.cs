@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SubmarineController : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class SubmarineController : MonoBehaviour
   GameObject missile;
   [SerializeField]
   float lerpDuration;
+  [SerializeField]
+  GameObject submarineColliderHelper;
 
   [HideInInspector]
   public bool turnCamStraight = false;
@@ -47,6 +50,9 @@ public class SubmarineController : MonoBehaviour
   public Vector3 respawnPosition;
   [HideInInspector]
   public Quaternion respawnOrientation;
+
+  Quaternion respawnRotation;
+  Vector3 respawnForward;
 
   [HideInInspector]
   public float timeSinceLastTorepdo = 0f;
@@ -72,7 +78,11 @@ public class SubmarineController : MonoBehaviour
     currentHealth = maxHealth;
 
     lockPos = 0f;
+    
     respawnPosition = transform.position;
+    respawnForward = transform.forward;
+    respawnRotation = transform.rotation;
+
     rb = GetComponent<Rigidbody>();
   }
 
@@ -97,12 +107,7 @@ public class SubmarineController : MonoBehaviour
   {
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
     
-    if (collision.gameObject.tag == "Destructables")
-    {
-      if (!isInvincible) currentHealth -= damageDestuctables;
-      Destroy(collision.gameObject);
-    }
-    else if (collision.gameObject.tag == "Finish")
+    if (collision.gameObject.tag == "Finish")
     {
       resetSubmarine();
     }
@@ -131,15 +136,45 @@ public class SubmarineController : MonoBehaviour
 
   void resetSubmarine()
   {
+    startInvincibilityFrames = false;
+    startBouncing = false;
+    turnCamStraight = false;
+    isInvincible = false;
+
+    //CollisionsWithoutImpact.forward = new Vector3(0f, 0f, 1f);
+
     // needs to be changed to respawn position
     transform.position = respawnPosition;
-    transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
+    transform.forward = respawnForward;
+    transform.rotation = respawnRotation;
+
+    submarineColliderHelper.transform.position = respawnPosition;
+    submarineColliderHelper.transform.forward = respawnForward;
+    submarineColliderHelper.transform.rotation = respawnRotation;
+
+    //transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
+
+    //Destroy(gameObject.GetComponent<Rigidbody>());
+    Destroy(gameObject.GetComponent<BoxCollider>());
+
+    //gameObject.AddComponent<Rigidbody>();
+    gameObject.AddComponent<BoxCollider>();
+
+    //Destroy(submarineColliderHelper.GetComponent<Rigidbody>());
+    Destroy(submarineColliderHelper.GetComponent<BoxCollider>());
+
+    //submarineColliderHelper.AddComponent<Rigidbody>();
+    submarineColliderHelper.AddComponent<BoxCollider>();
+
     currentHealth = maxHealth;
+
+    rb.velocity = Vector3.zero;
+    rb.angularVelocity = Vector3.zero;
   }
 
   void Update()
   {
-    // Debug.DrawRay(transform.position, transform.forward * 100f);
+    //Debug.DrawRay(transform.position, transform.forward * 100f);
 
     // demo code for swapping control schemes
     if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -167,7 +202,9 @@ public class SubmarineController : MonoBehaviour
     }
 
     if (Input.GetKeyDown(KeyCode.Space))
+    {
       start = !start;
+    }
 
     if (!start)
       return;
@@ -217,7 +254,7 @@ public class SubmarineController : MonoBehaviour
     }
 
     transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
-
+    
     if (Input.GetKey("up") || Input.GetKey("w"))
     {
       transform.Rotate(-speedControls * Time.deltaTime, 0f, 0f);

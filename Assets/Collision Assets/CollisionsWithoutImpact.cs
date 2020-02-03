@@ -23,6 +23,8 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   void OnCollisionEnter(Collision collision)
   {
+    //Debug.Log(collision.gameObject.name);
+
     if (collision.gameObject.tag == "TunnelMesh")
     {
       StartCoroutine(submarine.GetComponent<SubmarineController>().camera.GetComponent<CameraShake>().Shake());
@@ -31,19 +33,20 @@ public class CollisionsWithoutImpact : MonoBehaviour
         submarine.GetComponent<SubmarineController>().currentHealth -= submarine.GetComponent<SubmarineController>().damageTunnelMesh;
 
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-      return;
     }
-    else if (collision.gameObject.tag == "LerpStopIn")
+    
+    if (collision.gameObject.tag == "LerpStopIn")
     {
+      //Debug.Log("LERP IN");
       forward = collision.gameObject.transform.parent.transform.forward;
       position = collision.gameObject.transform.position;
 
       submarine.GetComponent<SubmarineController>().turnCamStraight = false;
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-      return;
     }
     else if (collision.gameObject.tag == "LerpStopOut")
     {
+      //Debug.Log("LERP OUT");
       if (collision.gameObject.transform.parent.GetComponent<MeshGenerator>() != null)
       {
         forward = collision.gameObject.transform.parent.GetComponent<MeshGenerator>().next.gameObject.transform.forward;
@@ -52,9 +55,9 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
       submarine.GetComponent<SubmarineController>().turnCamStraight = false;
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
-      return;
     }
-    else if (collision.gameObject.tag == "Destructables")
+    
+    if (collision.gameObject.tag == "Destructables")
     {
       StartCoroutine(submarine.GetComponent<SubmarineController>().camera.GetComponent<CameraShake>().Shake());
 
@@ -64,13 +67,12 @@ public class CollisionsWithoutImpact : MonoBehaviour
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
 
       Object.Destroy(collision.gameObject); // or play destruction animation or similar effects
-      return;
     }
   }
 
   void Update()
   {
-    //Debug.DrawRay(position, forward);
+    Debug.DrawRay(position, forward * 25f, Color.yellow);
 
     transform.position = submarine.transform.position;
     transform.forward = submarine.transform.forward;
