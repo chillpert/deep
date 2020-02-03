@@ -27,13 +27,16 @@ public class MissileController : MonoBehaviour
     
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.tag == "Destructables")
+		if(collision.gameObject.tag == "Destructables")
 		{
 			Object.Destroy(collision.gameObject);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 		}
 
-		explode();
+		if(collision.gameObject.name.Contains("CavePart"))
+			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+		else
+			explode();
 	}
 	
 	void explode()
