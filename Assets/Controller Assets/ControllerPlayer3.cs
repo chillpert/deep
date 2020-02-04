@@ -67,7 +67,7 @@ public class ControllerPlayer3 : MonoBehaviour
     float x = Input.GetAxis("Controller Mouse Y");
     float y = Input.GetAxis("Controller Mouse X");
 
-    lampDynamic.transform.Rotate(x * controlSpeed * Time.deltaTime, y * controlSpeed * Time.deltaTime, 0f, Space.World);
+    lampDynamic.transform.Rotate(x * controlSpeed * Time.deltaTime, y * controlSpeed * Time.deltaTime, 0f, Space.Self);
 
     /*
     buttonA = Input.GetKeyDown("joystick button 0");
