@@ -5462,7 +5462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110186716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.6, y: 0, z: 150.9}
+  m_LocalPosition: {x: 2.03, y: 0, z: -12.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 627598556}
@@ -8274,8 +8274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bddd3fb3d6cc44aac4996fbefe8001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 1
-  renderTunnelMesh: 0
+  debugMode: 0
+  renderTunnelMesh: 1
   enableTunnelMeshCollider: 1
 --- !u!1001 &1241893488
 PrefabInstance:
