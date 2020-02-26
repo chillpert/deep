@@ -39,6 +39,17 @@ public class SubmarineController : MonoBehaviour
   float lerpDuration;
   [SerializeField]
   GameObject submarineColliderHelper;
+  
+  [SerializeField]
+  GameObject damageSphere;
+  [SerializeField]
+  Material damageMaterial0;
+  [SerializeField]
+  Material damageMaterial1;
+  [SerializeField]
+  Material damageMaterial2;
+  [SerializeField]
+  Material damageMaterial3;
 
   [HideInInspector]
   public bool turnCamStraight = false;
@@ -120,6 +131,8 @@ public class SubmarineController : MonoBehaviour
 
       if (!isInvincible)
         currentHealth -= damageTunnelWall;
+      
+      updateDamageTexture();
 
       //transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
       rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
@@ -167,6 +180,7 @@ public class SubmarineController : MonoBehaviour
     submarineColliderHelper.AddComponent<BoxCollider>();
 
     currentHealth = maxHealth;
+    updateDamageTexture();
 
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
@@ -282,6 +296,26 @@ public class SubmarineController : MonoBehaviour
     {
 		  Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
 		  GetComponent<AudioSource>().Play();
+	  }
+  }
+  
+  public void updateDamageTexture()
+  {
+	  if(currentHealth > 75)
+	  {
+		  damageSphere.GetComponent<Renderer>().material = damageMaterial0;
+	  }
+	  else if(currentHealth <= 75 && currentHealth > 50)
+	  {
+		  damageSphere.GetComponent<Renderer>().material = damageMaterial1;
+	  }
+	  else if(currentHealth <= 50 && currentHealth > 25)
+	  {
+		  damageSphere.GetComponent<Renderer>().material = damageMaterial2;
+	  }
+	  else
+	  {
+		  damageSphere.GetComponent<Renderer>().material = damageMaterial3;
 	  }
   }
 }

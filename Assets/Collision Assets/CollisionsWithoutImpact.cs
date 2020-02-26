@@ -32,6 +32,8 @@ public class CollisionsWithoutImpact : MonoBehaviour
       if (!submarine.GetComponent<SubmarineController>().isInvincible)
         submarine.GetComponent<SubmarineController>().currentHealth -= submarine.GetComponent<SubmarineController>().damageTunnelMesh;
 
+      submarine.GetComponent<SubmarineController>().updateDamageTexture();
+
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
     }
     
