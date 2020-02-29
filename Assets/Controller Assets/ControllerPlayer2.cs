@@ -3,9 +3,15 @@
 public class ControllerPlayer2 : MonoBehaviour
 {
   [HideInInspector]
-  public Quaternion rotation = new Quaternion();
+  public Vector3 rotation = new Vector3();
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
+  [HideInInspector]
+  public Vector2 joystick;
+  [HideInInspector]
+  public bool available;
+  [HideInInspector]
+  public bool actionPressed;
 
   [SerializeField]
   GameObject submarine;
@@ -21,13 +27,6 @@ public class ControllerPlayer2 : MonoBehaviour
   float clampAngle = 80f;
   [SerializeField]
   GameObject player1;
-
-  [HideInInspector]
-  public Vector2 joystick;
-  [HideInInspector]
-  public bool actionPressed;
-  [HideInInspector]
-  public bool available;
 
   readonly float initialVal = 0f;
 

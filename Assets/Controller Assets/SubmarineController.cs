@@ -104,7 +104,7 @@ public class SubmarineController : MonoBehaviour
 
     if (ips.Count == 1)
     {
-      Debug.Log(ips[0]);
+      //Debug.Log(ips[0]);
       udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
     }
     else if (ips.Count == 2)

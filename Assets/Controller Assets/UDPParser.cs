@@ -18,6 +18,8 @@ public class UDPParser : MonoBehaviour
   [SerializeField]
   GameObject player2;
   [SerializeField]
+  GameObject player3;
+  [SerializeField]
   bool printConnectionAttempts;
   [SerializeField]
   bool printMessageOut;
@@ -72,22 +74,36 @@ public class UDPParser : MonoBehaviour
         {
           // check if message is asking for player selection
           int playerSelectionPos = listener.message.IndexOf("{R(?)}");
-          int officerPos = listener.message.IndexOf("{R(O)}");
-          int commanderPos = listener.message.IndexOf("{R(C)}");
+          int commanderPos = listener.message.IndexOf("{R(OC)}");
+          int officerPos = listener.message.IndexOf("{R(WO)}");
+          int captainPos = listener.message.IndexOf("{R(CPT)}");
 
           bool commanderAvailable = player1.GetComponent<ControllerPlayer1>().available;
           bool officerAvailable = player2.GetComponent<ControllerPlayer2>().available;
+          bool captainAvailable = player3.GetComponent<ControllerPlayer3>().available;
 
           if (playerSelectionPos != -1)
           {
-            if (!officerAvailable && !commanderAvailable)
-              Send("{R(O:0)(C:0)}", localIPs[hit]);
-            else if (officerAvailable && !commanderAvailable)
-              Send("{R(O:1)(C:0)}", localIPs[hit]);
-            else if (!officerAvailable && commanderAvailable)
-              Send("{R(O:0)(C:1)}", localIPs[hit]);
-            else if (officerAvailable && commanderAvailable)
-              Send("{R(O:1)(C:1)}", localIPs[hit]);
+            string sendRoleMsg = "{R";
+
+            if (commanderAvailable)
+              sendRoleMsg += "(OC:1)";
+            else
+              sendRoleMsg += "(OC:0)";
+
+            if (officerAvailable)
+              sendRoleMsg += "(WO:1)";
+            else
+              sendRoleMsg += "(WO:0)";
+
+            if (captainAvailable)
+              sendRoleMsg += "(CPT:1)";
+            else
+              sendRoleMsg += "(CPT:0)";
+
+            sendRoleMsg += "}";
+
+            Send(sendRoleMsg, localIPs[hit]);
 
             listener.message = "";
           }
@@ -99,13 +115,17 @@ public class UDPParser : MonoBehaviour
           {
             player2.GetComponent<ControllerPlayer2>().available = false;
           }
+          else if (captainPos != -1)
+          {
+            player3.GetComponent<ControllerPlayer3>().available = false;
+          }
           else
           {
             int rolePos = listener.message.IndexOf("{R(");
             if (rolePos != -1)
             {
               string roleData = listener.message.Substring(rolePos + 3);
-              receivedRole = int.Parse(roleData.Substring(0, 1)); // 1 == Commander (Player 1) | 2 == Officer (Player 2)
+              receivedRole = int.Parse(roleData.Substring(0, roleData.IndexOf(")"))); // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
             }
 
             // parse gyroscope data
@@ -125,17 +145,22 @@ public class UDPParser : MonoBehaviour
                 {
                   ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
                   player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (receivedRole == 2)
                 {
                   ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                   player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                }
+                else if (receivedRole == 3)
+                {
+                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                  player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
                 }
               }
 
@@ -169,6 +194,13 @@ public class UDPParser : MonoBehaviour
                   player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                   player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
                 }
+                else if (receivedRole == 3)
+                {
+                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                  player.acceleration.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
+                }
               }
 
               prevMessageAccelerometer = listener.message;
@@ -197,6 +229,12 @@ public class UDPParser : MonoBehaviour
                   player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
                   player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                 }
+                else if (receivedRole == 3)
+                {
+                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                  player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+                }
               }
 
               prevJoystick = listener.message;
@@ -218,6 +256,12 @@ public class UDPParser : MonoBehaviour
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.actionPressed = true;
               }
+              else if (receivedRole == 3)
+              {
+                //Debug.Log("pressed fired button");
+                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                player.actionPressed = true;
+              }
             }
             else
             {
@@ -231,6 +275,11 @@ public class UDPParser : MonoBehaviour
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.actionPressed = false;
               }
+              else if (receivedRole == 3)
+              {
+                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                player.actionPressed = false;
+              }
             }
           }
         }
@@ -240,6 +289,7 @@ public class UDPParser : MonoBehaviour
     {
       player1.GetComponent<ControllerPlayer1>().actionPressed = false;
       player2.GetComponent<ControllerPlayer2>().actionPressed = false;
+      player3.GetComponent<ControllerPlayer3>().actionPressed = false;
     }
 
     listener.message = "";

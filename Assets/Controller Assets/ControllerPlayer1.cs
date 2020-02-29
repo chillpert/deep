@@ -3,9 +3,15 @@
 public class ControllerPlayer1 : MonoBehaviour
 {
   [HideInInspector]
-  public Quaternion rotation = new Quaternion();
+  public Vector3 rotation = new Vector3();
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
+  [HideInInspector]
+  public Vector2 joystick;
+  [HideInInspector]
+  public bool available;
+  [HideInInspector]
+  public bool actionPressed;
 
   [SerializeField]
   GameObject submarine;
@@ -22,13 +28,6 @@ public class ControllerPlayer1 : MonoBehaviour
   [SerializeField]
   GameObject player2;
 
-  [HideInInspector]
-  public Vector2 joystick;
-  [HideInInspector]
-  public bool actionPressed;
-  [HideInInspector]
-  public bool available;
-
   readonly float initialVal = 0f;
   [HideInInspector]
   public float timeSinceLastReload = 0f;
@@ -39,6 +38,9 @@ public class ControllerPlayer1 : MonoBehaviour
 
   [HideInInspector]
   public bool reloadedTorpedo = false;
+
+  [SerializeField]
+  GameObject lamp;
   
   void Start()
   {
@@ -51,8 +53,6 @@ public class ControllerPlayer1 : MonoBehaviour
     Vector3 dir = Vector3.zero;
 
     dir.y = acceleration.x;
-
-    //Debug.Log("Player 1: " + dir.y);
 
     if (initialVal > dir.y + threshold || initialVal < dir.y - threshold)
     {
