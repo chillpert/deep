@@ -144,23 +144,26 @@ public class UDPParser : MonoBehaviour
                 if (receivedRole == 1)
                 {
                   ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                  player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (receivedRole == 2)
                 {
                   ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                  player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (receivedRole == 3)
                 {
                   ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                  player.rotation.x = -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
+                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
                 }
               }
 

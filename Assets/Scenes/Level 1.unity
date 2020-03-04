@@ -5105,13 +5105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f3b7630c35a524c8b19c246e607acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0
   actionPressed: 0
   lampDynamic: {fileID: 869327501}
-  fired: 0
+  headlightSpeed: 20
+  smoothing: 0.1
 --- !u!1001 &64288695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5389,13 +5390,13 @@ MonoBehaviour:
   player2: {fileID: 1718936624}
   udpParser: {fileID: 300989320}
   speedControls: 20
-  constantVelocity: 6
+  constantVelocity: 5
   camera: {fileID: 627598555}
   maxHealth: 100
   currentHealth: 100
-  damageTunnelMesh: 15
-  damageTunnelWall: 25
-  damageDestuctables: 50
+  damageTunnelMesh: 2
+  damageTunnelWall: 5
+  damageDestuctables: 20
   canDie: 1
   invincibilityTime: 1.5
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
@@ -7084,11 +7085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11411158, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_BackGroundColor.r
@@ -7104,7 +7105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2080024, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 149398, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_Layer
@@ -7463,7 +7464,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790840944}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -9607,7 +9608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf08e7fa0624dc4c822d1b99c42c20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0
@@ -10060,7 +10061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d7c596137e0e14e90ec15dfecc5e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0

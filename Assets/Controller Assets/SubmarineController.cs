@@ -112,6 +112,12 @@ public class SubmarineController : MonoBehaviour
       udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
       udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[1]);
     }
+    else if (ips.Count == 3)
+    {
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[1]);
+      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[2]);
+    }
   }
 
   void OnCollisionStay(Collision collision)
@@ -201,6 +207,21 @@ public class SubmarineController : MonoBehaviour
       currentLevel = 2;
       updateLevel();
     }
+    else if (Input.GetKeyDown(KeyCode.Alpha3))
+    {
+      currentLevel = 3;
+      updateLevel();
+    }
+    else if (Input.GetKeyDown(KeyCode.Alpha4))
+    {
+      currentLevel = 4;
+      updateLevel();
+    }
+    else if (Input.GetKeyDown(KeyCode.Alpha5))
+    {
+      currentLevel = 5;
+      updateLevel();
+    }
 
     //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
 
@@ -215,7 +236,7 @@ public class SubmarineController : MonoBehaviour
       timeSinceLastTorepdo = Time.time;
     }
 
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Space) || udpParser.GetComponent<UDPParser>().localIPs.Count == 3)
     {
       start = !start;
     }

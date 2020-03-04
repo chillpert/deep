@@ -3,7 +3,8 @@
 public class ControllerPlayer2 : MonoBehaviour
 {
   [HideInInspector]
-  public Vector3 rotation = new Vector3();
+  //public Vector3 rotation = new Vector3();
+  public Quaternion rotation = new Quaternion();
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
   [HideInInspector]
