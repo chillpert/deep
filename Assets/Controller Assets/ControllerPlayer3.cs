@@ -94,8 +94,11 @@ public class ControllerPlayer3 : MonoBehaviour
 
   void Update()
   {
-    ApplyGyroRotation();
-    ApplyCalibration();
+    if (!available)
+    {
+      ApplyGyroRotation();
+      ApplyCalibration();
+    }
   
     
     //lampDynamic.transform.Rotate(
