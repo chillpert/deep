@@ -50,6 +50,21 @@ public class SubmarineController : MonoBehaviour
   Material damageMaterial2;
   [SerializeField]
   Material damageMaterial3;
+  
+  [SerializeField]
+  AudioSource fireSound;
+  [SerializeField]
+  AudioSource damageSound1A;
+  [SerializeField]
+  AudioSource damageSound1B;
+  [SerializeField]
+  AudioSource damageSound2A;
+  [SerializeField]
+  AudioSource damageSound2B;
+  [SerializeField]
+  AudioSource damageSound3A;
+  [SerializeField]
+  AudioSource damageSound3B;
 
   [HideInInspector]
   public bool turnCamStraight = false;
@@ -139,6 +154,7 @@ public class SubmarineController : MonoBehaviour
         currentHealth -= damageTunnelWall;
       
       updateDamageTexture();
+      playDamageSound();
 
       //transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
       rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
@@ -228,7 +244,7 @@ public class SubmarineController : MonoBehaviour
     if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo && player2.GetComponent<ControllerPlayer2>().firedTorpedo)
     {
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-      GetComponent<AudioSource>().Play();
+      fireSound.Play();
 
       player1.GetComponent<ControllerPlayer1>().reloadedTorpedo = false;
       player2.GetComponent<ControllerPlayer2>().firedTorpedo = false;
@@ -337,6 +353,31 @@ public class SubmarineController : MonoBehaviour
 	  else
 	  {
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial3;
+	  }
+  }
+  
+  void playDamageSound()
+  {
+	  if(currentHealth > 66)
+	  {
+		if(Random.Range(0.0f, 1.0f) < 0.5f)
+			damageSound1A.Play();
+		else
+			damageSound1B.Play();
+	  }
+	  else if(currentHealth <= 66 && currentHealth > 33)
+	  {
+		if(Random.Range(0.0f, 1.0f) < 0.5f)
+			damageSound2A.Play();
+		else
+			damageSound2B.Play();
+	  }
+	  else
+	  {
+		if(Random.Range(0.0f, 1.0f) < 0.5f)
+			damageSound3A.Play();
+		else
+			damageSound3B.Play();
 	  }
   }
 }
