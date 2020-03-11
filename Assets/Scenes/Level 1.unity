@@ -5408,6 +5408,7 @@ MonoBehaviour:
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
   lerpDuration: 2
   submarineColliderHelper: {fileID: 951049061}
+  voiceOnDamagePeriod: 5
   damageSphere: {fileID: 85788963}
   damageMaterial0: {fileID: 2100000, guid: 5ba3162953ad06f83a32262b77c56f4d, type: 2}
   damageMaterial1: {fileID: 2100000, guid: f732793f2985af958958e4d5662851ef, type: 2}
@@ -8250,7 +8251,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 153.00092
-  m_SpotAngle: 22.072536
+  m_SpotAngle: 33.755634
   m_InnerSpotAngle: 7.1381874
   m_CookieSize: 10
   m_Shadows:

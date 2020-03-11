@@ -39,7 +39,10 @@ public class SubmarineController : MonoBehaviour
   float lerpDuration;
   [SerializeField]
   GameObject submarineColliderHelper;
-  
+  [SerializeField]
+  float voiceOnDamagePeriod = 5.0f;
+  bool playvoiceOnDamage = false;
+
   [SerializeField]
   GameObject damageSphere;
   [SerializeField]
@@ -94,6 +97,7 @@ public class SubmarineController : MonoBehaviour
   float bouncePeriod;
 
   float timeOnCollision;
+  float prevTimeOnCollision;
   bool startInvincibilityFrames = false;
   bool startBouncing = false;
 
@@ -154,7 +158,13 @@ public class SubmarineController : MonoBehaviour
         currentHealth -= damageTunnelWall;
       
       updateDamageTexture();
-      playDamageSound();
+
+      Debug.Log(timeOnCollision - prevTimeOnCollision + " > " + voiceOnDamagePeriod);
+
+      if (timeOnCollision - prevTimeOnCollision > voiceOnDamagePeriod)
+        playDamageSound();
+
+      prevTimeOnCollision = timeOnCollision;
 
       //transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
       rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
@@ -304,6 +314,12 @@ public class SubmarineController : MonoBehaviour
         turnCamStraight = false;
     }
 
+    if (playvoiceOnDamage)
+    {
+      playDamageSound();
+      playvoiceOnDamage = false;
+    }
+
     transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
     
     if (Input.GetKey("up") || Input.GetKey("w"))
@@ -358,26 +374,26 @@ public class SubmarineController : MonoBehaviour
   
   void playDamageSound()
   {
-	  if(currentHealth > 66)
-	  {
-		if(Random.Range(0.0f, 1.0f) < 0.5f)
-			damageSound1A.Play();
-		else
-			damageSound1B.Play();
-	  }
-	  else if(currentHealth <= 66 && currentHealth > 33)
-	  {
-		if(Random.Range(0.0f, 1.0f) < 0.5f)
-			damageSound2A.Play();
-		else
-			damageSound2B.Play();
-	  }
-	  else
-	  {
-		if(Random.Range(0.0f, 1.0f) < 0.5f)
-			damageSound3A.Play();
-		else
-			damageSound3B.Play();
-	  }
+    if (currentHealth > 66)
+    {
+      if (Random.Range(0.0f, 1.0f) < 0.5f)
+        damageSound1A.Play();
+      else
+        damageSound1B.Play();
+    }
+    else if (currentHealth <= 66 && currentHealth > 33)
+    {
+      if (Random.Range(0.0f, 1.0f) < 0.5f)
+        damageSound2A.Play();
+      else
+        damageSound2B.Play();
+    }
+    else
+    {
+      if (Random.Range(0.0f, 1.0f) < 0.5f)
+        damageSound3A.Play();
+      else
+        damageSound3B.Play();
+    }
   }
 }

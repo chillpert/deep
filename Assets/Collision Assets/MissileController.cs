@@ -25,7 +25,7 @@ public class MissileController : MonoBehaviour
 		transform.Translate(-10.0f * Time.deltaTime, 0f, 0f); // This speed should be coherent with the exhaust particle speed
   }
     
-	void OnCollisionEnter(Collision collision)
+	void OnCollisionStay(Collision collision)
 	{
 		if(collision.gameObject.tag == "Destructables")
 		{
@@ -33,10 +33,13 @@ public class MissileController : MonoBehaviour
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 		}
 
+		/*
 		if(collision.gameObject.name.Contains("CavePart"))
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 		else
 			explode();
+		*/
+		explode();
 	}
 	
 	void explode()
