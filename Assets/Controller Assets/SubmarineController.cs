@@ -44,6 +44,11 @@ public class SubmarineController : MonoBehaviour
   bool playvoiceOnDamage = false;
 
   [SerializeField]
+  GameObject enterCave1;
+  [SerializeField]
+  GameObject enterLevel2;
+
+  [SerializeField]
   GameObject damageSphere;
   [SerializeField]
   Material damageMaterial0;
@@ -85,6 +90,11 @@ public class SubmarineController : MonoBehaviour
 
   [HideInInspector]
   public float timeSinceLastTorepdo = 0f;
+
+  bool pushForward = true;
+  bool inCave = false;
+  Vector3 caveStart;
+  Vector3 caveFinish;
 
   float lockPos = 0f;
   bool start = false;
@@ -140,12 +150,29 @@ public class SubmarineController : MonoBehaviour
   }
 
   void OnCollisionStay(Collision collision)
-  {
+  {    
     StartCoroutine(camera.GetComponent<CameraShake>().Shake());
     
     if (collision.gameObject.tag == "Finish")
     {
       resetSubmarine();
+    }
+    else if (collision.gameObject.tag == "EnterCave1")
+    {
+      inCave = true;
+      pushForward = false;
+      caveStart = enterCave1.transform.position;
+      caveFinish = enterLevel2.transform.position;
+      Destroy(enterCave1);
+      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+    }
+    else if (collision.gameObject.tag == "EnterLevel2")
+    {
+      inCave = false;
+      pushForward = true;
+      currentLevel = 2;
+      Destroy(enterLevel2);
+      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
     }
     else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
@@ -181,10 +208,12 @@ public class SubmarineController : MonoBehaviour
 
   void resetSubmarine()
   {
+    inCave = false;
     startInvincibilityFrames = false;
     startBouncing = false;
     turnCamStraight = false;
     isInvincible = false;
+    pushForward = true;
 
     //CollisionsWithoutImpact.forward = new Vector3(0f, 0f, 1f);
 
@@ -320,7 +349,15 @@ public class SubmarineController : MonoBehaviour
       playvoiceOnDamage = false;
     }
 
-    transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
+    if (inCave)
+    {
+      // transform.position = Vector3.Lerp(caveStart, caveFinish, Time.deltaTime * 2f);
+      transform.position = Vector3.MoveTowards(transform.position, caveFinish, constantVelocity * Time.deltaTime);
+      Debug.Log("Move from: " + caveStart + " to: " + caveFinish);
+    }
+
+    if (pushForward)
+      transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
     
     if (Input.GetKey("up") || Input.GetKey("w"))
     {
