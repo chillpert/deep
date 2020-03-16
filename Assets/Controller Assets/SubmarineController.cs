@@ -129,23 +129,26 @@ public class SubmarineController : MonoBehaviour
   // sends message to both phones containing the number of the current level
   void updateLevel()
   {
+    string message = "{L(" + currentLevel + ")}";
+    if (inCave)
+      message = "{" + message + "{C(1)}}";
+
     var ips = udpParser.GetComponent<UDPParser>().localIPs;
 
     if (ips.Count == 1)
     {
-      //Debug.Log(ips[0]);
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
     }
     else if (ips.Count == 2)
     {
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[1]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[1]);
     }
     else if (ips.Count == 3)
     {
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[0]);
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[1]);
-      udpParser.GetComponent<UDPParser>().Send("{L(" + currentLevel + ")}", ips[2]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[1]);
+      udpParser.GetComponent<UDPParser>().Send(message, ips[2]);
     }
   }
 
@@ -164,6 +167,7 @@ public class SubmarineController : MonoBehaviour
       caveStart = enterCave1.transform.position;
       caveFinish = enterLevel2.transform.position;
       Destroy(enterCave1);
+      updateLevel();
       Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
     }
     else if (collision.gameObject.tag == "EnterLevel2")
@@ -172,6 +176,7 @@ public class SubmarineController : MonoBehaviour
       pushForward = true;
       currentLevel = 2;
       Destroy(enterLevel2);
+      updateLevel();
       Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
     }
     else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")

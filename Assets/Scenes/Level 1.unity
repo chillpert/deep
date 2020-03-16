@@ -6229,6 +6229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 135093426}
   - component: {fileID: 135093425}
+  - component: {fileID: 135093427}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -6247,7 +6248,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.01
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -6310,6 +6311,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -0.17600001, y: -359.206, z: 0.30200002}
+--- !u!114 &135093427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135093424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177ab36340d4e3546938f475c7a17198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &135284986
 GameObject:
   m_ObjectHideFlags: 0
@@ -7636,13 +7649,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633405690}
-  m_LocalRotation: {x: -0.30334747, y: 0.8393066, z: -0.10376621, w: 0.4390643}
-  m_LocalPosition: {x: -493.2, y: 241.6, z: 689.2}
-  m_LocalScale: {x: 1.4000013, y: 31.311733, z: 40.044216}
+  m_LocalRotation: {x: -0.037287712, y: 0.91410255, z: 0.0047978456, w: 0.4037365}
+  m_LocalPosition: {x: -261, y: 224, z: 408}
+  m_LocalScale: {x: 4.260122, y: 180.0143, z: 230.21822}
   m_Children: []
   m_Father: {fileID: 1524615654}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -5.2900004, y: 126.54401, z: -37.077003}
+  m_LocalEulerAnglesHint: {x: -2.2280002, y: 132.412, z: -3.6890001}
 --- !u!65 &633405692
 BoxCollider:
   m_ObjectHideFlags: 0
