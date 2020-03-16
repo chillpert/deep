@@ -44,9 +44,9 @@ public class SubmarineController : MonoBehaviour
   bool playvoiceOnDamage = false;
 
   [SerializeField]
-  GameObject enterCave1;
+  public GameObject enterCave1;
   [SerializeField]
-  GameObject enterLevel2;
+  public GameObject enterLevel2;
 
   [SerializeField]
   GameObject damageSphere;
@@ -91,10 +91,12 @@ public class SubmarineController : MonoBehaviour
   [HideInInspector]
   public float timeSinceLastTorepdo = 0f;
 
-  bool pushForward = true;
-  bool inCave = false;
-  Vector3 caveStart;
-  Vector3 caveFinish;
+  public bool pushForward = true;
+  public bool inCave = false;
+
+  public Vector3 caveFinish;
+  public Vector3 lookAtDestination;
+  public Vector3 forwardOnCaveEnter;
 
   float lockPos = 0f;
   bool start = false;
@@ -127,7 +129,7 @@ public class SubmarineController : MonoBehaviour
   }
 
   // sends message to both phones containing the number of the current level
-  void updateLevel()
+  public void updateLevel()
   {
     string message = "{L(" + currentLevel + ")}";
     if (inCave)
@@ -160,11 +162,14 @@ public class SubmarineController : MonoBehaviour
     {
       resetSubmarine();
     }
+    /*
     else if (collision.gameObject.tag == "EnterCave1")
     {
+      forwardOnCaveEnter = transform.forward;
+      lookAtDestination = enterLevel2.transform.forward;
+
       inCave = true;
       pushForward = false;
-      caveStart = enterCave1.transform.position;
       caveFinish = enterLevel2.transform.position;
       Destroy(enterCave1);
       updateLevel();
@@ -179,6 +184,7 @@ public class SubmarineController : MonoBehaviour
       updateLevel();
       Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
     }
+    */
     else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
       timeOnCollision = Time.time;
@@ -356,9 +362,11 @@ public class SubmarineController : MonoBehaviour
 
     if (inCave)
     {
-      // transform.position = Vector3.Lerp(caveStart, caveFinish, Time.deltaTime * 2f);
+      //Debug.Log(Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f) + " to " + lookAtDestination);
+      //transform.LookAt(caveFinish);
+
       transform.position = Vector3.MoveTowards(transform.position, caveFinish, constantVelocity * Time.deltaTime);
-      Debug.Log("Move from: " + caveStart + " to: " + caveFinish);
+      transform.forward = Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f);
     }
 
     if (pushForward)

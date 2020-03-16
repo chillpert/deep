@@ -25,7 +25,30 @@ public class CollisionsWithoutImpact : MonoBehaviour
   {
     //Debug.Log(collision.gameObject.name);
 
-    if (collision.gameObject.tag == "TunnelMesh")
+    if (collision.gameObject.tag == "EnterCave1")
+    {
+      var script = submarine.GetComponent<SubmarineController>();
+
+      script.forwardOnCaveEnter = transform.forward;
+      script.lookAtDestination = script.enterLevel2.transform.forward;
+
+      script.inCave = true;
+      script.pushForward = false;
+      script.caveFinish = script.enterLevel2.transform.position;
+      submarine.GetComponent<SubmarineController>().updateLevel();
+      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+    }
+    else if (collision.gameObject.tag == "EnterLevel2")
+    {
+      var script = submarine.GetComponent<SubmarineController>();
+
+      script.inCave = false;
+      script.pushForward = true;
+      SubmarineController.currentLevel = 2;
+      submarine.GetComponent<SubmarineController>().updateLevel();
+      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+    }
+    else if (collision.gameObject.tag == "TunnelMesh")
     {
       StartCoroutine(submarine.GetComponent<SubmarineController>().camera.GetComponent<CameraShake>().Shake());
 
