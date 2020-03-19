@@ -13,7 +13,7 @@ public class ControllerPlayer3 : MonoBehaviour
   public Vector3 acceleration = new Vector2();
   [HideInInspector]
   public Vector2 joystick;
-  [HideInInspector]
+  //[HideInInspector]
   public bool available;
   [HideInInspector]
   public bool actionPressed;
@@ -23,10 +23,25 @@ public class ControllerPlayer3 : MonoBehaviour
   [SerializeField]
   float headlightSpeed = 20f;
 
-  private float initialYAngle = 0f;
-  private float appliedGyroYAngle = 0f;
-  private float calibrationYAngle = 0f;
-  private float tempSmoothing;
+  float initialYAngle = 0f;
+  float appliedGyroYAngle = 0f;
+  float calibrationYAngle = 0f;
+  float tempSmoothing;
+
+  float phoneStraightRotX = 0f;
+  float phoneStraightRotY = 0f;
+  float phoneStraightRotZ = 0f;
+  float phoneStraightRotW = 0f;
+
+  float flashlightStraightRotX = 0f;
+  float flashlightStraightRotY = 0f;
+  float flashlightStraightRotZ = 0f;
+  float flashlightStraightRotW = 0f;
+
+  float actualOffsetX;
+  float actualOffsetY;
+  float actualOffsetZ;
+  float actualOffsetW;
 
   [SerializeField] 
   private float smoothing = 0.1f;
@@ -47,13 +62,35 @@ public class ControllerPlayer3 : MonoBehaviour
     yield return new WaitForSeconds(1);
     StartCoroutine(CalibrateYAngle());
 
-    resetHeadlight();
+    
+  }
+
+  void captureDataHoldingStraight()
+  {
+    phoneStraightRotX = rotation.x;
+    phoneStraightRotY = rotation.y;
+    phoneStraightRotZ = rotation.z;
+    phoneStraightRotW = rotation.w;
+  }
+
+  void captureDataFlashlightStraight()
+  {
+    flashlightStraightRotX = rotation.x;
+    flashlightStraightRotY = rotation.y;
+    flashlightStraightRotZ = rotation.z;
+    flashlightStraightRotW = rotation.w;
+
+    actualOffsetX = phoneStraightRotX - flashlightStraightRotX;
+    actualOffsetY = phoneStraightRotY - flashlightStraightRotY;
+    actualOffsetZ = phoneStraightRotZ - flashlightStraightRotZ;
+    actualOffsetW = phoneStraightRotW - flashlightStraightRotW;
   }
 
   void resetHeadlight()
   {
     // this should be depended on the forward vector of the current tunnel segement, but since it is a debug thing .... who cares
     lampDynamic.transform.forward = new Vector3(0f, 0f, 1f);
+    //lampDynamic.transform.LookAt(new Vector3(0f, 0f, 1f));
   }
 
   private IEnumerator CalibrateYAngle()
@@ -76,7 +113,12 @@ public class ControllerPlayer3 : MonoBehaviour
       prevRotation = rotation;
     }
 
-    lampDynamic.transform.rotation = rotation;
+    float x = rotation.x - actualOffsetX;
+    float y = rotation.y - actualOffsetY;
+    float z = rotation.z - actualOffsetZ;
+    float w = rotation.w - actualOffsetW;
+
+    lampDynamic.transform.rotation = new Quaternion(x, y, z, w);
     //lampDynamic.transform.rotation = Quaternion.Lerp(prevRotation, rotation, Time.time * 0.01f);
 
     prevRotation = rotation;
@@ -96,10 +138,15 @@ public class ControllerPlayer3 : MonoBehaviour
   {
     if (!available)
     {
+      if (Input.GetKeyDown("c"))
+        captureDataHoldingStraight();
+
+      if (Input.GetKeyDown("v"))
+        captureDataFlashlightStraight();
+
       ApplyGyroRotation();
       ApplyCalibration();
-    }
-  
+    }   
     
     //lampDynamic.transform.Rotate(
     //  -(initialRotationX - rotation.x) * Time.deltaTime * headlightSpeed,
