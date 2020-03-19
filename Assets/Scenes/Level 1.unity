@@ -5018,6 +5018,8 @@ MonoBehaviour:
   joystick: {x: 0, y: 0}
   available: 0
   actionPressed: 0
+  capturePhoneStraight: 0
+  captureFlashlightStraight: 0
   lampDynamic: {fileID: 869327501}
   headlightSpeed: 20
   smoothing: 0.1

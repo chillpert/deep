@@ -128,6 +128,33 @@ public class UDPParser : MonoBehaviour
               receivedRole = int.Parse(roleData.Substring(0, roleData.IndexOf(")"))); // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
             }
 
+            int capturePos = listener.message.IndexOf("{C(");
+            if (capturePos != -1)
+            {
+              //Debug.Log("HIT: Role: " + receivedRole);
+              if (receivedRole == 3)
+              {
+                string captureData = listener.message.Substring(capturePos + 3, 1);
+
+                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                if (captureData.Equals("P"))
+                {
+                  player.capturePhoneStraight = true;
+                  Debug.Log("Calibration: Phone straight event");
+                }
+                else
+                  player.capturePhoneStraight = false;
+
+                if (captureData.Equals("F"))
+                {
+                  player.captureFlashlightStraight = true;
+                  Debug.Log("Calibration: Flashlight straight event");
+                }
+                else
+                  player.captureFlashlightStraight = false;
+              }
+            }
+
             // parse gyroscope data
             int gyroPos = listener.message.IndexOf("{G(");
             if (gyroPos != -1)

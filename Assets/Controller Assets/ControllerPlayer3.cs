@@ -6,7 +6,6 @@ using UnityEngine;
 public class ControllerPlayer3 : MonoBehaviour
 {
   [HideInInspector]
-  //public Vector3 rotation = new Vector3();
   public Quaternion rotation = new Quaternion();
   Quaternion prevRotation = new Quaternion();
   [HideInInspector]
@@ -17,6 +16,11 @@ public class ControllerPlayer3 : MonoBehaviour
   public bool available;
   [HideInInspector]
   public bool actionPressed;
+
+  [HideInInspector]
+  public bool capturePhoneStraight = false;
+  [HideInInspector]
+  public bool captureFlashlightStraight = false;
 
   [SerializeField]
   GameObject lampDynamic;
@@ -71,6 +75,8 @@ public class ControllerPlayer3 : MonoBehaviour
     phoneStraightRotY = rotation.y;
     phoneStraightRotZ = rotation.z;
     phoneStraightRotW = rotation.w;
+
+    capturePhoneStraight = false;
   }
 
   void captureDataFlashlightStraight()
@@ -84,6 +90,8 @@ public class ControllerPlayer3 : MonoBehaviour
     actualOffsetY = phoneStraightRotY - flashlightStraightRotY;
     actualOffsetZ = phoneStraightRotZ - flashlightStraightRotZ;
     actualOffsetW = phoneStraightRotW - flashlightStraightRotW;
+
+    captureFlashlightStraight = false;
   }
 
   void resetHeadlight()
@@ -138,10 +146,10 @@ public class ControllerPlayer3 : MonoBehaviour
   {
     if (!available)
     {
-      if (Input.GetKeyDown("c"))
+      if (Input.GetKeyDown("c") || capturePhoneStraight)
         captureDataHoldingStraight();
 
-      if (Input.GetKeyDown("v"))
+      if (Input.GetKeyDown("v") || captureFlashlightStraight)
         captureDataFlashlightStraight();
 
       ApplyGyroRotation();
