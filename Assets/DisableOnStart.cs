@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugLight : MonoBehaviour
+public class DisableOnStart : MonoBehaviour
 {
   void Start()
   {
-    transform.GetComponent<Light>().intensity = 0.01f;  
+    transform.gameObject.SetActive(false);
   }
 }

@@ -15,7 +15,8 @@ public class CollisionsWithoutImpact : MonoBehaviour
 {
   [SerializeField]
   GameObject submarine;
-
+  [SerializeField]
+  GameObject dynamicLamp;
   [HideInInspector]
   public static Vector3 forward = new Vector3(0f, 0f, 1f);
 
