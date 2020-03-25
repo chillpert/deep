@@ -16,6 +16,8 @@ public class ControllerPlayer3 : MonoBehaviour
   public bool available;
   [HideInInspector]
   public bool actionPressed;
+  [SerializeField]
+  GameObject submarine;
 
   [HideInInspector]
   public bool capturePhoneStraight = false;
@@ -49,6 +51,7 @@ public class ControllerPlayer3 : MonoBehaviour
 
   [SerializeField] 
   private float smoothing = 0.1f;
+  bool firstRun = true;
 
   IEnumerator Start()
   {
@@ -105,13 +108,10 @@ public class ControllerPlayer3 : MonoBehaviour
   {
     tempSmoothing = smoothing;
     smoothing = 1;
-    calibrationYAngle = appliedGyroYAngle - initialYAngle; // Offsets the y angle in case it wasn't 0 at edit time.
+    calibrationYAngle = appliedGyroYAngle - initialYAngle;
     yield return null;
     smoothing = tempSmoothing;
   }
-
-  bool firstRun = true;
-  float timeCount = 0.0f;
 
   private void ApplyGyroRotation()
   {
@@ -127,10 +127,14 @@ public class ControllerPlayer3 : MonoBehaviour
     float w = rotation.w - actualOffsetW;
 
     lampDynamic.transform.rotation = new Quaternion(x, y, z, w);
+    
+    // important
+    lampDynamic.transform.Rotate(-submarine.transform.localRotation.eulerAngles);
+
     //lampDynamic.transform.rotation = Quaternion.Lerp(prevRotation, rotation, Time.time * 0.01f);
 
     prevRotation = rotation;
-    
+
     lampDynamic.transform.Rotate(0f, 0f, 180f, Space.Self);
     lampDynamic.transform.Rotate(90f, 180f, 0f, Space.World);
 

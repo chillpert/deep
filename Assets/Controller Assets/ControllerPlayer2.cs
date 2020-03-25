@@ -53,6 +53,8 @@ public class ControllerPlayer2 : MonoBehaviour
 
   void Update()
   {
+    //Debug.Log("Available: " + available);
+
     Vector3 dir = Vector3.zero;
 
     dir.x = -acceleration.z;

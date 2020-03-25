@@ -128,6 +128,40 @@ public class UDPParser : MonoBehaviour
               receivedRole = int.Parse(roleData.Substring(0, roleData.IndexOf(")"))); // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
             }
 
+            int disconnectPos = listener.message.IndexOf("{D(");
+            if (disconnectPos != -1)
+            {
+              if (!localIPs.Remove(localIP))
+                Debug.Log("Could not remove IP on disconnect event");
+
+              string roleData = listener.message.Substring(disconnectPos + 3);
+              string temp = roleData.Substring(0, roleData.IndexOf(")"));
+              int currentRole = -1;
+
+              if (temp.Equals("OC"))
+                currentRole = 1;
+              else if (temp.Equals("WO"))
+                currentRole = 2;
+              else if (temp.Equals("CPT"))
+                currentRole = 3;
+
+              if (currentRole == 1)
+              {
+                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
+                player.available = true;
+              }
+              else if (currentRole == 2)
+              {
+                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
+                player.available = true;
+              }
+              else if (currentRole == 3)
+              {
+                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                player.available = true;
+              }
+            }
+
             int capturePos = listener.message.IndexOf("{C(");
             if (capturePos != -1)
             {

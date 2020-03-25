@@ -10,7 +10,7 @@ public class DynamicLightController : MonoBehaviour
   void Start()
   {
     transform.position = submarine.transform.position;
-    transform.forward = submarine.transform.forward;
+    //transform.forward = submarine.transform.forward;
   }
 
   void Update()
