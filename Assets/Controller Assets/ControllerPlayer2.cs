@@ -12,6 +12,8 @@ public class ControllerPlayer2 : MonoBehaviour
   [HideInInspector]
   public bool available;
   [HideInInspector]
+  public float answer = 0f;
+  [HideInInspector]
   public bool actionPressed;
 
   [SerializeField]
@@ -44,6 +46,8 @@ public class ControllerPlayer2 : MonoBehaviour
   public bool firedTorpedo = false;
 
   float timerTemp = 0f;
+  bool firstRun = true;
+  float timeOnConnect = 0f;
 
   void Start()
   {
@@ -53,75 +57,100 @@ public class ControllerPlayer2 : MonoBehaviour
 
   void Update()
   {
-    //Debug.Log("Available: " + available);
-
-    Vector3 dir = Vector3.zero;
-
-    dir.x = -acceleration.z;
-
-    //Debug.Log("Player 2: " + dir.x);
-
-    if (initialVal > dir.x + threshold || initialVal < dir.x - threshold)
+    if (!available)
     {
-      if (dir.sqrMagnitude > 1)
-        dir.Normalize();
-
-      rotationDummy.transform.position = submarine.transform.position;
-      rotationDummy.transform.rotation = submarine.transform.rotation;
-      rotationDummy.transform.forward = submarine.transform.forward;
-
-      rotationDummy.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
-
-      if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
-        submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
-    }
-
-    /*
-    Vector3 lightDir = Vector3.zero;
-    lightDir.x = -joystick.y;
-    lightDir.y = joystick.x;
-
-    headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
-    */
-
-    if (actionPressed)
-    {
-      if (actionPressedFirst2)
+      if (firstRun)
       {
-        timerTemp = Time.time;
-        actionPressedFirst2 = false;
-      }
-    }
-    else
-    {
-      if (Time.time - timeSinceLastFire > coolDown)
-      {
-        actionPressedFirst2 = true;
+        timeOnConnect = Time.time;
+        firstRun = false;
       }
     }
 
-    if (actionPressed && player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+    // before even considering checking timeouts wait at least x seconds
+    if (timeOnConnect != 0f)
     {
-      if (actionPressedFirst)
+      if (Time.time - timeOnConnect > 10f)
       {
-        timeSinceLastFire = Time.time;
-
-        if (player1.GetComponent<ControllerPlayer1>().timeSinceLastReload < timerTemp)
+        if (Time.time - answer > 6f)
         {
-          Debug.Log("Phone 2: Fired Torpedo @" + timeSinceLastFire);
-          firedTorpedo = true;
+          Debug.Log("Player 2 timeout");
+          available = true;
+          firstRun = true;
+          timeOnConnect = 0f;
         }
-        actionPressedFirst = false;
       }
     }
-    else
+
+    if (!available)
     {
-      if (Time.time - timeSinceLastFire > coolDown)
+      Vector3 dir = Vector3.zero;
+
+      dir.x = -acceleration.z;
+
+      //Debug.Log("Player 2: " + dir.x);
+
+      if (initialVal > dir.x + threshold || initialVal < dir.x - threshold)
       {
-        actionPressedFirst = true;
+        if (dir.sqrMagnitude > 1)
+          dir.Normalize();
+
+        rotationDummy.transform.position = submarine.transform.position;
+        rotationDummy.transform.rotation = submarine.transform.rotation;
+        rotationDummy.transform.forward = submarine.transform.forward;
+
+        rotationDummy.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
+
+        if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
+          submarine.transform.Rotate(dir * verticalSpeed * Time.deltaTime);
       }
 
-      firedTorpedo = false;
+      /*
+      Vector3 lightDir = Vector3.zero;
+      lightDir.x = -joystick.y;
+      lightDir.y = joystick.x;
+
+      headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
+      */
+
+      if (actionPressed)
+      {
+        if (actionPressedFirst2)
+        {
+          timerTemp = Time.time;
+          actionPressedFirst2 = false;
+        }
+      }
+      else
+      {
+        if (Time.time - timeSinceLastFire > coolDown)
+        {
+          actionPressedFirst2 = true;
+        }
+      }
+
+      if (actionPressed && player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+      {
+        if (actionPressedFirst)
+        {
+          timeSinceLastFire = Time.time;
+
+          if (player1.GetComponent<ControllerPlayer1>().timeSinceLastReload < timerTemp)
+          {
+            Debug.Log("Phone 2: Fired Torpedo @" + timeSinceLastFire);
+            firedTorpedo = true;
+          }
+          actionPressedFirst = false;
+        }
+      }
+      else
+      {
+        if (Time.time - timeSinceLastFire > coolDown)
+        {
+          actionPressedFirst = true;
+        }
+
+        firedTorpedo = false;
+      }
     }
   }
 }

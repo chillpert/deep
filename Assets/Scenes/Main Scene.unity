@@ -4948,6 +4948,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0
+  answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
   capturePhoneStraight: 0
@@ -6714,7 +6715,7 @@ MonoBehaviour:
   player1: {fileID: 1812510166}
   player2: {fileID: 1718936624}
   player3: {fileID: 52543056}
-  printConnectionAttempts: 0
+  printConnectionAttempts: 1
   printMessageOut: 0
   localIPs: []
 --- !u!1001 &315214680
@@ -9786,7 +9787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300183931}
   m_LocalRotation: {x: -0.09961167, y: 0.2584059, z: 0.03841264, w: 0.96011895}
-  m_LocalPosition: {x: -660.2, y: 142.4, z: 317.3}
+  m_LocalPosition: {x: -661.7, y: 141.6, z: 316.9}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 847765370}
@@ -10910,6 +10911,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0
+  answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
   headLight: {fileID: 370758027}
@@ -11238,6 +11240,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   joystick: {x: 0, y: 0}
   available: 0
+  answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
   headLight: {fileID: 1727349190}
@@ -12135,7 +12138,7 @@ GameObject:
   - component: {fileID: 2056408279}
   - component: {fileID: 2056408280}
   m_Layer: 0
-  m_Name: workingLight
+  m_Name: Debug Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
