@@ -56,6 +56,14 @@ public class ControllerPlayer3 : MonoBehaviour
   bool firstRun = true;
   bool firstRun2 = true;
   float timeOnConnect = 0f;
+  [SerializeField]
+  bool useInterpolation;
+  [SerializeField]
+  float capturingPeriod;
+  float timeStepFix = 0f;
+  Quaternion currentInterpolationValue;
+  Quaternion currentInterpolationGoal;
+  bool takeFirstValue = true;
 
   IEnumerator Start()
   {
@@ -129,10 +137,37 @@ public class ControllerPlayer3 : MonoBehaviour
     float y = rotation.y - actualOffsetY;
     float z = rotation.z - actualOffsetZ;
     float w = rotation.w - actualOffsetW;
+    Quaternion currentValue = new Quaternion(x, y, z, w);
 
-    lampDynamic.transform.rotation = new Quaternion(x, y, z, w);
+    if (useInterpolation)
+    {
+      float distCovered = Time.time * 1f;
+      float fractionOfJourney = distCovered / capturingPeriod;
+
+      // only use new value every x seconds
+      if (Time.time > timeStepFix)
+      {
+        timeStepFix += capturingPeriod;
+        
+        if (takeFirstValue)
+        {
+          takeFirstValue = false;
+          currentInterpolationValue = currentValue;
+        }
+        else
+        {
+          takeFirstValue = true;
+          currentInterpolationGoal = currentValue;
+        }
+      }
+
+      // interpolate
+      lampDynamic.transform.rotation = Quaternion.Slerp(currentInterpolationValue, currentInterpolationGoal, fractionOfJourney);
+    }
+    else
+      lampDynamic.transform.rotation = currentValue;
     
-    // important
+    // this makes sure that the headlight is rotating with the submarine, but its still very buggy
     lampDynamic.transform.Rotate(-submarine.transform.localRotation.eulerAngles);
 
     //lampDynamic.transform.rotation = Quaternion.Lerp(prevRotation, rotation, Time.time * 0.01f);

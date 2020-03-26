@@ -4956,6 +4956,8 @@ MonoBehaviour:
   lampDynamic: {fileID: 869327501}
   headlightSpeed: 20
   smoothing: 0.1
+  useInterpolation: 1
+  capturingPeriod: 0.001
 --- !u!1 &68597819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4527687641279600373, guid: ec2f0afd4d8a1ac43a55d544382df398,
