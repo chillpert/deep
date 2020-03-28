@@ -369,8 +369,12 @@ public class SubmarineController : MonoBehaviour
       //Debug.Log(Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f) + " to " + lookAtDestination);
       //transform.LookAt(caveFinish);
 
-      transform.position = Vector3.MoveTowards(transform.position, caveFinish, constantVelocity * Time.deltaTime);
-      transform.forward = Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f);
+      //transform.position = Vector3.MoveTowards(transform.position, caveFinish, constantVelocity * Time.deltaTime);
+      //transform.forward = Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f);
+
+      //inCave = false;
+      //transform.position = caveFinish;
+      //transform.forward = lookAtDestination;
     }
 
     if (pushForward)

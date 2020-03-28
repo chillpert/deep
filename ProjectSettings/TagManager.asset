@@ -19,6 +19,7 @@ TagManager:
   - EnterCave2
   - EnterCave
   - EnterLevel3
+  - CavePath
   layers:
   - Default
   - TransparentFX

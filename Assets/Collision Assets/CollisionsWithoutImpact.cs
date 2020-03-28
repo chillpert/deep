@@ -22,28 +22,80 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   Vector3 position;
 
-  void enterCave(Collision collision, GameObject goal)
+  void enterCave(Collision collision, int followingLevel)
   {
+    
     var script = submarine.GetComponent<SubmarineController>();
+    script.inCave = true;
 
+    /*
     script.forwardOnCaveEnter = transform.forward;
     script.lookAtDestination = goal.transform.forward;
 
-    script.inCave = true;
     script.pushForward = false;
-    script.caveFinish = goal.transform.position;
+    script.caveFinish = goal.transform.localPosition; //goal.transform.position;
+    */
+
     submarine.GetComponent<SubmarineController>().updateLevel();
+
+    // set waypoints
+    GameObject wayPoints = GameObject.FindGameObjectWithTag("CavePath");
+    if (wayPoints == null)
+      Debug.Log("Could not find object with tag CavePath");
+
+    // set start object
+    var wayPointScript = wayPoints.GetComponent<CustomPathCreator>();
+    wayPointScript.start = collision.contacts[0].point;
+    Debug.Log("Start at: " + wayPointScript.start);
+    
+    // get predefined path objects
+    if (followingLevel == 2)
+    {
+      GameObject wayPointsCave1 = GameObject.Find("Cave1WayPoints");
+
+      if (wayPointsCave1 == null)
+        Debug.Log("Could not find object with name Cave1WayPoints");
+
+      List<Transform> newWayPoints = new List<Transform>(wayPointsCave1.transform.childCount);
+      for (int i = 0; i < wayPointsCave1.transform.childCount; ++i)
+      {
+        newWayPoints.Add(wayPointsCave1.transform.GetChild(i));
+      }
+
+      wayPointScript.waypoints = newWayPoints;
+    }
+    else if (followingLevel == 3)
+    {
+      GameObject wayPointsCave2 = GameObject.Find("Cave2WayPoints");
+
+      if (wayPointsCave2 == null)
+        Debug.Log("Could not find object with name Cave2WayPoints");
+
+      List<Transform> newWayPoints = new List<Transform>(wayPointsCave2.transform.childCount);
+      for (int i = 0; i < wayPointsCave2.transform.childCount; ++i)
+      {
+        newWayPoints.Add(wayPointsCave2.transform.GetChild(i));
+      }
+
+      wayPointScript.waypoints = newWayPoints;
+    }
+
+    wayPointScript.updateWaypoints();
+
     Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
   }
 
   void enterLevel(Collision collision, int level)
   {
     var script = submarine.GetComponent<SubmarineController>();
-
     script.inCave = false;
+    
+    /*
     script.pushForward = true;
+    */  
     SubmarineController.currentLevel = level;
     submarine.GetComponent<SubmarineController>().updateLevel();
+    
     Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
   }
 
@@ -53,18 +105,22 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
     if (collision.gameObject.tag == "EnterCave1")
     {
-      enterCave(collision, submarine.GetComponent<SubmarineController>().enterLevel2);
+      Debug.Log("Entering Cave 1");
+      enterCave(collision, 2);
     }
     else if (collision.gameObject.tag == "EnterLevel2")
     {
+      Debug.Log("Entering Level 2");
       enterLevel(collision, 2);
     }
     else if (collision.gameObject.tag == "EnterCave2")
     {
-      enterCave(collision, submarine.GetComponent<SubmarineController>().enterLevel3);
+      Debug.Log("Entering Cave 2");
+      enterCave(collision, 3);
     }
     else if (collision.gameObject.tag == "EnterLevel3")
     {
+      Debug.Log("Entering Level 3");
       enterLevel(collision, 3);
     }
     else if (collision.gameObject.tag == "TunnelMesh")
