@@ -14,6 +14,8 @@ using UnityEngine;
 public class CollisionsWithoutImpact : MonoBehaviour
 {
   [SerializeField]
+  float caveSpeed = 5f;
+  [SerializeField]
   GameObject submarine;
   [SerializeField]
   GameObject dynamicLamp;
@@ -24,9 +26,7 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   void enterCave(Collision collision, int followingLevel)
   {
-    
-    var script = submarine.GetComponent<SubmarineController>();
-    script.inCave = true;
+    submarine.GetComponent<SubmarineController>().inCave = true;
 
     /*
     script.forwardOnCaveEnter = transform.forward;
@@ -38,16 +38,31 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
     submarine.GetComponent<SubmarineController>().updateLevel();
 
+    if (submarine.GetComponent<CustomFollowerPath>() == null)
+    {
+      submarine.AddComponent<CustomFollowerPath>();
+      var temp = submarine.GetComponent<CustomFollowerPath>();
+      temp.endOfPathInstruction = PathCreation.EndOfPathInstruction.Stop;
+      temp.speed = caveSpeed;
+    }
+
     // set waypoints
-    GameObject wayPoints = GameObject.FindGameObjectWithTag("CavePath");
-    if (wayPoints == null)
+    GameObject paths = GameObject.FindGameObjectWithTag("CavePath");
+    // create path
+    if (paths.GetComponent<CustomPathCreator>() == null)
+    {
+      paths.AddComponent<CustomPathCreator>();
+      paths.GetComponent<PathCreation.PathCreator>().bezierPath.IsClosed = false;
+      submarine.GetComponent<CustomFollowerPath>().pathCreator = paths.GetComponent<PathCreation.PathCreator>();
+    }
+
+    if (paths == null)
       Debug.Log("Could not find object with tag CavePath");
 
     // set start object
-    var wayPointScript = wayPoints.GetComponent<CustomPathCreator>();
+    var wayPointScript = paths.GetComponent<CustomPathCreator>();
     wayPointScript.start = collision.contacts[0].point;
-    Debug.Log("Start at: " + wayPointScript.start);
-    
+
     // get predefined path objects
     if (followingLevel == 2)
     {
@@ -87,12 +102,26 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   void enterLevel(Collision collision, int level)
   {
-    var script = submarine.GetComponent<SubmarineController>();
-    script.inCave = false;
-    
+    submarine.GetComponent<SubmarineController>().inCave = false;
+
+    // delete custom path creator from paths game object
+    GameObject paths = GameObject.FindGameObjectWithTag("CavePath");
+
+    if (paths.GetComponent<CustomPathCreator>() != null)
+    {
+      Destroy(paths.GetComponent<CustomPathCreator>());
+      Destroy(paths.GetComponent<PathCreation.PathCreator>());
+    }
+
+    if (submarine.GetComponent<CustomFollowerPath>() != null)
+    {
+      Destroy(submarine.GetComponent<CustomFollowerPath>());
+    }
+
+
     /*
     script.pushForward = true;
-    */  
+    */
     SubmarineController.currentLevel = level;
     submarine.GetComponent<SubmarineController>().updateLevel();
     
