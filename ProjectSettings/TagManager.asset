@@ -17,9 +17,12 @@ TagManager:
   - EnterLevel2
   - EnterCave1
   - EnterCave2
-  - EnterCave
   - EnterLevel3
   - CavePath
+  - AudioCave1Found
+  - AudioCave1Enter
+  - AudioCave2Found
+  - AudioCave2Enter
   layers:
   - Default
   - TransparentFX

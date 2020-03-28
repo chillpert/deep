@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 /*
  * This script works as a fix for the weird twitching issue 
@@ -13,6 +14,15 @@ using UnityEngine;
 
 public class CollisionsWithoutImpact : MonoBehaviour
 {
+  [SerializeField]
+  GameObject audioCave1Found;
+  [SerializeField]
+  GameObject audioCave1Enter;
+  [SerializeField]
+  GameObject audioCave2Found;
+  [SerializeField]
+  GameObject audioCave2Enter;
+
   [SerializeField]
   float caveSpeed = 5f;
   [SerializeField]
@@ -196,6 +206,26 @@ public class CollisionsWithoutImpact : MonoBehaviour
       Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
 
       Object.Destroy(collision.gameObject); // or play destruction animation or similar effects
+    }
+
+    if (collision.gameObject.tag == "AudioCave1Found")
+    {
+      audioCave1Found.GetComponent<PlayableDirector>().Play();
+    }
+
+    if (collision.gameObject.tag == "AudioCave1Enter")
+    {
+      audioCave1Enter.GetComponent<PlayableDirector>().Play();
+    }
+
+    if (collision.gameObject.tag == "AudioCave2Found")
+    {
+      audioCave2Found.GetComponent<PlayableDirector>().Play();
+    }
+
+    if (collision.gameObject.tag == "AudioCave2Enter")
+    {
+      audioCave2Enter.GetComponent<PlayableDirector>().Play();
     }
   }
 
