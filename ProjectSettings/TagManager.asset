@@ -16,6 +16,9 @@ TagManager:
   - Destructables
   - EnterLevel2
   - EnterCave1
+  - EnterCave2
+  - EnterCave
+  - EnterLevel3
   layers:
   - Default
   - TransparentFX

@@ -221,7 +221,7 @@ public class ControllerPlayer3 : MonoBehaviour
 
       ApplyGyroRotation();
       ApplyCalibration();
-    }   
+    }
     
     //lampDynamic.transform.Rotate(
     //  -(initialRotationX - rotation.x) * Time.deltaTime * headlightSpeed,

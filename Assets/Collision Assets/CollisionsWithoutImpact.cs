@@ -22,32 +22,50 @@ public class CollisionsWithoutImpact : MonoBehaviour
 
   Vector3 position;
 
+  void enterCave(Collision collision, GameObject goal)
+  {
+    var script = submarine.GetComponent<SubmarineController>();
+
+    script.forwardOnCaveEnter = transform.forward;
+    script.lookAtDestination = goal.transform.forward;
+
+    script.inCave = true;
+    script.pushForward = false;
+    script.caveFinish = goal.transform.position;
+    submarine.GetComponent<SubmarineController>().updateLevel();
+    Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+  }
+
+  void enterLevel(Collision collision, int level)
+  {
+    var script = submarine.GetComponent<SubmarineController>();
+
+    script.inCave = false;
+    script.pushForward = true;
+    SubmarineController.currentLevel = level;
+    submarine.GetComponent<SubmarineController>().updateLevel();
+    Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+  }
+
   void OnCollisionEnter(Collision collision)
   {
     //Debug.Log(collision.gameObject.name);
 
     if (collision.gameObject.tag == "EnterCave1")
     {
-      var script = submarine.GetComponent<SubmarineController>();
-
-      script.forwardOnCaveEnter = transform.forward;
-      script.lookAtDestination = script.enterLevel2.transform.forward;
-
-      script.inCave = true;
-      script.pushForward = false;
-      script.caveFinish = script.enterLevel2.transform.position;
-      submarine.GetComponent<SubmarineController>().updateLevel();
-      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+      enterCave(collision, submarine.GetComponent<SubmarineController>().enterLevel2);
     }
     else if (collision.gameObject.tag == "EnterLevel2")
     {
-      var script = submarine.GetComponent<SubmarineController>();
-
-      script.inCave = false;
-      script.pushForward = true;
-      SubmarineController.currentLevel = 2;
-      submarine.GetComponent<SubmarineController>().updateLevel();
-      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+      enterLevel(collision, 2);
+    }
+    else if (collision.gameObject.tag == "EnterCave2")
+    {
+      enterCave(collision, submarine.GetComponent<SubmarineController>().enterLevel3);
+    }
+    else if (collision.gameObject.tag == "EnterLevel3")
+    {
+      enterLevel(collision, 3);
     }
     else if (collision.gameObject.tag == "TunnelMesh")
     {

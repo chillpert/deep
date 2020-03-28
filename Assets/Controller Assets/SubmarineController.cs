@@ -47,6 +47,10 @@ public class SubmarineController : MonoBehaviour
   public GameObject enterCave1;
   [SerializeField]
   public GameObject enterLevel2;
+  [SerializeField]
+  public GameObject enterCave2;
+  [SerializeField]
+  public GameObject enterLevel3;
 
   [SerializeField]
   GameObject damageSphere;
