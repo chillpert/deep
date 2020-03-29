@@ -8,8 +8,6 @@ public class ControllerPlayer1 : MonoBehaviour
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
   [HideInInspector]
-  public Vector2 joystick;
-  [HideInInspector]
   public bool available;
   [HideInInspector]
   public float answer = 0f;
@@ -47,6 +45,8 @@ public class ControllerPlayer1 : MonoBehaviour
   GameObject lamp;
   bool firstRun = true;
   float timeOnConnect = 0f;
+  [HideInInspector]
+  public bool hasTimedOut = false;
 
   void Start()
   {
@@ -70,9 +70,10 @@ public class ControllerPlayer1 : MonoBehaviour
     {
       if (Time.time - timeOnConnect > 10f)
       {
-        if (Time.time - answer > 6f)
+        if (Time.time - answer > 10f)
         {
           Debug.Log("Player 1 timeout");
+          hasTimedOut = true;
           available = true;
           firstRun = true;
           timeOnConnect = 0f;

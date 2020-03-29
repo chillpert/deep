@@ -10,6 +10,8 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   GameObject player2;
   [SerializeField]
+  GameObject player3;
+  [SerializeField]
   GameObject udpParser;
   [HideInInspector]
   public static int currentLevel = 1;
@@ -262,6 +264,16 @@ public class SubmarineController : MonoBehaviour
 
   void Update()
   {
+    // if a player has timedout then pause game
+    if (player1.GetComponent<ControllerPlayer1>().hasTimedOut)
+       return;
+
+    if (player2.GetComponent<ControllerPlayer2>().hasTimedOut)
+      return;
+
+    if (player3.GetComponent<ControllerPlayer3>().hasTimedOut)
+      return;
+
     //Debug.DrawRay(transform.position, transform.forward * 100f);
 
     // demo code for swapping control schemes

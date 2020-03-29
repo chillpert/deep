@@ -109,14 +109,17 @@ public class UDPParser : MonoBehaviour
           }
           else if (commanderPos != -1)
           {
+            player1.GetComponent<ControllerPlayer1>().hasTimedOut = false;
             player1.GetComponent<ControllerPlayer1>().available = false;
           }
           else if (officerPos != -1)
           {
+            player2.GetComponent<ControllerPlayer2>().hasTimedOut = false;
             player2.GetComponent<ControllerPlayer2>().available = false;
           }
           else if (captainPos != -1)
           {
+            player3.GetComponent<ControllerPlayer3>().hasTimedOut = false;
             player3.GetComponent<ControllerPlayer3>().available = false;
           }
           else
@@ -125,7 +128,15 @@ public class UDPParser : MonoBehaviour
             if (rolePos != -1)
             {
               string roleData = listener.message.Substring(rolePos + 3);
-              receivedRole = int.Parse(roleData.Substring(0, roleData.IndexOf(")"))); // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
+              string temp = roleData.Substring(0, roleData.IndexOf(")"));
+
+              if (temp.Equals("1") || temp.Equals("2") || temp.Equals("3"))
+              {
+                // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
+                receivedRole = int.Parse(temp); 
+              }
+              else
+                Debug.Log("Ignoring data in role message: " + temp);
             }
 
             // clients send this message every couple of seconds for a certain amount of time to explicitly tell the host that they are still present
@@ -136,16 +147,19 @@ public class UDPParser : MonoBehaviour
               {
                 ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
                 player.answer = Time.time;
+                player.hasTimedOut = false;
               }
               else if (receivedRole == 2)
               {
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
                 player.answer = Time.time;
+                player.hasTimedOut = false;
               }
               else if (receivedRole == 3)
               {
                 ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
                 player.answer = Time.time;
+                player.hasTimedOut = false;
               }
             }
 
@@ -192,6 +206,7 @@ public class UDPParser : MonoBehaviour
 
               if (captureData.Equals("P"))
               {
+                Debug.Log("Capture phone straight message received");
                 player.capturePhoneStraight = true;
               }
               else
@@ -199,6 +214,7 @@ public class UDPParser : MonoBehaviour
 
               if (captureData.Equals("F"))
               {
+                Debug.Log("Capture flashlight straight message received");
                 player.captureFlashlightStraight = true;
               }
               else
@@ -300,20 +316,20 @@ public class UDPParser : MonoBehaviour
                 if (receivedRole == 1)
                 {
                   ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                  player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (receivedRole == 2)
                 {
                   ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                  player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (receivedRole == 3)
                 {
                   ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                  player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
+                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
                 }
               }
 
