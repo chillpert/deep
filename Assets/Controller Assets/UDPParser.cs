@@ -178,28 +178,31 @@ public class UDPParser : MonoBehaviour
             int capturePos = listener.message.IndexOf("{C(");
             if (capturePos != -1)
             {
-              //Debug.Log("HIT: Role: " + receivedRole);
-              if (receivedRole == 3)
+              string captureData = listener.message.Substring(capturePos + 3, 1);
+              GyroscopeController player = null;
+
+              if (receivedRole == 1)
+                player = player1.GetComponent<GyroscopeController>();
+              else if (receivedRole == 2)
+                player = player2.GetComponent<GyroscopeController>();
+              else if (receivedRole == 3)
+                player = player3.GetComponent<GyroscopeController>();
+              else
+                Debug.Log("Calibration message can not be parsed correctly");
+
+              if (captureData.Equals("P"))
               {
-                string captureData = listener.message.Substring(capturePos + 3, 1);
-
-                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                if (captureData.Equals("P"))
-                {
-                  player.capturePhoneStraight = true;
-                  Debug.Log("Calibration: Phone straight event");
-                }
-                else
-                  player.capturePhoneStraight = false;
-
-                if (captureData.Equals("F"))
-                {
-                  player.captureFlashlightStraight = true;
-                  Debug.Log("Calibration: Flashlight straight event");
-                }
-                else
-                  player.captureFlashlightStraight = false;
+                player.capturePhoneStraight = true;
               }
+              else
+                player.capturePhoneStraight = false;
+
+              if (captureData.Equals("F"))
+              {
+                player.captureFlashlightStraight = true;
+              }
+              else
+                player.captureFlashlightStraight = false;
             }
 
             // parse gyroscope data
@@ -217,7 +220,7 @@ public class UDPParser : MonoBehaviour
 
                 if (receivedRole == 1)
                 {
-                  ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
+                  GyroscopeController player = player1.GetComponent<GyroscopeController>();
                   player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
@@ -225,7 +228,7 @@ public class UDPParser : MonoBehaviour
                 }
                 else if (receivedRole == 2)
                 {
-                  ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
+                  GyroscopeController player = player2.GetComponent<GyroscopeController>();
                   player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
@@ -233,7 +236,7 @@ public class UDPParser : MonoBehaviour
                 }
                 else if (receivedRole == 3)
                 {
-                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
+                  GyroscopeController player = player3.GetComponent<GyroscopeController>();
                   player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
                   player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);

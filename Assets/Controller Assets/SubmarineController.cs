@@ -201,8 +201,6 @@ public class SubmarineController : MonoBehaviour
       
       updateDamageTexture();
 
-      Debug.Log(timeOnCollision - prevTimeOnCollision + " > " + voiceOnDamagePeriod);
-
       if (timeOnCollision - prevTimeOnCollision > voiceOnDamagePeriod)
         playDamageSound();
 

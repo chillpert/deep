@@ -3,7 +3,6 @@
 public class ControllerPlayer2 : MonoBehaviour
 {
   [HideInInspector]
-  //public Vector3 rotation = new Vector3();
   public Quaternion rotation = new Quaternion();
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
@@ -83,6 +82,14 @@ public class ControllerPlayer2 : MonoBehaviour
 
     if (!available)
     {
+      if (submarine.GetComponent<SubmarineController>().inCave)
+      {
+        transform.GetComponent<GyroscopeController>().gyroController();
+        return;
+      }
+      else
+        transform.GetComponent<GyroscopeController>().DisableLight();
+
       Vector3 dir = Vector3.zero;
 
       dir.x = -acceleration.z;

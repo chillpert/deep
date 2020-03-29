@@ -82,6 +82,14 @@ public class ControllerPlayer1 : MonoBehaviour
 
     if (!available)
     {
+      if (submarine.GetComponent<SubmarineController>().inCave)
+      {
+        transform.GetComponent<GyroscopeController>().gyroController();
+        return;
+      }
+      else
+        transform.GetComponent<GyroscopeController>().DisableLight();
+
       Vector3 dir = Vector3.zero;
 
       dir.y = acceleration.x;
