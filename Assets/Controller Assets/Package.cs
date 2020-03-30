@@ -13,7 +13,8 @@ public enum PackageType
   ServerFull,
   Disconnected,
   Calibrate1,
-  Calibrate2
+  Calibrate2,
+  Selection
 }
 
 [Serializable]

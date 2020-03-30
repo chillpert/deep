@@ -12,8 +12,6 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
   [HideInInspector]
-  public bool available;
-  [HideInInspector]
   public float answer = 0f;
   float prevAnswer = 0f;
   [HideInInspector]
@@ -53,16 +51,17 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
   public bool hasTimedOut = false;
 
   public string Id { get; set; }
+  public bool Available { get; set; }
 
   void Start()
   {
-    available = true;
+    Available = true;
     rotationDummy = new GameObject("HorziontalRotationDummy");
   }
 
   void Update()
   {
-    if (!available)
+    if (!Available)
     {
       if (firstRun)
       {
@@ -80,14 +79,14 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
         {
           Debug.Log("Player 1 timeout");
           hasTimedOut = true;
-          available = true;
+          Available = true;
           firstRun = true;
           timeOnConnect = 0f;
         }
       }
     }
 
-    if (!available)
+    if (!Available)
     {
       if (submarine.GetComponent<SubmarineController>().inCave)
       {
@@ -118,14 +117,6 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
 
       Debug.DrawRay(rotationDummy.transform.position, rotationDummy.transform.forward * 5f, Color.green);
       Debug.DrawRay(rotationDummy.transform.position, CollisionsWithoutImpact.forward * 5f, Color.red);
-
-      /*
-      Vector3 lightDir = Vector3.zero;
-      lightDir.x = -joystick.y;
-      lightDir.y = joystick.x;
-
-      headLight.transform.Rotate(lightDir * headLightSpeed * Time.deltaTime);
-      */
 
       if (actionPressed)
       {

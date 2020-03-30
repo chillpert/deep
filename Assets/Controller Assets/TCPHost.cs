@@ -16,7 +16,7 @@ public class ClientData
   {
     Socket = socket;
 
-    Id = Guid.NewGuid().ToString();
+    //Id = Guid.NewGuid().ToString();
     thread = new Thread(method.Invoke);
     thread.Start(this);
   }
@@ -38,10 +38,11 @@ public class TCPHost : MonoBehaviour
   GameObject player3;
 
   private Socket serverSocket;
+  private bool firstRun;
+  private bool[] roles;
+  private const int portOut = 11000;
 
   public List<ClientData> ConnectedClients { get; set; }
-
-  private List<RoleType> roles;
 
   private int connectInt = 0;
 
@@ -49,19 +50,15 @@ public class TCPHost : MonoBehaviour
   {
     ConnectedClients = new List<ClientData>();
     var roleTypes = Enum.GetValues(typeof(RoleType)).Cast<RoleType>().ToList();
-    roles = new List<RoleType>();
-
-    roleTypes.ForEach(x => roles.Add(x));
+    roles = Enumerable.Repeat(true, 3).ToArray();
 
     serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-    serverSocket.Bind(new IPEndPoint(IPAddress.Parse(Package.GetIpAdress()), 11000));
+    serverSocket.Bind(new IPEndPoint(IPAddress.Parse(Package.GetIpAdress()), portOut));
 
     Thread listenThread = new Thread(ListenThread);
     listenThread.Start();
   }
-
-  bool firstRun = true;
 
   public void ListenThread()
   {
@@ -72,7 +69,7 @@ public class TCPHost : MonoBehaviour
       if (!firstRun)
       {
         ConnectedClients.Add(new ClientData(serverSocket.Accept(), DataIn));
-        Debug.Log("ROAD ROLLERU");
+        Debug.Log("Added Client");
       }
 
       firstRun = false;
@@ -101,7 +98,7 @@ public class TCPHost : MonoBehaviour
         }
         else
         {
-          //Disconnection
+          // disconnect
           var p = new Package(PackageType.Disconnected, player.Id);
 
           ConnectedClients.Remove(player);
@@ -130,49 +127,81 @@ public class TCPHost : MonoBehaviour
     return true;
   }
 
+  private IPlayer GetPlayerBySenderID(Package p)
+  {
+    if (player1.GetComponent<ControllerPlayer1>().Id == p.senderId)
+      return player1.GetComponent<ControllerPlayer1>();
+    
+    if (player2.GetComponent<ControllerPlayer2>().Id == p.senderId)
+      return player2.GetComponent<ControllerPlayer2>();
+
+    if (player3.GetComponent<ControllerPlayer3>().Id == p.senderId)
+      return player3.GetComponent<ControllerPlayer3>();
+
+    Debug.LogError("Can not identify player by Sender ID");
+    return null;
+  }
+
   public void DataManager(Package p)
   {
+    Debug.Log("Incoming package: " + p.packetType);
     switch (p.packetType)
     {
-      case PackageType.Connected:
+      case PackageType.Selection:
         var enumValue = (RoleType)Enum.Parse(typeof(RoleType), p.data[0].ToString());
 
         IPlayer player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-          if (ConnectedClients.Count < roles.Count)
+          if (ConnectedClients.Count < roles.Length)
           {
             if (enumValue == RoleType.OppsCommander)
             {
+              Debug.Log("Player 1 selected");
               player = player1.GetComponent<ControllerPlayer1>();
+              player.Available = false;
+              roles[0] = false;
             }
             else if (enumValue == RoleType.WeaponsOfficer)
             {
+              Debug.Log("Player 2 selected");
               player = player2.GetComponent<ControllerPlayer2>();
+              player.Available = false;
+              roles[1] = false;
             }
             else if (enumValue == RoleType.Captain)
             {
+              Debug.Log("Player 3 selected");
               player = player3.GetComponent<ControllerPlayer3>();
+              player.Available = false;
+              roles[2] = false;
             }
-            else
-              Debug.LogError("OH NOOOOOOOOOOOOO");
 
             player.Id = ConnectedClients[connectInt].Id;
-
-            Debug.Log("D'ARBYYY HAS MOTHERFUCKING CONNECTED");
-            
             ++connectInt;
           }
           else
           {
             var serverFullPackage = new Package(PackageType.ServerFull, "server");
             serverFullPackage.data.Add(player.Id);
-            //player.Socket.Send(p.ToBytes());
           }
 
           p.data.Add(enumValue);
-
           ConnectedClients.ForEach(x => x.Socket.Send(p.ToBytes()));
+        });
+
+        break;
+
+      case PackageType.Connected:
+        Debug.Log("Connected");
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+          ConnectedClients.Last().Id = p.senderId;
+          Package roleAvailability = new Package(PackageType.Connected, p.senderId);
+          roleAvailability.data.Add(roles);
+
+          var test = ConnectedClients.FirstOrDefault(x => x.Id == p.senderId);
+          test ?.Socket.Send(roleAvailability.ToBytes());
         });
 
         break;

@@ -15,4 +15,5 @@ public enum RoleType
 public interface IPlayer 
 {
   string Id { get; set; }
+  bool Available { get; set; }
 }

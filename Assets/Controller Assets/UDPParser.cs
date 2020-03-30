@@ -78,9 +78,9 @@ public class UDPParser : MonoBehaviour
           int officerPos = listener.message.IndexOf("{R(WO)}");
           int captainPos = listener.message.IndexOf("{R(CPT)}");
 
-          bool commanderAvailable = player1.GetComponent<ControllerPlayer1>().available;
-          bool officerAvailable = player2.GetComponent<ControllerPlayer2>().available;
-          bool captainAvailable = player3.GetComponent<ControllerPlayer3>().available;
+          bool commanderAvailable = player1.GetComponent<ControllerPlayer1>().Available;
+          bool officerAvailable = player2.GetComponent<ControllerPlayer2>().Available;
+          bool captainAvailable = player3.GetComponent<ControllerPlayer3>().Available;
 
           if (playerSelectionPos != -1)
           {
@@ -110,17 +110,17 @@ public class UDPParser : MonoBehaviour
           else if (commanderPos != -1)
           {
             player1.GetComponent<ControllerPlayer1>().hasTimedOut = false;
-            player1.GetComponent<ControllerPlayer1>().available = false;
+            player1.GetComponent<ControllerPlayer1>().Available = false;
           }
           else if (officerPos != -1)
           {
             player2.GetComponent<ControllerPlayer2>().hasTimedOut = false;
-            player2.GetComponent<ControllerPlayer2>().available = false;
+            player2.GetComponent<ControllerPlayer2>().Available = false;
           }
           else if (captainPos != -1)
           {
             player3.GetComponent<ControllerPlayer3>().hasTimedOut = false;
-            player3.GetComponent<ControllerPlayer3>().available = false;
+            player3.GetComponent<ControllerPlayer3>().Available = false;
           }
           else
           {
@@ -173,19 +173,19 @@ public class UDPParser : MonoBehaviour
               {
                 Debug.Log("Player 1 timeout ... disconnecting");
                 ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                player.available = true;
+                player.Available = true;
               }
               else if (receivedRole == 2)
               {
                 Debug.Log("Player 2 timeout ... disconnecting");
                 ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                player.available = true;
+                player.Available = true;
               }
               else if (receivedRole == 3)
               {
                 Debug.Log("Player 3 timeout ... disconnecting");
                 ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                player.available = true;
+                player.Available = true;
               }
             }
 

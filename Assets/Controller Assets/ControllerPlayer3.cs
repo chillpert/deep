@@ -10,8 +10,6 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
   [HideInInspector]
-  public bool available;
-  [HideInInspector]
   public float answer = 0f;
   [HideInInspector]
   public bool actionPressed;
@@ -33,15 +31,16 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
   public bool hasTimedOut = false;
 
   public string Id { get; set; }
+  public bool Available { get; set; }
 
   void Start()
   {
-    available = true;
+    Available = true;
   }
 
   void Update()
   {
-    if (!available)
+    if (!Available)
     {
       if (firstRun)
       {
@@ -59,14 +58,14 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
         {
           Debug.Log("Player 3 timeout");
           hasTimedOut = true;
-          available = true;
+          Available = true;
           firstRun = true;
           timeOnConnect = 0f;
         }
       }
     }
 
-    if (!available)
+    if (!Available)
     {
       transform.GetComponent<GyroscopeController>().gyroController();
     }
