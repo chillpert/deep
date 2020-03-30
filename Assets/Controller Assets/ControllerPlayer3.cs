@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Threading;
 using UnityEngine;
 
-public class ControllerPlayer3 : MonoBehaviour
+public class ControllerPlayer3 : MonoBehaviour, IPlayer
 {
   [HideInInspector]
   public Vector3 acceleration = new Vector2();
@@ -29,6 +31,8 @@ public class ControllerPlayer3 : MonoBehaviour
   float timeOnConnect = 0f;
   [HideInInspector]
   public bool hasTimedOut = false;
+
+  public string Id { get; set; }
 
   void Start()
   {

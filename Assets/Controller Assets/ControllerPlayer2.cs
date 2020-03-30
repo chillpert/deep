@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Threading;
+using UnityEngine;
 
-public class ControllerPlayer2 : MonoBehaviour
+public class ControllerPlayer2 : MonoBehaviour, IPlayer
 {
   [HideInInspector]
   public Quaternion rotation = new Quaternion();
@@ -47,6 +51,8 @@ public class ControllerPlayer2 : MonoBehaviour
   float timeOnConnect = 0f;
   [HideInInspector]
   public bool hasTimedOut = false;
+
+  public string Id { get; set; }
 
   void Start()
   {

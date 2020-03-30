@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Threading;
+using UnityEngine;
 
-public class ControllerPlayer1 : MonoBehaviour
+public class ControllerPlayer1 : MonoBehaviour, IPlayer
 {
   [HideInInspector]
   //public Vector3 rotation = new Vector3();
@@ -47,6 +51,8 @@ public class ControllerPlayer1 : MonoBehaviour
   float timeOnConnect = 0f;
   [HideInInspector]
   public bool hasTimedOut = false;
+
+  public string Id { get; set; }
 
   void Start()
   {
