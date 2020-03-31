@@ -16,4 +16,6 @@ public interface IPlayer
 {
   string Id { get; set; }
   bool Available { get; set; }
+  Vector3 Acceleration { get; set; }
+  Quaternion Rotation { get; set; }
 }

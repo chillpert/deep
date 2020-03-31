@@ -4976,7 +4976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c86d8bb0e934a949ab14157787c4109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
   submarine: {fileID: 110186716}
   capturePhoneStraight: 0
   captureFlashlightStraight: 0
@@ -4996,8 +4995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f3b7630c35a524c8b19c246e607acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: {x: 0, y: 0, z: 0}
-  available: 0
   answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
@@ -7146,7 +7143,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1491071328}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &300989322
 MonoBehaviour:
@@ -7160,14 +7157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5c03ecf4adc4549ace6f26bd8a6f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 5556
-  listener: {fileID: 1905708178}
+  portIn: 5555
+  printToConsole: 0
   player1: {fileID: 1812510166}
   player2: {fileID: 1718936624}
   player3: {fileID: 52543056}
-  printConnectionAttempts: 1
-  printMessageOut: 0
-  localIPs: []
 --- !u!1001 &315214680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12396,7 +12390,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 319431909}
-  - {fileID: 1905708179}
   - {fileID: 300989321}
   - {fileID: 1500286555}
   m_Father: {fileID: 0}
@@ -12498,7 +12491,7 @@ Transform:
   - {fileID: 1718936625}
   - {fileID: 52543057}
   m_Father: {fileID: 1491071328}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524615653
 GameObject:
@@ -13340,9 +13333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf08e7fa0624dc4c822d1b99c42c20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
-  acceleration: {x: 0, y: 0, z: 0}
-  available: 0
   answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
@@ -13367,7 +13357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c86d8bb0e934a949ab14157787c4109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
   submarine: {fileID: 110186716}
   capturePhoneStraight: 0
   captureFlashlightStraight: 0
@@ -13775,9 +13764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d7c596137e0e14e90ec15dfecc5e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
-  acceleration: {x: 0, y: 0, z: 0}
-  available: 0
   answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
@@ -13803,7 +13789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c86d8bb0e934a949ab14157787c4109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
   submarine: {fileID: 110186716}
   capturePhoneStraight: 0
   captureFlashlightStraight: 0
@@ -13902,52 +13887,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1905708177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1905708179}
-  - component: {fileID: 1905708178}
-  m_Layer: 0
-  m_Name: UDPListener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1905708178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905708177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3da05666dadb16a44ab7f643ee462b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 5555
-  printToConsole: 0
-  message: 
---- !u!4 &1905708179
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905708177}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1491071328}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1914640867
 PrefabInstance:
   m_ObjectHideFlags: 0

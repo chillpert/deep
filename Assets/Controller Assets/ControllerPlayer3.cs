@@ -7,8 +7,14 @@ using UnityEngine;
 
 public class ControllerPlayer3 : MonoBehaviour, IPlayer
 {
+  public string Id { get; set; }
+  public bool Available { get; set; }
   [HideInInspector]
-  public Vector3 acceleration = new Vector2();
+  public Vector3 Acceleration { get; set; }
+  [HideInInspector]
+  public Quaternion Rotation { get; set; }
+
+
   [HideInInspector]
   public float answer = 0f;
   [HideInInspector]
@@ -30,12 +36,13 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
   [HideInInspector]
   public bool hasTimedOut = false;
 
-  public string Id { get; set; }
-  public bool Available { get; set; }
+
 
   void Start()
   {
     Available = true;
+    Acceleration = new Vector3();
+    Rotation = new Quaternion();
   }
 
   void Update()
@@ -67,7 +74,7 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
 
     if (!Available)
     {
-      transform.GetComponent<GyroscopeController>().gyroController();
+      transform.GetComponent<GyroscopeController>().gyroController(Rotation);
     }
   }
 }

@@ -1,31 +1,29 @@
-﻿using UnityEngine;
-using System.Collections;
-
-using System;
+﻿using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine;
 
 public class UDPListener : MonoBehaviour
 {
-  UdpClient client;
+  private UdpClient client;
 
   [SerializeField]
-  int port;
+  private int portIn = 5555;
   [SerializeField]
-  bool printToConsole;
+  private bool printToConsole = false;
 
   [HideInInspector]
-  public string message;
+  public string Message { get; set; }
 
   public void Start()
   {
-    message = "";
+    Message = "";
 
     Thread receiveThread = new Thread(new ThreadStart(() =>
     {
-      client = new UdpClient(port);
+      client = new UdpClient(portIn);
       while (true)
       {
         try
@@ -33,11 +31,10 @@ public class UDPListener : MonoBehaviour
           IPEndPoint ip = new IPEndPoint(IPAddress.Any, 0);
           byte[] data = client.Receive(ref ip);
 
-          message = Encoding.UTF8.GetString(data);
+          Message = Encoding.UTF8.GetString(data);
 
-          // print message to console
           if (printToConsole)
-            Debug.Log(message);
+            Debug.Log(Message);
         }
         catch (Exception e)
         {
@@ -48,6 +45,7 @@ public class UDPListener : MonoBehaviour
     {
       IsBackground = true
     };
+
     receiveThread.Start();
   }
 }

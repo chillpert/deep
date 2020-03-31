@@ -141,8 +141,9 @@ public class SubmarineController : MonoBehaviour
     if (inCave)
       message = "{" + message + "{C(1)}}";
 
-    var ips = udpParser.GetComponent<UDPParser>().localIPs;
+    //var ips = udpParser.GetComponent<UDPParser>().localIPs;
 
+    /*
     if (ips.Count == 1)
     {
       udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
@@ -158,6 +159,7 @@ public class SubmarineController : MonoBehaviour
       udpParser.GetComponent<UDPParser>().Send(message, ips[1]);
       udpParser.GetComponent<UDPParser>().Send(message, ips[2]);
     }
+    */
   }
 
   void OnCollisionStay(Collision collision)
@@ -316,7 +318,7 @@ public class SubmarineController : MonoBehaviour
       timeSinceLastTorepdo = Time.time;
     }
 
-    if (Input.GetKeyDown(KeyCode.Space) || udpParser.GetComponent<UDPParser>().localIPs.Count == 3)
+    if (Input.GetKeyDown(KeyCode.Space))// || udpParser.GetComponent<UDPParser>().localIPs.Count == 3)
     {
       start = !start;
     }

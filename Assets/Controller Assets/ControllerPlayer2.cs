@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class ControllerPlayer2 : MonoBehaviour, IPlayer
 {
+  public string Id { get; set; }
+  public bool Available { get; set; }
   [HideInInspector]
-  public Quaternion rotation = new Quaternion();
+  public Vector3 Acceleration { get; set; }
   [HideInInspector]
-  public Vector3 acceleration = new Vector2();
+  public Quaternion Rotation { get; set; }
+
+
   [HideInInspector]
   public float answer = 0f;
   [HideInInspector]
@@ -50,12 +54,11 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
   [HideInInspector]
   public bool hasTimedOut = false;
 
-  public string Id { get; set; }
-  public bool Available { get; set; }
-
   void Start()
   {
     Available = true;
+    Acceleration = new Vector3();
+    Rotation = new Quaternion();
     rotationDummy = new GameObject("VerticalRotationDummy");
   }
 
@@ -90,7 +93,7 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
     {
       if (submarine.GetComponent<SubmarineController>().inCave)
       {
-        transform.GetComponent<GyroscopeController>().gyroController();
+        transform.GetComponent<GyroscopeController>().gyroController(Rotation);
         return;
       }
       else
@@ -98,7 +101,7 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
 
       Vector3 dir = Vector3.zero;
 
-      dir.x = -acceleration.z;
+      dir.x = -Acceleration.z;
 
       if (initialVal > dir.x + threshold || initialVal < dir.x - threshold)
       {

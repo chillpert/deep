@@ -5,7 +5,7 @@ using UnityEngine;
 public class GyroscopeController : MonoBehaviour
 {
   [HideInInspector]
-  public Quaternion rotation = new Quaternion();
+  private Quaternion rotation = new Quaternion();
   [SerializeField]
   GameObject submarine;
   [HideInInspector]
@@ -149,8 +149,10 @@ public class GyroscopeController : MonoBehaviour
     lampDynamic.GetComponent<Light>().enabled = false;
   }
 
-  public void gyroController()
+  public void gyroController(Quaternion rotation)
   {
+    this.rotation = rotation;
+
     if (!lampDynamic.GetComponent<Light>().enabled)
       lampDynamic.GetComponent<Light>().enabled = true;
 

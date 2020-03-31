@@ -7,406 +7,81 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-public class UDPParser : MonoBehaviour
+public class UDPParser : UDPListener
 {
-  [SerializeField]
-  int port;
-  [SerializeField]
-  UDPListener listener;
+  RoleType role;
+
   [SerializeField]
   GameObject player1;
   [SerializeField]
   GameObject player2;
   [SerializeField]
   GameObject player3;
-  [SerializeField]
-  bool printConnectionAttempts;
-  [SerializeField]
-  bool printMessageOut;
 
-  string prevMessageGyro;
-  string prevMessageAccelerometer;
-  string prevJoystick;
-
-  int receivedRole = 1;
-
-  [HideInInspector]
-  public List<string> localIPs = new List<string>();
-
-  void Start()
+  private IPlayer SetPlayer()
   {
-    prevMessageGyro = "";
-    prevMessageAccelerometer = "";
-  }
-
-  void Update()
-  {
-    if (listener.message.Length > 0)
+    switch (role)
     {
-      // check for { x } - format
-      if (listener.message[0] == '{' && listener.message[listener.message.Length - 1] == '}')
-      {
-        // parse local IP
-        string localIP = listener.message.Substring(1, listener.message.IndexOf("}") - 1);
+      case RoleType.OppsCommander:
+        return player1.GetComponent<ControllerPlayer1>();
 
-        bool alreadyExists = false;
-        int hit = -1;
+      case RoleType.WeaponsOfficer:
+        return player2.GetComponent<ControllerPlayer2>();
 
-        for (int i = 0; i < localIPs.Count; i++)
-        {
-          if (localIPs[i] == localIP)
-          {
-            hit = i;
-            alreadyExists = true;
-          }
-        }
+      case RoleType.Captain:
+        return player3.GetComponent<ControllerPlayer3>();
+    }
 
-        // new IPs will be added to the list of connected users
-        if (!alreadyExists)
-        {
-          localIPs.Add(localIP);
+    Debug.LogError("UDPParser: Can not assign role");
+    return null;
+  }
+  
+  private void Update()
+  {
+    if (Message.Length <= 0)
+      return;
 
-          if (printConnectionAttempts)
-            Debug.Log("Info: UDPParser: Registered new IP: " + localIP);
-        }
+    int foundRole = Message.IndexOf("{R(");
+    if (foundRole != -1)
+    {
+      string uncut = Message.Substring(foundRole + 3);
+      string cut = uncut.Substring(0, uncut.IndexOf(")"));
 
-        if (alreadyExists)
-        {
-          // check if message is asking for player selection
-          int playerSelectionPos = listener.message.IndexOf("{R(?)}");
-          int commanderPos = listener.message.IndexOf("{R(OC)}");
-          int officerPos = listener.message.IndexOf("{R(WO)}");
-          int captainPos = listener.message.IndexOf("{R(CPT)}");
-
-          bool commanderAvailable = player1.GetComponent<ControllerPlayer1>().Available;
-          bool officerAvailable = player2.GetComponent<ControllerPlayer2>().Available;
-          bool captainAvailable = player3.GetComponent<ControllerPlayer3>().Available;
-
-          if (playerSelectionPos != -1)
-          {
-            string sendRoleMsg = "{R";
-
-            if (commanderAvailable)
-              sendRoleMsg += "(OC:1)";
-            else
-              sendRoleMsg += "(OC:0)";
-
-            if (officerAvailable)
-              sendRoleMsg += "(WO:1)";
-            else
-              sendRoleMsg += "(WO:0)";
-
-            if (captainAvailable)
-              sendRoleMsg += "(CPT:1)";
-            else
-              sendRoleMsg += "(CPT:0)";
-
-            sendRoleMsg += "}";
-
-            Send(sendRoleMsg, localIPs[hit]);
-
-            listener.message = "";
-          }
-          else if (commanderPos != -1)
-          {
-            player1.GetComponent<ControllerPlayer1>().hasTimedOut = false;
-            player1.GetComponent<ControllerPlayer1>().Available = false;
-          }
-          else if (officerPos != -1)
-          {
-            player2.GetComponent<ControllerPlayer2>().hasTimedOut = false;
-            player2.GetComponent<ControllerPlayer2>().Available = false;
-          }
-          else if (captainPos != -1)
-          {
-            player3.GetComponent<ControllerPlayer3>().hasTimedOut = false;
-            player3.GetComponent<ControllerPlayer3>().Available = false;
-          }
-          else
-          {
-            int rolePos = listener.message.IndexOf("{R(");
-            if (rolePos != -1)
-            {
-              string roleData = listener.message.Substring(rolePos + 3);
-              string temp = roleData.Substring(0, roleData.IndexOf(")"));
-
-              if (temp.Equals("1") || temp.Equals("2") || temp.Equals("3"))
-              {
-                // 1 == Opps Commander (Player 1) | 2 == Weapons Officer (Player 2) | 3 == Captain (Player 3)
-                receivedRole = int.Parse(temp); 
-              }
-              else
-                Debug.Log("Ignoring data in role message: " + temp);
-            }
-
-            // clients send this message every couple of seconds for a certain amount of time to explicitly tell the host that they are still present
-            int confirmPresencePos = listener.message.IndexOf("{P(");
-            if (confirmPresencePos != -1)
-            {
-              if (receivedRole == 1)
-              {
-                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                player.answer = Time.time;
-                player.hasTimedOut = false;
-              }
-              else if (receivedRole == 2)
-              {
-                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                player.answer = Time.time;
-                player.hasTimedOut = false;
-              }
-              else if (receivedRole == 3)
-              {
-                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                player.answer = Time.time;
-                player.hasTimedOut = false;
-              }
-            }
-
-            int disconnectPos = listener.message.IndexOf("{D(");
-            if (disconnectPos != -1)
-            {
-              if (!localIPs.Remove(localIP))
-                Debug.Log("Could not remove IP on disconnect event");
-
-              if (receivedRole == 1)
-              {
-                Debug.Log("Player 1 timeout ... disconnecting");
-                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                player.Available = true;
-              }
-              else if (receivedRole == 2)
-              {
-                Debug.Log("Player 2 timeout ... disconnecting");
-                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                player.Available = true;
-              }
-              else if (receivedRole == 3)
-              {
-                Debug.Log("Player 3 timeout ... disconnecting");
-                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                player.Available = true;
-              }
-            }
-
-            int capturePos = listener.message.IndexOf("{C(");
-            if (capturePos != -1)
-            {
-              string captureData = listener.message.Substring(capturePos + 3, 1);
-              GyroscopeController player = null;
-
-              if (receivedRole == 1)
-                player = player1.GetComponent<GyroscopeController>();
-              else if (receivedRole == 2)
-                player = player2.GetComponent<GyroscopeController>();
-              else if (receivedRole == 3)
-                player = player3.GetComponent<GyroscopeController>();
-              else
-                Debug.Log("Calibration message can not be parsed correctly");
-
-              if (captureData.Equals("P"))
-              {
-                Debug.Log("Capture phone straight message received");
-                player.capturePhoneStraight = true;
-              }
-              else
-                player.capturePhoneStraight = false;
-
-              if (captureData.Equals("F"))
-              {
-                Debug.Log("Capture flashlight straight message received");
-                player.captureFlashlightStraight = true;
-              }
-              else
-                player.captureFlashlightStraight = false;
-            }
-
-            // parse gyroscope data
-            int gyroPos = listener.message.IndexOf("{G(");
-            if (gyroPos != -1)
-            {
-              // check if field has changed
-              if (listener.message != prevMessageGyro)
-              {
-                // cut off everything except the floats
-                string gyroData = listener.message.Substring(gyroPos + 3);
-                gyroData = gyroData.Substring(0, gyroData.IndexOf("}") - 1);
-
-                string[] quat = gyroData.Split(',');
-
-                if (receivedRole == 1)
-                {
-                  GyroscopeController player = player1.GetComponent<GyroscopeController>();
-                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 2)
-                {
-                  GyroscopeController player = player2.GetComponent<GyroscopeController>();
-                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 3)
-                {
-                  GyroscopeController player = player3.GetComponent<GyroscopeController>();
-                  player.rotation.x = float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.y = float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.z = float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat);
-                  player.rotation.w = float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat);
-                }
-              }
-
-              prevMessageGyro = listener.message;
-            }
-
-            // parse accelerometer data
-            int accelerometerPos = listener.message.IndexOf("{A(");
-            if (accelerometerPos != -1)
-            {
-              // check if field has changed
-              if (listener.message != prevMessageAccelerometer)
-              {
-                // cut off everything except the floats
-                string accelerometerData = listener.message.Substring(accelerometerPos + 3);
-                accelerometerData = accelerometerData.Substring(0, accelerometerData.IndexOf("}") - 1);
-
-                string[] vec = accelerometerData.Split(',');
-
-                if (receivedRole == 1)
-                {
-                  ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                  player.acceleration.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 2)
-                {
-                  ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                  player.acceleration.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 3)
-                {
-                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                  player.acceleration.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                  player.acceleration.z = float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat);
-                }
-              }
-
-              prevMessageAccelerometer = listener.message;
-            }
-
-            // pares joystick data
-            int joystickPos = listener.message.IndexOf("{J(");
-            if (joystickPos != -1)
-            {
-              // check if field has changed
-              if (listener.message != prevJoystick)
-              {
-                string joystickData = listener.message.Substring(joystickPos + 3);
-                joystickData = joystickData.Substring(0, joystickData.IndexOf("}") - 1);
-
-                string[] vec = joystickData.Split(',');
-                if (receivedRole == 1)
-                {
-                  ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 2)
-                {
-                  ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                }
-                else if (receivedRole == 3)
-                {
-                  ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                  //player.joystick.x = float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat);
-                  //player.joystick.y = float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat);
-                }
-              }
-
-              prevJoystick = listener.message;
-            }
-
-            // parse action button pressed
-            int buttonPos = listener.message.IndexOf("{B(1)}");
-            if (buttonPos != -1)
-            {
-              if (receivedRole == 1)
-              {
-                //Debug.Log("pressed reloaded button");
-                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                player.actionPressed = true;
-              }
-              else if (receivedRole == 2)
-              {
-                //Debug.Log("pressed fired button");
-                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                player.actionPressed = true;
-              }
-              else if (receivedRole == 3)
-              {
-                //Debug.Log("pressed fired button");
-                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                player.actionPressed = true;
-              }
-            }
-            else
-            {
-              if (receivedRole == 1)
-              {
-                ControllerPlayer1 player = player1.GetComponent<ControllerPlayer1>();
-                player.actionPressed = false;
-              }
-              else if (receivedRole == 2)
-              {
-                ControllerPlayer2 player = player2.GetComponent<ControllerPlayer2>();
-                player.actionPressed = false;
-              }
-              else if (receivedRole == 3)
-              {
-                ControllerPlayer3 player = player3.GetComponent<ControllerPlayer3>();
-                player.actionPressed = false;
-              }
-            }
-          }
-        }
-      }
+      role = (RoleType)Enum.Parse(typeof(RoleType), cut);
     }
     else
     {
-      player1.GetComponent<ControllerPlayer1>().actionPressed = false;
-      player2.GetComponent<ControllerPlayer2>().actionPressed = false;
-      player3.GetComponent<ControllerPlayer3>().actionPressed = false;
+      Debug.LogWarning("UDPParser: Missing role identfier in received sensor data");
+      return;
     }
 
-    listener.message = "";
-  }
-
-  public void Send(string message, string ip)
-  {
-    IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-    UdpClient client = new UdpClient();
-
-    if (printMessageOut)
-      Debug.Log("Sending to: " + ip + "| message: " + message);
-
-    try
+    int foundAccelerometer = Message.IndexOf("{A(");
+    if (foundAccelerometer != -1)
     {
-      byte[] data = Encoding.UTF8.GetBytes(message);
-      client.Send(data, data.Length, remoteEndPoint);
+      string uncut = Message.Substring(foundAccelerometer + 3);
+      string cut = uncut.Substring(0, uncut.IndexOf("}") - 1);
+      string[] vec = cut.Split(',');
+
+      SetPlayer().Acceleration = new Vector3(
+        float.Parse(vec[0], CultureInfo.InvariantCulture.NumberFormat),
+        float.Parse(vec[1], CultureInfo.InvariantCulture.NumberFormat),
+        float.Parse(vec[2], CultureInfo.InvariantCulture.NumberFormat)
+        );
     }
-    catch (Exception e)
+
+    int foundGyroscope = Message.IndexOf("{G(");
+    if (foundGyroscope != -1)
     {
-      print(e.ToString());
+      string uncut = Message.Substring(foundGyroscope + 3);
+      string cut = uncut.Substring(0, uncut.IndexOf("}") - 1);
+      string[] quat = cut.Split(',');
+
+      SetPlayer().Rotation = new Quaternion(
+        float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat),
+        float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat),
+        float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat),
+        float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat)
+      );
     }
   }
 }
