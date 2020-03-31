@@ -240,16 +240,6 @@ public class SubmarineController : MonoBehaviour
 
   void Update()
   {
-    // if a player has timedout then pause game
-    if (player1.GetComponent<PlayerController1>().hasTimedOut)
-       return;
-
-    if (player2.GetComponent<PlayerController2>().hasTimedOut)
-      return;
-
-    if (player3.GetComponent<PlayerController3>().hasTimedOut)
-      return;
-
     //Debug.DrawRay(transform.position, transform.forward * 100f);
 
     // demo code for swapping control schemes
@@ -281,13 +271,13 @@ public class SubmarineController : MonoBehaviour
 
     //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
 
-    if (player1.GetComponent<PlayerController1>().reloadedTorpedo && player2.GetComponent<PlayerController2>().firedTorpedo)
+    if (player1.GetComponent<PlayerController>().OnAction && player2.GetComponent<PlayerController>().OnAction)
     {
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
       fireSound.Play();
 
-      player1.GetComponent<PlayerController1>().reloadedTorpedo = false;
-      player2.GetComponent<PlayerController2>().firedTorpedo = false;
+      player1.GetComponent<PlayerController>().OnAction = false;
+      player2.GetComponent<PlayerController>().OnAction = false;
 
       timeSinceLastTorepdo = Time.time;
     }

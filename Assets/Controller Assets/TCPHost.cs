@@ -135,7 +135,7 @@ public class TCPHost : MonoBehaviour
       case PackageType.Selection:
         var enumValue = (RoleType)Enum.Parse(typeof(RoleType), p.data[0].ToString());
 
-        IPlayerController player = null;
+        PlayerController player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
           if (ConnectedClients.Count < roles.Length)
@@ -143,21 +143,21 @@ public class TCPHost : MonoBehaviour
             if (enumValue == RoleType.OppsCommander)
             {
               Debug.Log("TCPHost: Player 1 selected");
-              player = player1.GetComponent<PlayerController1>();
+              player = player1.GetComponent<PlayerController>();
               player.Available = false;
               roles[0] = false;
             }
             else if (enumValue == RoleType.WeaponsOfficer)
             {
               Debug.Log("TCPHost: Player 2 selected");
-              player = player2.GetComponent<PlayerController2>();
+              player = player2.GetComponent<PlayerController>();
               player.Available = false;
               roles[1] = false;
             }
             else if (enumValue == RoleType.Captain)
             {
               Debug.Log("TCPHost: Player 3 selected");
-              player = player3.GetComponent<PlayerController3>();
+              player = player3.GetComponent<PlayerController>();
               player.Available = false;
               roles[2] = false;
             }
@@ -201,21 +201,21 @@ public class TCPHost : MonoBehaviour
             if (enumValue == RoleType.OppsCommander)
             {
               Debug.Log("TCPHost: Player 1 disconnected");
-              player = player1.GetComponent<PlayerController1>();
+              player = player1.GetComponent<PlayerController>();
               player.Available = true;
               roles[0] = true;
             }
             else if (enumValue == RoleType.WeaponsOfficer)
             {
               Debug.Log("TCPHost: Player 2 disconnected");
-              player = player2.GetComponent<PlayerController2>();
+              player = player2.GetComponent<PlayerController>();
               player.Available = true;
               roles[1] = true;
             }
             else if (enumValue == RoleType.Captain)
             {
               Debug.Log("TCPHost: Player 3 disconnected");
-              player = player3.GetComponent<PlayerController3>();
+              player = player3.GetComponent<PlayerController>();
               player.Available = true;
               roles[2] = true;
             }            
@@ -251,15 +251,15 @@ public class TCPHost : MonoBehaviour
         {
           if (enumValue == RoleType.OppsCommander)
           {
-            player = player1.GetComponent<PlayerController1>();
+            player = player1.GetComponent<PlayerController>();
           }
           else if (enumValue == RoleType.WeaponsOfficer)
           {
-            player = player2.GetComponent<PlayerController2>();
+            player = player2.GetComponent<PlayerController>();
           }
           else if (enumValue == RoleType.Captain)
           {
-            player = player3.GetComponent<PlayerController3>();
+            player = player3.GetComponent<PlayerController>();
           }
 
           player.CapturePhoneStraight = true;
@@ -275,15 +275,15 @@ public class TCPHost : MonoBehaviour
         {
           if (enumValue == RoleType.OppsCommander)
           {
-            player = player1.GetComponent<PlayerController1>();
+            player = player1.GetComponent<PlayerController>();
           }
           else if (enumValue == RoleType.WeaponsOfficer)
           {
-            player = player2.GetComponent<PlayerController2>();
+            player = player2.GetComponent<PlayerController>();
           }
           else if (enumValue == RoleType.Captain)
           {
-            player = player3.GetComponent<PlayerController3>();
+            player = player3.GetComponent<PlayerController>();
           }
 
           player.CaptureFlashlightStraight = true;

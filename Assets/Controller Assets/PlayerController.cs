@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
- public enum Axis { X, Y, Z };
-
-public class PlayerController : MonoBehaviour, IPlayerController
+public enum RoleType
 {
-  #region Interface
+  OppsCommander,
+  WeaponsOfficer,
+  Captain
+}
+
+public enum Axis { X, Y, Z }
+
+public class PlayerController : MonoBehaviour
+{
   public string Id { get; set; }
   public bool Available { get; set; }
   [HideInInspector]
@@ -30,9 +34,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     set { captureFlashlightStraight = value; }
   }
 
-  [HideInInspector]
-  public RoleType Role { get; set; }
-  #endregion
+  [SerializeField]
+  private RoleType role;
+
+  public bool OnAction { get; set; }
 
   [SerializeField]
   private GameObject submarine;
@@ -46,6 +51,37 @@ public class PlayerController : MonoBehaviour, IPlayerController
   private float speed = 25f;
 
   private static int rotationDummyCounter = 0;
+
+  private void Start()
+  {
+    OnAction = false;
+    rotationDummy = new GameObject("RotationDummy" + ++rotationDummyCounter);
+  }
+
+  private void Update()
+  {
+    if (Available)
+      return;
+
+    if (role == RoleType.OppsCommander)
+    {
+      if (InCave())
+        return;
+
+      RotateSubmarine(Axis.Y, Acceleration.x);
+    }
+    else if (role == RoleType.WeaponsOfficer)
+    {
+      if (InCave())
+        return;
+
+      RotateSubmarine(Axis.X, -Acceleration.z);
+    }
+    else if (role == RoleType.Captain)
+    {
+      transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+    }
+  }
 
   private void RotateSubmarine(Axis axis, float acceleration)
   {
@@ -91,35 +127,5 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     transform.GetComponent<GyroscopeController>().DisableLight();
     return false;
-  }
-
-  private void Start()
-  {
-    rotationDummy = new GameObject("RotationDummy" + ++rotationDummyCounter);
-  }
-
-  private void Update()
-  {
-    if (!Available)
-      return;
-
-    if (Role == RoleType.OppsCommander)
-    {
-      if (InCave())
-        return;
-
-      RotateSubmarine(Axis.Y, Acceleration.x);
-    }
-    else if (Role == RoleType.WeaponsOfficer)
-    {
-      if (InCave())
-        return;
-
-      RotateSubmarine(Axis.X, -Acceleration.z);
-    }
-    else if (Role == RoleType.Captain)
-    {
-      transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
-    }
   }
 }

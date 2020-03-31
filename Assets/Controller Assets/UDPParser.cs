@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using UnityEngine;
-
 using System;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
 
 public class UDPParser : UDPListener
 {
@@ -18,18 +13,18 @@ public class UDPParser : UDPListener
   [SerializeField]
   GameObject player3;
 
-  private IPlayerController SetPlayer()
+  private PlayerController SetPlayer()
   {
     switch (role)
     {
       case RoleType.OppsCommander:
-        return player1.GetComponent<PlayerController1>();
+        return player1.GetComponent<PlayerController>();
 
       case RoleType.WeaponsOfficer:
-        return player2.GetComponent<PlayerController2>();
+        return player2.GetComponent<PlayerController>();
 
       case RoleType.Captain:
-        return player3.GetComponent<PlayerController3>();
+        return player3.GetComponent<PlayerController>();
     }
 
     Debug.LogError("UDPParser: Can not assign role");
