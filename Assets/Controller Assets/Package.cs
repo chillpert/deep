@@ -4,17 +4,15 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEngine;
 
 public enum PackageType
 {
   Connected,
-  Sensor,
   ServerFull,
   Disconnected,
+  Selection,
   Calibrate1,
-  Calibrate2,
-  Selection
+  Calibrate2
 }
 
 [Serializable]

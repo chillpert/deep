@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class GyroscopeController : MonoBehaviour
 {
-  [HideInInspector]
   private Quaternion rotation = new Quaternion();
   [SerializeField]
   GameObject submarine;
-  [HideInInspector]
-  public bool capturePhoneStraight = false;
-  [HideInInspector]
-  public bool captureFlashlightStraight = false;
 
   [SerializeField]
   GameObject lampDynamic;
@@ -56,18 +51,16 @@ public class GyroscopeController : MonoBehaviour
     StartCoroutine(CalibrateYAngle());
   }
 
-  void captureDataHoldingStraight()
+  void CaptureDataHoldingStraight()
   {
     Debug.Log("Capture holding phone straight");
     phoneStraightRotX = rotation.x;
     phoneStraightRotY = rotation.y;
     phoneStraightRotZ = rotation.z;
     phoneStraightRotW = rotation.w;
-
-    capturePhoneStraight = false;
   }
 
-  void captureDataFlashlightStraight()
+  void CaptureDataFlashlightStraight()
   {
     Debug.Log("Capture holding flashlight straight");
     flashlightStraightRotX = rotation.x;
@@ -79,8 +72,6 @@ public class GyroscopeController : MonoBehaviour
     actualOffsetY = phoneStraightRotY - flashlightStraightRotY;
     actualOffsetZ = phoneStraightRotZ - flashlightStraightRotZ;
     actualOffsetW = phoneStraightRotW - flashlightStraightRotW;
-
-    captureFlashlightStraight = false;
   }
 
   private IEnumerator CalibrateYAngle()
@@ -149,7 +140,7 @@ public class GyroscopeController : MonoBehaviour
     lampDynamic.GetComponent<Light>().enabled = false;
   }
 
-  public void gyroController(Quaternion rotation)
+  public void gyroController(Quaternion rotation, ref bool capturePhoneStraight, ref bool captureFlashlightStraight)
   {
     this.rotation = rotation;
 
@@ -157,10 +148,16 @@ public class GyroscopeController : MonoBehaviour
       lampDynamic.GetComponent<Light>().enabled = true;
 
     if (capturePhoneStraight)
-      captureDataHoldingStraight();
+    {
+      CaptureDataHoldingStraight();
+      capturePhoneStraight = false;
+    }
 
     if (captureFlashlightStraight)
-      captureDataFlashlightStraight();
+    {
+      CaptureDataFlashlightStraight();
+      captureFlashlightStraight = false;
+    }
 
     ApplyGyroRotation();
     ApplyCalibration();

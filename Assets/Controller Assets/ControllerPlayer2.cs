@@ -13,6 +13,22 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
   [HideInInspector]
   public Quaternion Rotation { get; set; }
 
+  private bool capturePhoneStraight;
+  [HideInInspector]
+  public bool CapturePhoneStraight
+  {
+    get { return capturePhoneStraight; }
+    set { capturePhoneStraight = value; }
+  }
+
+  private bool captureFlashlightStraight;
+  [HideInInspector]
+  public bool CaptureFlashlightStraight
+  {
+    get { return captureFlashlightStraight; }
+    set { captureFlashlightStraight = value; }
+  }
+
 
   [HideInInspector]
   public float answer = 0f;
@@ -93,7 +109,7 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
     {
       if (submarine.GetComponent<SubmarineController>().inCave)
       {
-        transform.GetComponent<GyroscopeController>().gyroController(Rotation);
+        transform.GetComponent<GyroscopeController>().gyroController(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
         return;
       }
       else

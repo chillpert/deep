@@ -12,10 +12,13 @@ public enum RoleType
   Captain
 }
 
-public interface IPlayer 
+public interface IPlayer
 {
   string Id { get; set; }
   bool Available { get; set; }
   Vector3 Acceleration { get; set; }
   Quaternion Rotation { get; set; }
+
+  bool CapturePhoneStraight { get; set; }
+  bool CaptureFlashlightStraight { get; set; }
 }
