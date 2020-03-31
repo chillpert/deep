@@ -10,13 +10,11 @@ using UnityEngine;
 
 public class ClientData 
 {
-  private Thread thread;
+  private readonly Thread thread;
 
   public ClientData(Socket socket, Action<object> method)
   {
     Socket = socket;
-
-    //Id = Guid.NewGuid().ToString();
     thread = new Thread(method.Invoke);
     thread.Start(this);
   }
@@ -125,6 +123,12 @@ public class TCPHost : MonoBehaviour
       return false;
 
     return true;
+  }
+
+  // send package to all clients
+  public void Send(Package p)
+  {
+    ConnectedClients.ForEach(x => x.Socket.Send(p.ToBytes()));
   }
 
   public void DataManager(Package p)
@@ -249,20 +253,7 @@ public class TCPHost : MonoBehaviour
         player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-          if (enumValue == RoleType.OppsCommander)
-          {
-            player = player1.GetComponent<PlayerController>();
-          }
-          else if (enumValue == RoleType.WeaponsOfficer)
-          {
-            player = player2.GetComponent<PlayerController>();
-          }
-          else if (enumValue == RoleType.Captain)
-          {
-            player = player3.GetComponent<PlayerController>();
-          }
-
-          player.CapturePhoneStraight = true;
+          GetPlayerByEnum(enumValue).CapturePhoneStraight = true;
         });
 
         break;
@@ -273,23 +264,39 @@ public class TCPHost : MonoBehaviour
         player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-          if (enumValue == RoleType.OppsCommander)
-          {
-            player = player1.GetComponent<PlayerController>();
-          }
-          else if (enumValue == RoleType.WeaponsOfficer)
-          {
-            player = player2.GetComponent<PlayerController>();
-          }
-          else if (enumValue == RoleType.Captain)
-          {
-            player = player3.GetComponent<PlayerController>();
-          }
-
-          player.CaptureFlashlightStraight = true;
+          GetPlayerByEnum(enumValue).CaptureFlashlightStraight = true;
         });
 
         break;
+
+      case PackageType.Action:
+        enumValue = (RoleType)Enum.Parse(typeof(RoleType), p.data[0].ToString());
+
+        player = null;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+          GetPlayerByEnum(enumValue).OnAction = true;
+        });
+        break;
     }
+  }
+
+  private PlayerController GetPlayerByEnum(RoleType role)
+  {
+    if (role == RoleType.OppsCommander)
+    {
+      return player1.GetComponent<PlayerController>();
+    }
+    else if (role == RoleType.WeaponsOfficer)
+    {
+      return player2.GetComponent<PlayerController>();
+    }
+    else if (role == RoleType.Captain)
+    {
+      return player3.GetComponent<PlayerController>();
+    }
+
+    Debug.Log("TCPHost: Could not identify player by enum " + role.ToString());
+    return null;
   }
 }

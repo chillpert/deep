@@ -12,7 +12,9 @@ public enum PackageType
   Disconnected,
   Selection,
   Calibrate1,
-  Calibrate2
+  Calibrate2,
+  Action,
+  Level
 }
 
 [Serializable]

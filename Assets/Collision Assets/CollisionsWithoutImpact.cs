@@ -46,7 +46,7 @@ public class CollisionsWithoutImpact : MonoBehaviour
     script.caveFinish = goal.transform.localPosition; //goal.transform.position;
     */
 
-    submarine.GetComponent<SubmarineController>().updateLevel();
+    submarine.GetComponent<SubmarineController>().UpdateLevel();
 
     if (submarine.GetComponent<CustomFollowerPath>() == null)
     {
@@ -133,7 +133,7 @@ public class CollisionsWithoutImpact : MonoBehaviour
     script.pushForward = true;
     */
     SubmarineController.currentLevel = level;
-    submarine.GetComponent<SubmarineController>().updateLevel();
+    submarine.GetComponent<SubmarineController>().UpdateLevel();
     
     Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
   }

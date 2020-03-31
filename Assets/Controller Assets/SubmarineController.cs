@@ -3,6 +3,8 @@
 public class SubmarineController : MonoBehaviour
 {
   [SerializeField]
+  private GameObject tcpHost;
+  [SerializeField]
   GameObject player1;
   [SerializeField]
   GameObject player2;
@@ -131,32 +133,16 @@ public class SubmarineController : MonoBehaviour
     rb = GetComponent<Rigidbody>();
   }
 
-  // sends message to both phones containing the number of the current level
-  public void updateLevel()
+  public void UpdateLevel()
   {
-    string message = "{L(" + currentLevel + ")}";
+    Package levelUpdate = new Package(PackageType.Level, null);
+
     if (inCave)
-      message = "{" + message + "{C(1)}}";
+      levelUpdate.data.Add(0);
+    else
+      levelUpdate.data.Add(currentLevel);
 
-    //var ips = udpParser.GetComponent<UDPParser>().localIPs;
-
-    /*
-    if (ips.Count == 1)
-    {
-      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
-    }
-    else if (ips.Count == 2)
-    {
-      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
-      udpParser.GetComponent<UDPParser>().Send(message, ips[1]);
-    }
-    else if (ips.Count == 3)
-    {
-      udpParser.GetComponent<UDPParser>().Send(message, ips[0]);
-      udpParser.GetComponent<UDPParser>().Send(message, ips[1]);
-      udpParser.GetComponent<UDPParser>().Send(message, ips[2]);
-    }
-    */
+    tcpHost.GetComponent<TCPHost>().Send(levelUpdate);
   }
 
   void OnCollisionStay(Collision collision)
@@ -246,27 +232,27 @@ public class SubmarineController : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Alpha1))
     {
       currentLevel = 1;
-      updateLevel();
+      UpdateLevel();
     }
     else if (Input.GetKeyDown(KeyCode.Alpha2))
     {
       currentLevel = 2;
-      updateLevel();
+      UpdateLevel();
     }
     else if (Input.GetKeyDown(KeyCode.Alpha3))
     {
       currentLevel = 3;
-      updateLevel();
+      UpdateLevel();
     }
     else if (Input.GetKeyDown(KeyCode.Alpha4))
     {
       currentLevel = 4;
-      updateLevel();
+      UpdateLevel();
     }
     else if (Input.GetKeyDown(KeyCode.Alpha5))
     {
       currentLevel = 5;
-      updateLevel();
+      UpdateLevel();
     }
 
     //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
