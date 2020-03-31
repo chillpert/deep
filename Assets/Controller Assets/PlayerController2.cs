@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ControllerPlayer2 : MonoBehaviour, IPlayer
+public class PlayerController2 : MonoBehaviour, IPlayerController
 {
   public string Id { get; set; }
   public bool Available { get; set; }
@@ -28,6 +24,9 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
     get { return captureFlashlightStraight; }
     set { captureFlashlightStraight = value; }
   }
+
+  [HideInInspector]
+  public RoleType Role { get; set; }
 
 
   [HideInInspector]
@@ -109,7 +108,7 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
     {
       if (submarine.GetComponent<SubmarineController>().inCave)
       {
-        transform.GetComponent<GyroscopeController>().gyroController(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+        transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
         return;
       }
       else
@@ -150,13 +149,13 @@ public class ControllerPlayer2 : MonoBehaviour, IPlayer
         }
       }
 
-      if (actionPressed && player1.GetComponent<ControllerPlayer1>().reloadedTorpedo)
+      if (actionPressed && player1.GetComponent<PlayerController1>().reloadedTorpedo)
       {
         if (actionPressedFirst)
         {
           timeSinceLastFire = Time.time;
 
-          if (player1.GetComponent<ControllerPlayer1>().timeSinceLastReload < timerTemp)
+          if (player1.GetComponent<PlayerController1>().timeSinceLastReload < timerTemp)
           {
             Debug.Log("Phone 2: Fired Torpedo @" + timeSinceLastFire);
             firedTorpedo = true;

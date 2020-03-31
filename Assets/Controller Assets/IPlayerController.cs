@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum RoleType
 {
@@ -12,7 +7,7 @@ public enum RoleType
   Captain
 }
 
-public interface IPlayer
+public interface IPlayerController
 {
   string Id { get; set; }
   bool Available { get; set; }
@@ -21,4 +16,6 @@ public interface IPlayer
 
   bool CapturePhoneStraight { get; set; }
   bool CaptureFlashlightStraight { get; set; }
+
+  RoleType Role { get; set; }
 }

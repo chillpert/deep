@@ -4943,6 +4943,7 @@ GameObject:
   - component: {fileID: 52543057}
   - component: {fileID: 52543062}
   - component: {fileID: 52543058}
+  - component: {fileID: 52543059}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -4977,13 +4978,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  capturePhoneStraight: 0
-  captureFlashlightStraight: 0
-  lampDynamic: {fileID: 869327501}
+  headlight: {fileID: 869327501}
   smoothing: 0.1
-  useInterpolation: 1
+  useInterpolation: 0
   capturingPeriod: 0.025
---- !u!114 &52543062
+--- !u!114 &52543059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4992,14 +4991,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 52543056}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8c53c8072941c46be8fdd004b63e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submarine: {fileID: 110186716}
+  clampAngle: 45
+  threshold: 0.1
+  speed: 25
+--- !u!114 &52543062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52543056}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18f3b7630c35a524c8b19c246e607acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   answer: 0
   actionPressed: 0
   submarine: {fileID: 110186716}
-  capturePhoneStraight: 0
-  captureFlashlightStraight: 0
   lampDynamic: {fileID: 869327501}
   hasTimedOut: 0
 --- !u!1 &68597819 stripped
@@ -6952,7 +6965,7 @@ GameObject:
   - component: {fileID: 275641872}
   - component: {fileID: 275641871}
   m_Layer: 8
-  m_Name: LampDynamicPlayer1
+  m_Name: Headlight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6970,7 +6983,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1464250334}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &275641871
 MonoBehaviour:
@@ -9674,7 +9687,7 @@ GameObject:
   - component: {fileID: 869327503}
   - component: {fileID: 869327504}
   m_Layer: 8
-  m_Name: LampDynamicMain
+  m_Name: Headlight3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9692,7 +9705,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1464250334}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &869327503
 Light:
@@ -10214,7 +10227,7 @@ GameObject:
   - component: {fileID: 1030453710}
   - component: {fileID: 1030453709}
   m_Layer: 8
-  m_Name: LampDynamicPlayer2
+  m_Name: Headlight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10232,7 +10245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1464250334}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1030453709
 MonoBehaviour:
@@ -12356,9 +12369,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 869327502}
   - {fileID: 275641870}
   - {fileID: 1030453708}
+  - {fileID: 869327502}
   m_Father: {fileID: 110186722}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13300,6 +13313,7 @@ GameObject:
   - component: {fileID: 1718936625}
   - component: {fileID: 1718936626}
   - component: {fileID: 1718936627}
+  - component: {fileID: 1718936628}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Phone User
@@ -13328,7 +13342,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718936624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbf08e7fa0624dc4c822d1b99c42c20e, type: 3}
   m_Name: 
@@ -13358,12 +13372,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  capturePhoneStraight: 0
-  captureFlashlightStraight: 0
-  lampDynamic: {fileID: 1030453707}
+  headlight: {fileID: 1030453707}
   smoothing: 0.1
-  useInterpolation: 1
+  useInterpolation: 0
   capturingPeriod: 0.025
+--- !u!114 &1718936628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718936624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8c53c8072941c46be8fdd004b63e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submarine: {fileID: 110186716}
+  clampAngle: 45
+  threshold: 0.1
+  speed: 25
 --- !u!1 &1727349190
 GameObject:
   m_ObjectHideFlags: 0
@@ -13731,6 +13759,7 @@ GameObject:
   - component: {fileID: 1812510167}
   - component: {fileID: 1812510168}
   - component: {fileID: 1812510169}
+  - component: {fileID: 1812510170}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Phone User
@@ -13759,7 +13788,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812510166}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69d7c596137e0e14e90ec15dfecc5e79, type: 3}
   m_Name: 
@@ -13790,12 +13819,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  capturePhoneStraight: 0
-  captureFlashlightStraight: 0
-  lampDynamic: {fileID: 275641869}
+  headlight: {fileID: 275641869}
   smoothing: 0.1
-  useInterpolation: 1
+  useInterpolation: 0
   capturingPeriod: 0.025
+--- !u!114 &1812510170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812510166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8c53c8072941c46be8fdd004b63e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submarine: {fileID: 110186716}
+  clampAngle: 45
+  threshold: 0.1
+  speed: 25
 --- !u!1 &1894685311
 GameObject:
   m_ObjectHideFlags: 0

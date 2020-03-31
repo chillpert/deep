@@ -1,46 +1,35 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GyroscopeController : MonoBehaviour
 {
-  private Quaternion rotation = new Quaternion();
   [SerializeField]
-  GameObject submarine;
-
+  private GameObject submarine;
   [SerializeField]
-  GameObject lampDynamic;
+  private GameObject headlight;
 
-  float initialYAngle = 0f;
-  float appliedGyroYAngle = 0f;
-  float calibrationYAngle = 0f;
-  float tempSmoothing;
+  private Quaternion rotation;
+  private Quaternion phoneStraight;
+  private Quaternion flashlightStraight;
+  private Quaternion offset;
+  private Quaternion currentInterpolationValue;
+  private Quaternion currentInterpolationGoal;
 
-  float phoneStraightRotX = 0f;
-  float phoneStraightRotY = 0f;
-  float phoneStraightRotZ = 0f;
-  float phoneStraightRotW = 0f;
-
-  float flashlightStraightRotX = 0f;
-  float flashlightStraightRotY = 0f;
-  float flashlightStraightRotZ = 0f;
-  float flashlightStraightRotW = 0f;
-
-  float actualOffsetX;
-  float actualOffsetY;
-  float actualOffsetZ;
-  float actualOffsetW;
+  private float initialYAngle = 0f;
+  private float appliedGyroYAngle = 0f;
+  private float calibrationYAngle = 0f;
 
   [SerializeField]
   private float smoothing = 0.1f;
+  private float tempSmoothing;
+
   [SerializeField]
-  bool useInterpolation = true;
+  private bool useInterpolation = true;
   [SerializeField]
-  float capturingPeriod = 0.25f;
-  float timeStepFix = 0f;
-  Quaternion currentInterpolationValue;
-  Quaternion currentInterpolationGoal;
-  bool takeFirstValue = true;
+  private float capturingPeriod = 0.25f;
+
+  private float timeStepFix = 0f;
+  private bool takeFirstValue = true;
 
   IEnumerator Start()
   {
@@ -53,25 +42,19 @@ public class GyroscopeController : MonoBehaviour
 
   void CaptureDataHoldingStraight()
   {
-    Debug.Log("Capture holding phone straight");
-    phoneStraightRotX = rotation.x;
-    phoneStraightRotY = rotation.y;
-    phoneStraightRotZ = rotation.z;
-    phoneStraightRotW = rotation.w;
+    Debug.Log("Gyroscope Controller: Capture holding phone straight");
+    phoneStraight = rotation;
   }
 
   void CaptureDataFlashlightStraight()
   {
-    Debug.Log("Capture holding flashlight straight");
-    flashlightStraightRotX = rotation.x;
-    flashlightStraightRotY = rotation.y;
-    flashlightStraightRotZ = rotation.z;
-    flashlightStraightRotW = rotation.w;
+    Debug.Log("Gyroscope Controller: Capture holding flashlight straight");
+    flashlightStraight = rotation;
 
-    actualOffsetX = phoneStraightRotX - flashlightStraightRotX;
-    actualOffsetY = phoneStraightRotY - flashlightStraightRotY;
-    actualOffsetZ = phoneStraightRotZ - flashlightStraightRotZ;
-    actualOffsetW = phoneStraightRotW - flashlightStraightRotW;
+    offset.x = phoneStraight.x - flashlightStraight.x;
+    offset.y = phoneStraight.y - flashlightStraight.y;
+    offset.z = phoneStraight.z - flashlightStraight.z;
+    offset.w = phoneStraight.w - flashlightStraight.w;
   }
 
   private IEnumerator CalibrateYAngle()
@@ -85,11 +68,12 @@ public class GyroscopeController : MonoBehaviour
 
   private void ApplyGyroRotation()
   {
-    float x = rotation.x - actualOffsetX;
-    float y = rotation.y - actualOffsetY;
-    float z = rotation.z - actualOffsetZ;
-    float w = rotation.w - actualOffsetW;
-    Quaternion currentValue = new Quaternion(x, y, z, w);
+    Quaternion currentValue = new Quaternion(
+      rotation.x - offset.x,
+      rotation.y - offset.y,
+      rotation.z - offset.z,
+      rotation.w - offset.w
+    );
 
     if (useInterpolation)
     {
@@ -114,38 +98,38 @@ public class GyroscopeController : MonoBehaviour
       }
 
       // interpolate
-      lampDynamic.transform.rotation = Quaternion.Slerp(currentInterpolationValue, currentInterpolationGoal, fractionOfJourney);
+      headlight.transform.rotation = Quaternion.Slerp(currentInterpolationValue, currentInterpolationGoal, fractionOfJourney);
     }
     else
-      lampDynamic.transform.rotation = currentValue;
+      headlight.transform.rotation = currentValue;
 
     // this makes sure that the headlight is rotating with the submarine, but its still very buggy
-    lampDynamic.transform.Rotate(-submarine.transform.localRotation.eulerAngles);
+    headlight.transform.Rotate(-submarine.transform.localRotation.eulerAngles);
 
     //lampDynamic.transform.rotation = Quaternion.Lerp(prevRotation, rotation, Time.time * 0.01f);
 
-    lampDynamic.transform.Rotate(0f, 0f, 180f, Space.Self);
-    lampDynamic.transform.Rotate(90f, 180f, 0f, Space.World);
+    headlight.transform.Rotate(0f, 0f, 180f, Space.Self);
+    headlight.transform.Rotate(90f, 180f, 0f, Space.World);
 
-    appliedGyroYAngle = lampDynamic.transform.eulerAngles.y;
+    appliedGyroYAngle = headlight.transform.eulerAngles.y;
   }
 
   private void ApplyCalibration()
   {
-    lampDynamic.transform.Rotate(0f, -calibrationYAngle, 0f, Space.World);
+    headlight.transform.Rotate(0f, -calibrationYAngle, 0f, Space.World);
   }
 
   public void DisableLight()
   {
-    lampDynamic.GetComponent<Light>().enabled = false;
+    headlight.GetComponent<Light>().enabled = false;
   }
 
-  public void gyroController(Quaternion rotation, ref bool capturePhoneStraight, ref bool captureFlashlightStraight)
+  public void UpdateGyroscope(Quaternion rotation, ref bool capturePhoneStraight, ref bool captureFlashlightStraight)
   {
     this.rotation = rotation;
 
-    if (!lampDynamic.GetComponent<Light>().enabled)
-      lampDynamic.GetComponent<Light>().enabled = true;
+    if (!headlight.GetComponent<Light>().enabled)
+      headlight.GetComponent<Light>().enabled = true;
 
     if (capturePhoneStraight)
     {

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class SubmarineController : MonoBehaviour
 {
@@ -170,29 +167,6 @@ public class SubmarineController : MonoBehaviour
     {
       resetSubmarine();
     }
-    /*
-    else if (collision.gameObject.tag == "EnterCave1")
-    {
-      forwardOnCaveEnter = transform.forward;
-      lookAtDestination = enterLevel2.transform.forward;
-
-      inCave = true;
-      pushForward = false;
-      caveFinish = enterLevel2.transform.position;
-      Destroy(enterCave1);
-      updateLevel();
-      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-    }
-    else if (collision.gameObject.tag == "EnterLevel2")
-    {
-      inCave = false;
-      pushForward = true;
-      currentLevel = 2;
-      Destroy(enterLevel2);
-      updateLevel();
-      Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-    }
-    */
     else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
     {
       timeOnCollision = Time.time;
@@ -267,13 +241,13 @@ public class SubmarineController : MonoBehaviour
   void Update()
   {
     // if a player has timedout then pause game
-    if (player1.GetComponent<ControllerPlayer1>().hasTimedOut)
+    if (player1.GetComponent<PlayerController1>().hasTimedOut)
        return;
 
-    if (player2.GetComponent<ControllerPlayer2>().hasTimedOut)
+    if (player2.GetComponent<PlayerController2>().hasTimedOut)
       return;
 
-    if (player3.GetComponent<ControllerPlayer3>().hasTimedOut)
+    if (player3.GetComponent<PlayerController3>().hasTimedOut)
       return;
 
     //Debug.DrawRay(transform.position, transform.forward * 100f);
@@ -307,13 +281,13 @@ public class SubmarineController : MonoBehaviour
 
     //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
 
-    if (player1.GetComponent<ControllerPlayer1>().reloadedTorpedo && player2.GetComponent<ControllerPlayer2>().firedTorpedo)
+    if (player1.GetComponent<PlayerController1>().reloadedTorpedo && player2.GetComponent<PlayerController2>().firedTorpedo)
     {
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
       fireSound.Play();
 
-      player1.GetComponent<ControllerPlayer1>().reloadedTorpedo = false;
-      player2.GetComponent<ControllerPlayer2>().firedTorpedo = false;
+      player1.GetComponent<PlayerController1>().reloadedTorpedo = false;
+      player2.GetComponent<PlayerController2>().firedTorpedo = false;
 
       timeSinceLastTorepdo = Time.time;
     }

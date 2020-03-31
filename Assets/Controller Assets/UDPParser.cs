@@ -18,18 +18,18 @@ public class UDPParser : UDPListener
   [SerializeField]
   GameObject player3;
 
-  private IPlayer SetPlayer()
+  private IPlayerController SetPlayer()
   {
     switch (role)
     {
       case RoleType.OppsCommander:
-        return player1.GetComponent<ControllerPlayer1>();
+        return player1.GetComponent<PlayerController1>();
 
       case RoleType.WeaponsOfficer:
-        return player2.GetComponent<ControllerPlayer2>();
+        return player2.GetComponent<PlayerController2>();
 
       case RoleType.Captain:
-        return player3.GetComponent<ControllerPlayer3>();
+        return player3.GetComponent<PlayerController3>();
     }
 
     Debug.LogError("UDPParser: Can not assign role");

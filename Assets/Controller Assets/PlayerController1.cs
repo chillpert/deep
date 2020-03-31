@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ControllerPlayer1 : MonoBehaviour, IPlayer
+public class PlayerController1 : MonoBehaviour, IPlayerController
 {
   public string Id { get; set; }
   public bool Available { get; set; }
@@ -28,6 +24,9 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
     get { return captureFlashlightStraight; }
     set { captureFlashlightStraight = value; }
   }
+
+  [HideInInspector]
+  public RoleType Role { get; set; }
 
   [HideInInspector]
   public float answer = 0f;
@@ -107,7 +106,7 @@ public class ControllerPlayer1 : MonoBehaviour, IPlayer
     {
       if (submarine.GetComponent<SubmarineController>().inCave)
       {
-        transform.GetComponent<GyroscopeController>().gyroController(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+        transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
         return;
       }
       else

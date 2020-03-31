@@ -127,21 +127,6 @@ public class TCPHost : MonoBehaviour
     return true;
   }
 
-  private IPlayer GetPlayerBySenderID(Package p)
-  {
-    if (player1.GetComponent<ControllerPlayer1>().Id == p.senderId)
-      return player1.GetComponent<ControllerPlayer1>();
-    
-    if (player2.GetComponent<ControllerPlayer2>().Id == p.senderId)
-      return player2.GetComponent<ControllerPlayer2>();
-
-    if (player3.GetComponent<ControllerPlayer3>().Id == p.senderId)
-      return player3.GetComponent<ControllerPlayer3>();
-
-    Debug.LogError("Can not identify player by Sender ID");
-    return null;
-  }
-
   public void DataManager(Package p)
   {
     Debug.Log("TCPHost: Incoming package: " + p.packetType);
@@ -150,7 +135,7 @@ public class TCPHost : MonoBehaviour
       case PackageType.Selection:
         var enumValue = (RoleType)Enum.Parse(typeof(RoleType), p.data[0].ToString());
 
-        IPlayer player = null;
+        IPlayerController player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
           if (ConnectedClients.Count < roles.Length)
@@ -158,21 +143,21 @@ public class TCPHost : MonoBehaviour
             if (enumValue == RoleType.OppsCommander)
             {
               Debug.Log("TCPHost: Player 1 selected");
-              player = player1.GetComponent<ControllerPlayer1>();
+              player = player1.GetComponent<PlayerController1>();
               player.Available = false;
               roles[0] = false;
             }
             else if (enumValue == RoleType.WeaponsOfficer)
             {
               Debug.Log("TCPHost: Player 2 selected");
-              player = player2.GetComponent<ControllerPlayer2>();
+              player = player2.GetComponent<PlayerController2>();
               player.Available = false;
               roles[1] = false;
             }
             else if (enumValue == RoleType.Captain)
             {
               Debug.Log("TCPHost: Player 3 selected");
-              player = player3.GetComponent<ControllerPlayer3>();
+              player = player3.GetComponent<PlayerController3>();
               player.Available = false;
               roles[2] = false;
             }
@@ -216,21 +201,21 @@ public class TCPHost : MonoBehaviour
             if (enumValue == RoleType.OppsCommander)
             {
               Debug.Log("TCPHost: Player 1 disconnected");
-              player = player1.GetComponent<ControllerPlayer1>();
+              player = player1.GetComponent<PlayerController1>();
               player.Available = true;
               roles[0] = true;
             }
             else if (enumValue == RoleType.WeaponsOfficer)
             {
               Debug.Log("TCPHost: Player 2 disconnected");
-              player = player2.GetComponent<ControllerPlayer2>();
+              player = player2.GetComponent<PlayerController2>();
               player.Available = true;
               roles[1] = true;
             }
             else if (enumValue == RoleType.Captain)
             {
               Debug.Log("TCPHost: Player 3 disconnected");
-              player = player3.GetComponent<ControllerPlayer3>();
+              player = player3.GetComponent<PlayerController3>();
               player.Available = true;
               roles[2] = true;
             }            
@@ -251,7 +236,6 @@ public class TCPHost : MonoBehaviour
 
           --connectInt;
 
-
           Package roleAvailability = new Package(PackageType.Disconnected, p.senderId);
           roleAvailability.data.Add(roles);
 
@@ -267,15 +251,15 @@ public class TCPHost : MonoBehaviour
         {
           if (enumValue == RoleType.OppsCommander)
           {
-            player = player1.GetComponent<ControllerPlayer1>();
+            player = player1.GetComponent<PlayerController1>();
           }
           else if (enumValue == RoleType.WeaponsOfficer)
           {
-            player = player2.GetComponent<ControllerPlayer2>();
+            player = player2.GetComponent<PlayerController2>();
           }
           else if (enumValue == RoleType.Captain)
           {
-            player = player3.GetComponent<ControllerPlayer3>();
+            player = player3.GetComponent<PlayerController3>();
           }
 
           player.CapturePhoneStraight = true;
@@ -291,15 +275,15 @@ public class TCPHost : MonoBehaviour
         {
           if (enumValue == RoleType.OppsCommander)
           {
-            player = player1.GetComponent<ControllerPlayer1>();
+            player = player1.GetComponent<PlayerController1>();
           }
           else if (enumValue == RoleType.WeaponsOfficer)
           {
-            player = player2.GetComponent<ControllerPlayer2>();
+            player = player2.GetComponent<PlayerController2>();
           }
           else if (enumValue == RoleType.Captain)
           {
-            player = player3.GetComponent<ControllerPlayer3>();
+            player = player3.GetComponent<PlayerController3>();
           }
 
           player.CaptureFlashlightStraight = true;

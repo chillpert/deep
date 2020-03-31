@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ControllerPlayer3 : MonoBehaviour, IPlayer
+public class PlayerController3 : MonoBehaviour, IPlayerController
 {
   public string Id { get; set; }
   public bool Available { get; set; }
@@ -30,6 +25,8 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
     set { captureFlashlightStraight = value; }
   }
 
+  [HideInInspector]
+  public RoleType Role { get; set; }
 
   [HideInInspector]
   public float answer = 0f;
@@ -46,8 +43,6 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
   float timeOnConnect = 0f;
   [HideInInspector]
   public bool hasTimedOut = false;
-
-
 
   void Start()
   {
@@ -85,7 +80,7 @@ public class ControllerPlayer3 : MonoBehaviour, IPlayer
 
     if (!Available)
     {
-      transform.GetComponent<GyroscopeController>().gyroController(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+      transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
     }
   }
 }
