@@ -68,18 +68,81 @@ public class PlayerController : MonoBehaviour
       if (InCave())
         return;
 
-      RotateSubmarine(Axis.Y, Acceleration.x);
+      switch (SubmarineController.currentLevel)
+      {
+        case 1:
+          RotateSubmarine(Axis.Y, Acceleration.x);
+          break;
+
+        case 2:
+          RotateSubmarine(Axis.X, -Acceleration.z);
+          break;
+
+        case 3:
+          RotateHeadlight();
+          break;
+
+        case 4:
+          RotateSubmarine(Axis.Y, Acceleration.x);
+          break;
+
+        case 5:
+          RotateSubmarine(Axis.X, -Acceleration.z);
+          break;
+      }
     }
     else if (role == RoleType.WeaponsOfficer)
     {
       if (InCave())
         return;
 
-      RotateSubmarine(Axis.X, -Acceleration.z);
+      switch (SubmarineController.currentLevel)
+      {
+        case 1:
+          RotateSubmarine(Axis.X, -Acceleration.z);
+          break;
+
+        case 2:
+          RotateHeadlight();
+          break;
+
+        case 3:
+          RotateSubmarine(Axis.Y, Acceleration.x);
+          break;
+
+        case 4:
+          RotateSubmarine(Axis.X, -Acceleration.z);
+          break;
+
+        case 5:
+          RotateHeadlight();
+          break;
+      }
     }
     else if (role == RoleType.Captain)
     {
-      transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+      switch (SubmarineController.currentLevel)
+      {
+        case 1:
+          RotateHeadlight();
+          break;
+
+        case 2:
+          RotateSubmarine(Axis.Y, Acceleration.x);
+          break;
+
+        case 3:
+          RotateSubmarine(Axis.X, -Acceleration.z);
+          break;
+
+        case 4:
+          RotateHeadlight();
+          break;
+
+        case 5:
+          RotateSubmarine(Axis.Y, Acceleration.x);
+          break;
+      }
     }
   }
 
@@ -127,5 +190,10 @@ public class PlayerController : MonoBehaviour
 
     transform.GetComponent<GyroscopeController>().DisableLight();
     return false;
+  }
+
+  private void RotateHeadlight()
+  {
+    transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
   }
 }
