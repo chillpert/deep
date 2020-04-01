@@ -51,63 +51,49 @@ public class AudioController : MonoBehaviour
     }
   }
 
-  private void OnCollisionEnter(Collision collision)
-  {
-    if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
-    {
-      if (damageCoolDown)
-      {
-        if (Time.time - timeOnHitWall > 10f)
-          damageCoolDown = false;         
-      }
-      else
-      {
-        timeOnHitWall = Time.time;
-        damageCoolDown = true;
-
-        PlayDamageSound();
-      }
-    }
-
-    if (collision.gameObject.name.Equals("FoundCave1"))
-      PlayFoundCave1();
-
-    if (collision.gameObject.name.Equals("EnterCave1"))
-      PlayEnterCave1();
-  }
-
-  private void PlayDamageSound()
+  public void PlayDamageSound()
   {
     if (muteDamage)
       return;
 
-    if (submarineController.Health > 66f)
+    if (damageCoolDown)
     {
-      damageA.Play();
-    }
-    else if (submarineController.Health <= 66f && submarineController.Health > 33f)
-    {
-      if (Random.Range(0.0f, 1.0f) < 0.5f)
-        damageB.Play();
-      else
-        damageA.Play();
+      if (Time.time - timeOnHitWall > 10f)
+        damageCoolDown = false;
     }
     else
     {
-      if (Random.Range(0.0f, 1.0f) < 0.5f)
-        damageC.Play();
+      timeOnHitWall = Time.time;
+      damageCoolDown = true;
+
+      if (submarineController.Health > 66f)
+      {
+        damageA.Play();
+      }
+      else if (submarineController.Health <= 66f && submarineController.Health > 33f)
+      {
+        if (Random.Range(0.0f, 1.0f) < 0.5f)
+          damageB.Play();
+        else
+          damageA.Play();
+      }
       else
-        damageD.Play();
+      {
+        if (Random.Range(0.0f, 1.0f) < 0.5f)
+          damageC.Play();
+        else
+          damageD.Play();
+      }
     }
   }
 
-  private void PlayFoundCave1()
+  public void PlayFoundCave1()
   {
     if (!muteStory)
       foundCave1.Play();
   }
 
-  private void PlayEnterCave1()
+  public void PlayEnterCave1()
   {
     if (!muteStory)
       enterCave1.Play();

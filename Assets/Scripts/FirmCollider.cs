@@ -7,14 +7,14 @@ public class FirmCollider : MonoBehaviour
   private float caveAnimationSpeed = 5f;
   
   private SubmarineController submarineController;
+  private AudioController audioController;
   private GameObject submarine;
-  private CustomFollowerPath customFollowerPath;
 
   private void Start()
   {
     submarine = GameObject.Find("Submarine");
+    audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     submarineController = submarine.GetComponent<SubmarineController>();
-    customFollowerPath = submarine.GetComponent<CustomFollowerPath>();
   }
 
   private void Update()
@@ -53,14 +53,10 @@ public class FirmCollider : MonoBehaviour
   private void OnCollisionEnter(Collision collision)
   {
     if (collision.gameObject.CompareTag("EnterCave"))
-    {
       EnterCave(collision);
-    }
 
     if (collision.gameObject.CompareTag("EnterLevel"))
-    {
       EnterLevel(++submarineController.Level);
-    }
 
     if (collision.gameObject.CompareTag("TunnelMesh"))
     {
@@ -88,6 +84,16 @@ public class FirmCollider : MonoBehaviour
       Destroy(collision.gameObject); // or play destruction animation or similar effects
     }
 
+    // audio
+    if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
+      audioController.PlayDamageSound();
+
+    if (collision.gameObject.name.Equals("FoundCave1"))
+      audioController.PlayFoundCave1();
+
+    if (collision.gameObject.name.Equals("EnterCave1"))
+      audioController.PlayEnterCave1();
+
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
   }
 
@@ -112,7 +118,7 @@ public class FirmCollider : MonoBehaviour
     {
       path.AddComponent<CustomPathCreator>();
       path.GetComponent<PathCreation.PathCreator>().bezierPath.IsClosed = false;
-      customFollowerPath.PathCreator = path.GetComponent<PathCreation.PathCreator>();
+      submarine.GetComponent<CustomFollowerPath>().PathCreator = path.GetComponent<PathCreation.PathCreator>();
     }
 
     // set start object
@@ -144,8 +150,8 @@ public class FirmCollider : MonoBehaviour
       Destroy(path.GetComponent<PathCreation.PathCreator>());
     }
 
-    if (customFollowerPath != null)
-      Destroy(customFollowerPath);
+    if (submarine.GetComponent<CustomFollowerPath>() != null)
+      Destroy(submarine.GetComponent<CustomFollowerPath>());
 
     submarineController.Level = level;
     UpdateLevel();

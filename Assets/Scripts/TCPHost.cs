@@ -131,7 +131,7 @@ public class TCPHost : MonoBehaviour
 
   public void DataManager(Package p)
   {
-    Debug.Log("TCPHost: Incoming package: " + p.packetType);
+    // Debug.Log("TCPHost: Incoming package: " + p.packetType);
     switch (p.packetType)
     {
       case PackageType.Selection:

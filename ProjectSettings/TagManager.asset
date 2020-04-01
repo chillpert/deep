@@ -16,6 +16,7 @@ TagManager:
   - Destructables
   - EnterCave
   - EnterLevel
+  - FoundCave
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - 
   - Submarine
   - LerpStop
-  - SubmarineCollisionHelper
+  - 
   - TunnelMesh
   - Torpedo
   - Destructables

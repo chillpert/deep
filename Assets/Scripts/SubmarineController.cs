@@ -148,6 +148,7 @@ public class SubmarineController : MonoBehaviour
 
   private void ResetSubmarine()
   {
+    Debug.Log("Submarine Controller: Reset");
     startInvincibilityFrames = false;
     startBouncing = false;
     TurnCamStraight = false;
