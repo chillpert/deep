@@ -5,18 +5,15 @@ using UnityEngine;
 public class MissileController : MonoBehaviour
 {
 	[SerializeField]
-	public GameObject trailFX;
+	public GameObject trailFX = null;
 	[SerializeField]
-	public GameObject explosionFX;
+	public GameObject explosionFX = null;
 	[SerializeField]
 	float controlSpeed = 1.5f;
-
-	float startTime;
 	
   void Start()
   {
 		Destroy(transform.root.gameObject, 10);
-		startTime = Time.timeSinceLevelLoad;
 	}
 
   void Update()

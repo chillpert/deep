@@ -1,11 +1,10 @@
-﻿// http://wiki.unity3d.com/index.php/ReverseNormals
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
  
 [RequireComponent(typeof(MeshFilter))]
 public class ReverseNormals : MonoBehaviour {
  
-	void Start () {
+	void Start ()
+	{
 		MeshFilter filter = GetComponent(typeof (MeshFilter)) as MeshFilter;
 		if (filter != null)
 		{

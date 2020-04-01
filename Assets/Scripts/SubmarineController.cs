@@ -189,7 +189,7 @@ public class SubmarineController : MonoBehaviour
     if (!start)
       return;
 
-    if (!invincible)
+    if (invincible)
       Health = maxHealth;
 
     if (Time.time > invincibilityTimeOffset)
