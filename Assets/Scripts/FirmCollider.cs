@@ -60,7 +60,6 @@ public class FirmCollider : MonoBehaviour
 
     if (collision.gameObject.CompareTag("TunnelMesh"))
     {
-      Debug.Log("Tunnel Mesh");
       StartCoroutine(submarineController.Cam.Shake());
 
       if (!submarineController.IFrames)
