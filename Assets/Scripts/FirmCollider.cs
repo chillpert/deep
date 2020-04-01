@@ -19,6 +19,10 @@ public class FirmCollider : MonoBehaviour
 
   private void Update()
   {
+    transform.position = submarine.transform.position;
+    transform.rotation = submarine.transform.rotation;
+    transform.forward = submarine.transform.forward;
+
     if (Input.GetKeyDown(KeyCode.Alpha1))
     {
       submarineController.Level = 1;
@@ -69,14 +73,10 @@ public class FirmCollider : MonoBehaviour
     }
 
     if (collision.gameObject.CompareTag("LerpStopIn"))
-    {
       submarineController.TurnCamStraight = false;
-    }
 
     if (collision.gameObject.CompareTag("LerpStopOut"))
-    {
       submarineController.TurnCamStraight = false;
-    }
 
     if (collision.gameObject.CompareTag("Destructables"))
     {
