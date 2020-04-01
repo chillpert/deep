@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -29,11 +27,11 @@ public class ClientData
 public class TCPHost : MonoBehaviour
 {
   [SerializeField]
-  GameObject player1;
+  GameObject player1 = null;
   [SerializeField]
-  GameObject player2;
+  GameObject player2 = null;
   [SerializeField]
-  GameObject player3;
+  GameObject player3 = null;
 
   private Socket serverSocket;
   private bool firstRun;

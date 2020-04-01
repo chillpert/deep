@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public enum PackageType
 {
@@ -46,7 +47,7 @@ public class Package
     }
     catch (Exception e)
     {
-
+      Debug.LogError(e.Message);
     }
     finally
     {

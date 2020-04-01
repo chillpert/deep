@@ -13,13 +13,10 @@ public class PlayerController : MonoBehaviour
 {
   public string Id { get; set; }
   public bool Available { get; set; }
-  [HideInInspector]
   public Vector3 Acceleration { get; set; }
-  [HideInInspector]
   public Quaternion Rotation { get; set; }
 
   private bool capturePhoneStraight;
-  [HideInInspector]
   public bool CapturePhoneStraight
   {
     get { return capturePhoneStraight; }
@@ -27,7 +24,6 @@ public class PlayerController : MonoBehaviour
   }
 
   private bool captureFlashlightStraight;
-  [HideInInspector]
   public bool CaptureFlashlightStraight
   {
     get { return captureFlashlightStraight; }
@@ -35,14 +31,16 @@ public class PlayerController : MonoBehaviour
   }
 
   [SerializeField]
-  private RoleType role;
+  private RoleType role = RoleType.OppsCommander;
 
   public bool OnAction { get; set; }
 
-  [SerializeField]
   private GameObject submarine;
   private GameObject rotationDummy;
-  
+
+  private SubmarineController submarineController;
+  private GyroscopeController gyroscopeController;
+
   [SerializeField]
   private float clampAngle = 45f;
   [SerializeField]
@@ -56,6 +54,10 @@ public class PlayerController : MonoBehaviour
   {
     OnAction = false;
     rotationDummy = new GameObject("RotationDummy" + ++rotationDummyCounter);
+
+    submarine = GameObject.Find("Submarine");
+    submarineController = submarine.GetComponent<SubmarineController>();
+    gyroscopeController = transform.GetComponent<GyroscopeController>();
   }
 
   private void Update()
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
       if (InCave())
         return;
 
-      switch (SubmarineController.currentLevel)
+      switch (submarineController.Level)
       {
         case 1:
           RotateSubmarine(Axis.Y, Acceleration.x);
@@ -96,7 +98,7 @@ public class PlayerController : MonoBehaviour
       if (InCave())
         return;
 
-      switch (SubmarineController.currentLevel)
+      switch (submarineController.Level)
       {
         case 1:
           RotateSubmarine(Axis.X, -Acceleration.z);
@@ -121,7 +123,7 @@ public class PlayerController : MonoBehaviour
     }
     else if (role == RoleType.Captain)
     {
-      switch (SubmarineController.currentLevel)
+      switch (submarineController.Level)
       {
         case 1:
           RotateHeadlight();
@@ -175,25 +177,25 @@ public class PlayerController : MonoBehaviour
 
       rotationDummy.transform.Rotate(dir * speed * Time.deltaTime);
 
-      if (Vector3.Angle(rotationDummy.transform.forward, CollisionsWithoutImpact.forward) < clampAngle)
+      if (Vector3.Angle(rotationDummy.transform.forward, submarine.transform.forward) < clampAngle)
         submarine.transform.Rotate(dir * speed * Time.deltaTime);
     }
   }
 
   private bool InCave()
   {
-    if (submarine.GetComponent<SubmarineController>().inCave)
+    if (submarineController.InCave)
     {
-      transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+      gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
       return true;
     }
 
-    transform.GetComponent<GyroscopeController>().DisableLight();
+    gyroscopeController.DisableLight();
     return false;
   }
 
   private void RotateHeadlight()
   {
-    transform.GetComponent<GyroscopeController>().UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+    gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
   }
 }

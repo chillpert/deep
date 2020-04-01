@@ -2,129 +2,112 @@
 
 public class SubmarineController : MonoBehaviour
 {
-  [SerializeField]
-  private GameObject tcpHost;
-  [SerializeField]
-  GameObject player1;
-  [SerializeField]
-  GameObject player2;
-  [SerializeField]
-  GameObject player3;
-  [SerializeField]
-  GameObject udpParser;
-  [HideInInspector]
-  public static int currentLevel = 1;
-  [SerializeField]
-  float speedControls;
-  [SerializeField]
-  float constantVelocity;
-  [SerializeField]
-  public GameObject camera;
-  [SerializeField]
-  float maxHealth;
-  [SerializeField]
-  public float currentHealth;
-  [SerializeField]
-  public float damageTunnelMesh;
-  [SerializeField]
-  public float damageTunnelWall;
-  [SerializeField]
-  public float damageDestuctables;
-  [SerializeField]
-  bool canDie;
-  [SerializeField]
-  float invincibilityTime;
-  [SerializeField]
-  GameObject missile;
-  [SerializeField]
-  float lerpDuration;
-  [SerializeField]
-  GameObject submarineColliderHelper;
-  [SerializeField]
-  float voiceOnDamagePeriod = 5.0f;
-  bool playvoiceOnDamage = false;
+  public int Level { get; set; }
+  public bool InCave { get; set; }
+  public TCPHost TcpHost { get; set; }
+  public CameraShake Cam { get; set; }
+
+  private AudioController audioController;
+  private PlayerController player1;
+  private PlayerController player2;
 
   [SerializeField]
-  public GameObject enterCave1;
-  [SerializeField]
-  public GameObject enterLevel2;
-  [SerializeField]
-  public GameObject enterCave2;
-  [SerializeField]
-  public GameObject enterLevel3;
+  private GameObject missile = null;
+  private GameObject firmCollider = null;
+
+  #region Health and Damage
+  public float Health { get; set; }
+  public bool IFrames { get; set; }
 
   [SerializeField]
-  GameObject damageSphere;
-  [SerializeField]
-  Material damageMaterial0;
-  [SerializeField]
-  Material damageMaterial1;
-  [SerializeField]
-  Material damageMaterial2;
-  [SerializeField]
-  Material damageMaterial3;
-  
-  [SerializeField]
-  AudioSource fireSound;
-  [SerializeField]
-  AudioSource damageSound1A;
-  [SerializeField]
-  AudioSource damageSound1B;
-  [SerializeField]
-  AudioSource damageSound2A;
-  [SerializeField]
-  AudioSource damageSound2B;
-  [SerializeField]
-  AudioSource damageSound3A;
-  [SerializeField]
-  AudioSource damageSound3B;
-
-  [HideInInspector]
-  public bool turnCamStraight = false;
-  [HideInInspector]
-  public bool isInvincible = false;
-  float invincibilityTimeOffset = 0.0f;
-
-  [HideInInspector]
-  public Vector3 respawnPosition;
-  [HideInInspector]
-  public Quaternion respawnOrientation;
-
-  Quaternion respawnRotation;
-  Vector3 respawnForward;
-
-  [HideInInspector]
-  public float timeSinceLastTorepdo = 0f;
-
-  public bool pushForward = true;
-  public bool inCave = false;
-
-  public Vector3 caveFinish;
-  public Vector3 lookAtDestination;
-  public Vector3 forwardOnCaveEnter;
-
-  float lockPos = 0f;
-  bool start = false;
-  Vector3 directionToLerpTo;
-  Vector3 directionOnCollision;
+  private bool invincible = false;
 
   [SerializeField]
-  float invincibilityPeriod;
+  private int damageTunnelMesh;
+
+  public int DamageTunnelMesh
+  {
+    get { return damageTunnelMesh; }
+    set { damageTunnelMesh = value; }
+  }
+
   [SerializeField]
-  float bouncePeriod;
+  private float damageWall = 10f;
+  [SerializeField]
+  private int damageDestructables;
 
-  float timeOnCollision;
-  float prevTimeOnCollision;
-  bool startInvincibilityFrames = false;
-  bool startBouncing = false;
+  public int DamageDestructables
+  {
+    get { return damageDestructables; }
+    set { damageDestructables = value; }
+  }
 
-  Rigidbody rb;
+  private const float maxHealth = 100f;
+  private float invincibilityTimeOffset = 0.0f;
+
+  [SerializeField]
+  private float invincibilityPeriod = 2f;
+  #endregion
+
+  #region Controls
+  [SerializeField]
+  private float speedControls = 20f;
+  [SerializeField]
+  private float constantVelocity = 5f;
+  [SerializeField]
+  private float invincibilityTime = 1.5f;
+  [SerializeField]
+  private float lerpDuration = 2f;
+  [SerializeField]
+  private float bouncePeriod = 0.5f;
+
+  public bool TurnCamStraight { get; set; }
+  private bool start = false;
+  private float timeOnCollision;
+  private bool startInvincibilityFrames = false;
+  private bool startBouncing = false;
+  #endregion
+
+  #region Damage texture
+  [SerializeField]
+  GameObject damageSphere = null;
+  [SerializeField]
+  Material damageMaterial0 = null;
+  [SerializeField]
+  Material damageMaterial1 = null;
+  [SerializeField]
+  Material damageMaterial2 = null;
+  [SerializeField]
+  Material damageMaterial3 = null;
+  #endregion
+
+  #region Transform
+  private Vector3 respawnPosition;
+  private Vector3 respawnForward;
+  private Quaternion respawnRotation;
+
+  private Vector3 directionToLerpTo;
+  private Vector3 directionOnCollision;
+
+  private Rigidbody rb;
+  #endregion
 
   void Start()
   {
-    currentHealth = maxHealth;
+    Level = 1;
+    InCave = false;
+    IFrames = false;
+    TurnCamStraight = false;
 
-    lockPos = 0f;
+    Cam = GameObject.Find("Camera").GetComponent<CameraShake>();
+    TcpHost = GameObject.Find("TCPHost").GetComponent<TCPHost>();
+    audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
+    player1 = GameObject.Find("Player1").GetComponent<PlayerController>();
+    player2 = GameObject.Find("Player2").GetComponent<PlayerController>();
+
+    firmCollider = GameObject.Find("FirmCollider");
+
+    Health = maxHealth;
     
     respawnPosition = transform.position;
     respawnForward = transform.forward;
@@ -133,91 +116,55 @@ public class SubmarineController : MonoBehaviour
     rb = GetComponent<Rigidbody>();
   }
 
-  public void UpdateLevel()
-  {
-    Package levelUpdate = new Package(PackageType.Level, null);
-
-    if (inCave)
-      levelUpdate.data.Add(0);
-    else
-      levelUpdate.data.Add(currentLevel);
-
-    tcpHost.GetComponent<TCPHost>().Send(levelUpdate);
-  }
-
   void OnCollisionStay(Collision collision)
   {    
-    StartCoroutine(camera.GetComponent<CameraShake>().Shake());
+    StartCoroutine(Cam.GetComponent<CameraShake>().Shake());
     
-    if (collision.gameObject.tag == "Finish")
-    {
-      resetSubmarine();
-    }
-    else if (collision.gameObject.tag == "Bridge" || collision.gameObject.tag == "Wall")
+    if (collision.gameObject.CompareTag("Finish"))
+      ResetSubmarine();
+
+    if (collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Wall"))
     {
       timeOnCollision = Time.time;
 
       startInvincibilityFrames = true;
       startBouncing = true;
 
-      if (!isInvincible)
-        currentHealth -= damageTunnelWall;
+      if (!IFrames)
+        Health -= damageWall;
       
       updateDamageTexture();
 
-      if (timeOnCollision - prevTimeOnCollision > voiceOnDamagePeriod)
-        playDamageSound();
-
-      prevTimeOnCollision = timeOnCollision;
-
-      //transform.Translate(collision.gameObject.GetComponent<VectorContainer>().orthogonal);
       rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
 
       directionOnCollision = transform.forward;
       directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
-      //transform.forward = collision.gameObject.GetComponent<VectorContainer>().forward;
 
-      turnCamStraight = true;
+      TurnCamStraight = true;
     }
 
-    isInvincible = true;
+    IFrames = true;
   }
 
-  void resetSubmarine()
+  private void ResetSubmarine()
   {
-    inCave = false;
     startInvincibilityFrames = false;
     startBouncing = false;
-    turnCamStraight = false;
-    isInvincible = false;
-    pushForward = true;
-
-    //CollisionsWithoutImpact.forward = new Vector3(0f, 0f, 1f);
+    TurnCamStraight = false;
+    IFrames = false;
 
     // needs to be changed to respawn position
     transform.position = respawnPosition;
     transform.forward = respawnForward;
     transform.rotation = respawnRotation;
 
-    submarineColliderHelper.transform.position = respawnPosition;
-    submarineColliderHelper.transform.forward = respawnForward;
-    submarineColliderHelper.transform.rotation = respawnRotation;
+    Destroy(gameObject.GetComponent<SphereCollider>());
+    gameObject.AddComponent<SphereCollider>();
 
-    //transform.rotation = Quaternion.Euler(lockPos, lockPos, lockPos);
+    Destroy(firmCollider.GetComponent<SphereCollider>());
+    firmCollider.AddComponent<SphereCollider>();
 
-    //Destroy(gameObject.GetComponent<Rigidbody>());
-    Destroy(gameObject.GetComponent<BoxCollider>());
-
-    //gameObject.AddComponent<Rigidbody>();
-    gameObject.AddComponent<BoxCollider>();
-
-    //Destroy(submarineColliderHelper.GetComponent<Rigidbody>());
-    Destroy(submarineColliderHelper.GetComponent<BoxCollider>());
-
-    //submarineColliderHelper.AddComponent<Rigidbody>();
-    submarineColliderHelper.AddComponent<BoxCollider>();
-
-    currentHealth = maxHealth;
+    Health = maxHealth;
     updateDamageTexture();
 
     rb.velocity = Vector3.zero;
@@ -226,69 +173,35 @@ public class SubmarineController : MonoBehaviour
 
   void Update()
   {
-    //Debug.DrawRay(transform.position, transform.forward * 100f);
-
-    // demo code for swapping control schemes
-    if (Input.GetKeyDown(KeyCode.Alpha1))
-    {
-      currentLevel = 1;
-      UpdateLevel();
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha2))
-    {
-      currentLevel = 2;
-      UpdateLevel();
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha3))
-    {
-      currentLevel = 3;
-      UpdateLevel();
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha4))
-    {
-      currentLevel = 4;
-      UpdateLevel();
-    }
-    else if (Input.GetKeyDown(KeyCode.Alpha5))
-    {
-      currentLevel = 5;
-      UpdateLevel();
-    }
-
-    //Debug.Log("R: " + player1.GetComponent<ControllerPlayer1>().reloadedTorpedo + " | F: " + player2.GetComponent<ControllerPlayer2>().firedTorpedo);
-
-    if (player1.GetComponent<PlayerController>().OnAction && player2.GetComponent<PlayerController>().OnAction)
+    // fire torpedo
+    if (player1.OnAction && player2.OnAction)
     {
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-      fireSound.Play();
+      audioController.PlayTorpedoLaunch();
 
-      player1.GetComponent<PlayerController>().OnAction = false;
-      player2.GetComponent<PlayerController>().OnAction = false;
-
-      timeSinceLastTorepdo = Time.time;
+      player1.OnAction = false;
+      player2.OnAction = false;
     }
 
-    if (Input.GetKeyDown(KeyCode.Space))// || udpParser.GetComponent<UDPParser>().localIPs.Count == 3)
-    {
+    if (Input.GetKeyDown(KeyCode.Space) || TcpHost.GetComponent<TCPHost>().ConnectedClients.Count == 3)
       start = !start;
-    }
 
     if (!start)
       return;
 
-    if (!canDie)
-      currentHealth = maxHealth;
+    if (!invincible)
+      Health = maxHealth;
 
     if (Time.time > invincibilityTimeOffset)
     {
       invincibilityTimeOffset += invincibilityTime;
-      isInvincible = false;
+      IFrames = false;
     }
 
-    if (currentHealth <= 0f)
+    if (Health <= 0f)
     {
-      resetSubmarine();
-      currentHealth = maxHealth;
+      ResetSubmarine();
+      Health = maxHealth;
     }
 
     // on wall collision make submarine invincible for a certain amount of time
@@ -310,110 +223,55 @@ public class SubmarineController : MonoBehaviour
       }
     }
     
-    if (turnCamStraight)
+    // turn camera straight when wall is hit
+    if (TurnCamStraight)
     {
       float fracComplete = (Time.time - timeOnCollision) / lerpDuration;
 
       transform.forward = Vector3.Lerp(directionOnCollision, directionToLerpTo, fracComplete);
 
       if (Vector3.Angle(transform.forward, directionToLerpTo) <= 5f)
-        turnCamStraight = false;
+        TurnCamStraight = false;
     }
 
-    if (playvoiceOnDamage)
-    {
-      playDamageSound();
-      playvoiceOnDamage = false;
-    }
+    transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
 
-    if (inCave)
-    {
-      //Debug.Log(Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f) + " to " + lookAtDestination);
-      //transform.LookAt(caveFinish);
-
-      //transform.position = Vector3.MoveTowards(transform.position, caveFinish, constantVelocity * Time.deltaTime);
-      //transform.forward = Vector3.Lerp(forwardOnCaveEnter, lookAtDestination, Time.deltaTime * 2.0f);
-
-      //inCave = false;
-      //transform.position = caveFinish;
-      //transform.forward = lookAtDestination;
-    }
-
-    if (pushForward)
-      transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
-    
+    // debug keyboard controller
     if (Input.GetKey("up") || Input.GetKey("w"))
-    {
       transform.Rotate(-speedControls * Time.deltaTime, 0f, 0f);
-    }
 
     if (Input.GetKey("down") || Input.GetKey("s"))
-    {
       transform.Rotate(speedControls * Time.deltaTime, 0f, 0f);
-    }
 
     if (Input.GetKey("left") || Input.GetKey("a"))
-    {
       transform.Rotate(0f, -speedControls * Time.deltaTime, 0f);
-    }
 
     if (Input.GetKey("right") || Input.GetKey("d"))
-    {
       transform.Rotate(0f, speedControls * Time.deltaTime, 0f);
+
+    // Fire the missile
+    if (Input.GetKeyDown("f"))
+    {
+      Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+      GetComponent<AudioSource>().Play();
     }
 
     // lock z-axis
-    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, lockPos);
-    
-    if (Input.GetKeyDown("f")) // Fire the missile
-    {
-		  Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-		  GetComponent<AudioSource>().Play();
-	  }
+    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0f);
   }
   
   public void updateDamageTexture()
   {
-	  if(currentHealth > 75)
-	  {
+	  if (Health > 75f)
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial0;
-	  }
-	  else if(currentHealth <= 75 && currentHealth > 50)
-	  {
+
+	  else if (Health <= 75f && Health > 50f)
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial1;
-	  }
-	  else if(currentHealth <= 50 && currentHealth > 25)
-	  {
+
+	  else if (Health <= 50f && Health > 25f)
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial2;
-	  }
-	  else
-	  {
-		  damageSphere.GetComponent<Renderer>().material = damageMaterial3;
-	  }
-  }
-  
-  void playDamageSound()
-  {
-    if (currentHealth > 66)
-    {
-      if (Random.Range(0.0f, 1.0f) < 0.5f)
-        damageSound1A.Play();
-      else
-        damageSound1B.Play();
-    }
-    else if (currentHealth <= 66 && currentHealth > 33)
-    {
-      if (Random.Range(0.0f, 1.0f) < 0.5f)
-        damageSound2A.Play();
-      else
-        damageSound2B.Play();
-    }
+	  
     else
-    {
-      if (Random.Range(0.0f, 1.0f) < 0.5f)
-        damageSound3A.Play();
-      else
-        damageSound3B.Play();
-    }
-  }
+		  damageSphere.GetComponent<Renderer>().material = damageMaterial3;
+  }  
 }

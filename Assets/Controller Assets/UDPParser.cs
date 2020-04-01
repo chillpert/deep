@@ -7,11 +7,11 @@ public class UDPParser : UDPListener
   RoleType role;
 
   [SerializeField]
-  GameObject player1;
+  GameObject player1 = null;
   [SerializeField]
-  GameObject player2;
+  GameObject player2 = null;
   [SerializeField]
-  GameObject player3;
+  GameObject player3 = null;
 
   private PlayerController SetPlayer()
   {

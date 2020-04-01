@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DynamicLightController : MonoBehaviour
 {
   [SerializeField]
-  GameObject submarine;
+  GameObject submarine = null;
 
   void Start()
   {
     transform.position = submarine.transform.position;
-    //transform.forward = submarine.transform.forward;
   }
 
   void Update()

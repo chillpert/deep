@@ -1,22 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KeyboardControl : MonoBehaviour
 {
-	//~ float speed = 3.0f;
-	float x = 0.0f;
-	float y = 0.0f;
-	
-    // Start is called before the first frame update
-    void Start()
-    {
+  void Start()
+  {
         
-    }
+  }
 
-    // Update is called once per frame
-    void Update()
-    {
+  void Update()
+  {
 		if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
 		{
 			if (Input.GetKey ("up"))
@@ -44,5 +36,5 @@ public class KeyboardControl : MonoBehaviour
 				//~ rot_y += speed * Time.deltaTime;
 			}
 		}
-    }
+  }
 }

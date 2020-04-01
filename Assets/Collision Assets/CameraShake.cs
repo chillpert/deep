@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
   [SerializeField]
-  float duration;
+  float duration = 1.25f;
   [SerializeField]
-  float magnitude;
+  float magnitude = 0.1f;
 
   public IEnumerator Shake()
   {

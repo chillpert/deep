@@ -4,9 +4,9 @@ using UnityEngine;
 public class GyroscopeController : MonoBehaviour
 {
   [SerializeField]
-  private GameObject submarine;
+  private GameObject submarine = null;
   [SerializeField]
-  private GameObject headlight;
+  private GameObject headlight = null;
 
   private Quaternion rotation;
   private Quaternion phoneStraight;
