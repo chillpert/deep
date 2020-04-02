@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class FirmCollider : MonoBehaviour
 {
+  public Vector3 Forward { get; set; }
+
   [SerializeField]
   private float caveAnimationSpeed = 5f;
   
@@ -12,6 +14,7 @@ public class FirmCollider : MonoBehaviour
 
   private void Start()
   {
+    Forward = new Vector3(0f, 0f, 1f);
     submarine = GameObject.Find("Submarine");
     audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     submarineController = submarine.GetComponent<SubmarineController>();
@@ -69,10 +72,16 @@ public class FirmCollider : MonoBehaviour
     }
 
     if (collision.gameObject.CompareTag("LerpStopIn"))
+    {
       submarineController.TurnCamStraight = false;
+      Forward = collision.gameObject.transform.parent.transform.forward;
+    }
 
     if (collision.gameObject.CompareTag("LerpStopOut"))
+    {
       submarineController.TurnCamStraight = false;
+      Forward = collision.gameObject.transform.parent.GetComponent<MeshGenerator>().next.gameObject.transform.forward;
+    }
 
     if (collision.gameObject.CompareTag("Destructables"))
     {

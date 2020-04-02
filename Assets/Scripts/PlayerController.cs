@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
   private SubmarineController submarineController;
   private GyroscopeController gyroscopeController;
+  private FirmCollider firmCollider;
 
   [SerializeField]
   private float clampAngle = 45f;
@@ -48,16 +49,25 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private float speed = 25f;
 
-  private static int rotationDummyCounter = 0;
+  private const string dummyNameH = "RotationDummyHorizontal";
+  private const string dummyNameV = "RotationDummyVertical";
 
   private void Start()
   {
     OnAction = false;
-    rotationDummy = new GameObject("RotationDummy" + ++rotationDummyCounter);
 
     submarine = GameObject.Find("Submarine");
     submarineController = submarine.GetComponent<SubmarineController>();
     gyroscopeController = transform.GetComponent<GyroscopeController>();
+    firmCollider = GameObject.Find("FirmCollider").GetComponent<FirmCollider>();
+  }
+
+  private void UpdateRotationDummy(string name)
+  {
+    rotationDummy = GameObject.Find(name);
+
+    if (rotationDummy == null)
+      rotationDummy = new GameObject(name);
   }
 
   private void Update()
@@ -74,10 +84,12 @@ public class PlayerController : MonoBehaviour
       {
         case 1:
           RotateSubmarine(Axis.Y, Acceleration.x);
+          UpdateRotationDummy(dummyNameH);
           break;
 
         case 2:
           RotateSubmarine(Axis.X, -Acceleration.z);
+          UpdateRotationDummy(dummyNameV);
           break;
 
         case 3:
@@ -86,10 +98,12 @@ public class PlayerController : MonoBehaviour
 
         case 4:
           RotateSubmarine(Axis.Y, Acceleration.x);
+          UpdateRotationDummy(dummyNameH);
           break;
 
         case 5:
           RotateSubmarine(Axis.X, -Acceleration.z);
+          UpdateRotationDummy(dummyNameV);
           break;
       }
     }
@@ -102,6 +116,7 @@ public class PlayerController : MonoBehaviour
       {
         case 1:
           RotateSubmarine(Axis.X, -Acceleration.z);
+          UpdateRotationDummy(dummyNameV);
           break;
 
         case 2:
@@ -110,10 +125,12 @@ public class PlayerController : MonoBehaviour
 
         case 3:
           RotateSubmarine(Axis.Y, Acceleration.x);
+          UpdateRotationDummy(dummyNameH);
           break;
 
         case 4:
           RotateSubmarine(Axis.X, -Acceleration.z);
+          UpdateRotationDummy(dummyNameV);
           break;
 
         case 5:
@@ -131,10 +148,12 @@ public class PlayerController : MonoBehaviour
 
         case 2:
           RotateSubmarine(Axis.Y, Acceleration.x);
+          UpdateRotationDummy(dummyNameH);
           break;
 
         case 3:
           RotateSubmarine(Axis.X, -Acceleration.z);
+          UpdateRotationDummy(dummyNameV);
           break;
 
         case 4:
@@ -143,6 +162,7 @@ public class PlayerController : MonoBehaviour
 
         case 5:
           RotateSubmarine(Axis.Y, Acceleration.x);
+          UpdateRotationDummy(dummyNameH);
           break;
       }
     }
@@ -170,14 +190,14 @@ public class PlayerController : MonoBehaviour
     {
       if (dir.sqrMagnitude > 1)
         dir.Normalize();
-
+      
       rotationDummy.transform.position = submarine.transform.position;
       rotationDummy.transform.rotation = submarine.transform.rotation;
       rotationDummy.transform.forward = submarine.transform.forward;
 
       rotationDummy.transform.Rotate(dir * speed * Time.deltaTime);
 
-      if (Vector3.Angle(rotationDummy.transform.forward, submarine.transform.forward) < clampAngle)
+      if (Vector3.Angle(firmCollider.Forward, rotationDummy.transform.forward) < clampAngle)
         submarine.transform.Rotate(dir * speed * Time.deltaTime);
     }
   }
