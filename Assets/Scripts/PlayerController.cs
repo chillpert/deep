@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     else
       Debug.LogWarning("PlayerController: Input on axis " + axis.ToString() + " not supported");
 
-    if (0f > dirAxis + threshold || 0f < dirAxis - threshold)
+    if (-0.1f > dirAxis + threshold || 0.1f < dirAxis - threshold)
     {
       if (dir.sqrMagnitude > 1)
         dir.Normalize();

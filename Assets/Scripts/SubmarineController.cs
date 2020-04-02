@@ -18,10 +18,9 @@ public class SubmarineController : MonoBehaviour
   private GameObject firmCollider = null;
 
   [SerializeField]
-  private bool skipIntro = false;
   private Image blackScreen;
-  private float fadeInSpeed = 0.5f;
-  private float fadeOutSpeed = 0.5f;
+  private const float fadeInSpeed = 0.5f;
+  private const float fadeOutSpeed = 0.5f;
   private float alpha = 1f;
   private bool died = false;
   private bool spawned = true;
@@ -115,11 +114,9 @@ public class SubmarineController : MonoBehaviour
     firmCollider = GameObject.Find("FirmCollider");
     LastCheckpoint = GameObject.Find("Checkpoint1");
     blackScreen = GameObject.Find("BlackScreen").GetComponent<Image>();
-
-    if (skipIntro)
-      alpha = 0f;
       
     blackScreen.color = new Color(0f, 0f, 0f, alpha);
+    blackScreen.enabled = true;
 
     Health = maxHealth;
     
