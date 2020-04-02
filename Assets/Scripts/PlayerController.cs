@@ -9,6 +9,11 @@ public enum RoleType
 
 public enum Axis { X, Y, Z }
 
+public class CoolBool
+{
+  public bool Value { get; set; }
+}
+
 public class PlayerController : MonoBehaviour
 {
   public string Id { get; set; }
@@ -33,7 +38,7 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private RoleType role = RoleType.OppsCommander;
 
-  public bool OnAction { get; set; }
+  public CoolBool OnAction { get; set; }
 
   private GameObject submarine;
   private GameObject rotationDummy;
@@ -54,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
   private void Start()
   {
-    OnAction = false;
+    OnAction = new CoolBool();
 
     submarine = GameObject.Find("Submarine");
     submarineController = submarine.GetComponent<SubmarineController>();

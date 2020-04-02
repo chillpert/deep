@@ -14,10 +14,16 @@ public class SubmarineController : MonoBehaviour
   private PlayerController player2;
   private PlayerController player3;
 
+  #region Torpedo
   [SerializeField]
   private GameObject missile = null;
   private GameObject firmCollider = null;
 
+  private CoolBool reload = new CoolBool();
+  private CoolBool fire = new CoolBool();
+  #endregion
+
+  #region Black Screen
   [SerializeField]
   private Image blackScreen;
   private const float fadeInSpeed = 0.5f;
@@ -25,6 +31,7 @@ public class SubmarineController : MonoBehaviour
   private float alpha = 1f;
   private bool died = false;
   private bool spawned = true;
+  #endregion
 
   #region Health and Damage
   public float Health { get; set; }
@@ -81,15 +88,15 @@ public class SubmarineController : MonoBehaviour
 
   #region Damage texture
   [SerializeField]
-  GameObject damageSphere = null;
+  private GameObject damageSphere = null;
   [SerializeField]
-  Material damageMaterial0 = null;
+  private Material damageMaterial0 = null;
   [SerializeField]
-  Material damageMaterial1 = null;
+  private Material damageMaterial1 = null;
   [SerializeField]
-  Material damageMaterial2 = null;
+  private Material damageMaterial2 = null;
   [SerializeField]
-  Material damageMaterial3 = null;
+  private Material damageMaterial3 = null;
   #endregion
 
   #region Transform
@@ -174,59 +181,6 @@ public class SubmarineController : MonoBehaviour
     return false;
   }
 
-  bool reload = false;
-  bool fire = false;
-
-  public enum Action { Fire, Reload }
-
-  private void DisableAction(Action action)
-  {
-    switch (Level)
-    {
-      case 2: case 5: case 8:
-        if (action == Action.Reload)
-        {
-          if (player3.OnAction)
-            player3.OnAction = false;
-        }
-
-        if (action == Action.Fire)
-        {
-          if (player1.OnAction)
-            player1.OnAction = false;
-        }
-        break;
-
-      case 3: case 6: case 9:
-        if (action == Action.Reload)
-        {
-          if (player1.OnAction)
-            player1.OnAction = false;
-        }
-
-        if (action == Action.Fire)
-        {
-          if (player2.OnAction)
-            player2.OnAction = false;
-        }
-        break;
-
-      case 4: case 7: case 10:
-        if (action == Action.Reload)
-        {
-          if (player2.OnAction)
-            player2.OnAction = false;
-        }
-
-        if (action == Action.Fire)
-        {
-          if (player3.OnAction)
-            player3.OnAction = false;
-        }
-        break;
-    }
-  }
-
   private void HandleTorpedo()
   {
     switch (Level)
@@ -247,18 +201,16 @@ public class SubmarineController : MonoBehaviour
         break;
     }
 
-    if (reload)
+    if (reload.Value)
     {
       Debug.Log("RELOAD");
-      reload = false;
-      DisableAction(Action.Reload);
+      reload.Value = false;
     }
 
-    if (fire)
+    if (fire.Value)
     {
       Debug.Log("Fire");
-      fire = false;
-      DisableAction(Action.Fire);
+      fire.Value = false;
     }
 
     // fire torpedo
@@ -267,8 +219,8 @@ public class SubmarineController : MonoBehaviour
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
       audioController.PlayTorpedoLaunch();
 
-      player1.OnAction = false;
-      player2.OnAction = false;
+      player1.OnAction.Value = false;
+      player2.OnAction.Value = false;
     }
   }
 
