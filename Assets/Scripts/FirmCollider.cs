@@ -65,7 +65,7 @@ public class FirmCollider : MonoBehaviour
       if (!submarineController.IFrames)
         submarineController.Health -= submarineController.DamageTunnelMesh;
 
-      submarineController.updateDamageTexture();
+      submarineController.UpdateDamageTexture();
     }
 
     if (collision.gameObject.CompareTag("LerpStopIn"))
@@ -139,6 +139,9 @@ public class FirmCollider : MonoBehaviour
 
   private void EnterLevel(int level)
   {
+    string name = "Checkpoint" + level.ToString();
+    submarineController.LastCheckpoint = GameObject.Find(name);
+
     submarineController.InCave = false;
 
     // delete custom path creator

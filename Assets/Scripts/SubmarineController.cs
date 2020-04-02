@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class SubmarineController : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class SubmarineController : MonoBehaviour
   public bool InCave { get; set; }
   public TCPHost TcpHost { get; set; }
   public CameraShake Cam { get; set; }
+  public GameObject LastCheckpoint { get; set; }
 
   private AudioController audioController;
   private PlayerController player1;
@@ -14,6 +16,15 @@ public class SubmarineController : MonoBehaviour
   [SerializeField]
   private GameObject missile = null;
   private GameObject firmCollider = null;
+
+  [SerializeField]
+  private bool skipIntro = false;
+  private Image blackScreen;
+  private float fadeInSpeed = 0.5f;
+  private float fadeOutSpeed = 0.5f;
+  private float alpha = 1f;
+  private bool died = false;
+  private bool spawned = true;
 
   #region Health and Damage
   public float Health { get; set; }
@@ -82,17 +93,13 @@ public class SubmarineController : MonoBehaviour
   #endregion
 
   #region Transform
-  private Vector3 respawnPosition;
-  private Vector3 respawnForward;
-  private Quaternion respawnRotation;
-
   private Vector3 directionToLerpTo;
   private Vector3 directionOnCollision;
 
   private Rigidbody rb;
   #endregion
 
-  void Start()
+  private void Start()
   {
     Level = 1;
     InCave = false;
@@ -106,74 +113,73 @@ public class SubmarineController : MonoBehaviour
     player2 = GameObject.Find("Player2").GetComponent<PlayerController>();
 
     firmCollider = GameObject.Find("FirmCollider");
+    LastCheckpoint = GameObject.Find("Checkpoint1");
+    blackScreen = GameObject.Find("BlackScreen").GetComponent<Image>();
+
+    if (skipIntro)
+      alpha = 0f;
+      
+    blackScreen.color = new Color(0f, 0f, 0f, alpha);
 
     Health = maxHealth;
     
-    respawnPosition = transform.position;
-    respawnForward = transform.forward;
-    respawnRotation = transform.rotation;
-
     rb = GetComponent<Rigidbody>();
   }
 
-  void OnCollisionStay(Collision collision)
-  {    
-    StartCoroutine(Cam.GetComponent<CameraShake>().Shake());
-    
-    if (collision.gameObject.CompareTag("Finish"))
-      ResetSubmarine();
-
-    if (collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Wall"))
+  private void FadeIn()
+  {
+    if (blackScreen.color.a <= 1f)
     {
-      timeOnCollision = Time.time;
+      alpha += Time.deltaTime * fadeInSpeed;
+      Color color = blackScreen.color;
+      blackScreen.color = new Color(color.r, color.g, color.b, alpha);
+    }
+    else
+    {
+      died = false;
+      ResetSubmarine();
+    }
+  }
 
-      startInvincibilityFrames = true;
-      startBouncing = true;
+  private void FadeOut()
+  {
+    if (blackScreen.color.a >= 0f)
+    {
+      alpha -= Time.deltaTime * fadeOutSpeed;
+      Color color = blackScreen.color;
+      blackScreen.color = new Color(color.r, color.g, color.b, alpha);
+    }
+    else
+      spawned = false;
+  }
 
-      if (!IFrames)
-        Health -= damageWall;
-      
-      updateDamageTexture();
+  private void OnDeath()
+  {
+    died = true;
+  }
 
-      rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
-
-      directionOnCollision = transform.forward;
-      directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
-
-      TurnCamStraight = true;
+  private bool HandleFadeAnimation()
+  {
+    if (died)
+    {
+      FadeIn();
+      return true;
     }
 
-    IFrames = true;
+    if (spawned)
+    {
+      FadeOut();
+      return true;
+    }
+
+    return false;
   }
 
-  private void ResetSubmarine()
+  private void Update()
   {
-    Debug.Log("Submarine Controller: Reset");
-    startInvincibilityFrames = false;
-    startBouncing = false;
-    TurnCamStraight = false;
-    IFrames = false;
+    if (HandleFadeAnimation())
+      return;
 
-    // needs to be changed to respawn position
-    transform.position = respawnPosition;
-    transform.forward = respawnForward;
-    transform.rotation = respawnRotation;
-
-    Destroy(gameObject.GetComponent<SphereCollider>());
-    gameObject.AddComponent<SphereCollider>();
-
-    Destroy(firmCollider.GetComponent<SphereCollider>());
-    firmCollider.AddComponent<SphereCollider>();
-
-    Health = maxHealth;
-    updateDamageTexture();
-
-    rb.velocity = Vector3.zero;
-    rb.angularVelocity = Vector3.zero;
-  }
-
-  void Update()
-  {
     // fire torpedo
     if (player1.OnAction && player2.OnAction)
     {
@@ -201,7 +207,7 @@ public class SubmarineController : MonoBehaviour
 
     if (Health <= 0f)
     {
-      ResetSubmarine();
+      OnDeath();
       Health = maxHealth;
     }
 
@@ -250,6 +256,11 @@ public class SubmarineController : MonoBehaviour
     if (Input.GetKey("right") || Input.GetKey("d"))
       transform.Rotate(0f, speedControls * Time.deltaTime, 0f);
 
+    if (Input.GetKeyDown("r"))
+    {
+      Health = 0f;
+    }
+
     // Fire the missile
     if (Input.GetKeyDown("f"))
     {
@@ -260,8 +271,65 @@ public class SubmarineController : MonoBehaviour
     // lock z-axis
     transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0f);
   }
-  
-  public void updateDamageTexture()
+
+  private void OnCollisionStay(Collision collision)
+  {
+    StartCoroutine(Cam.GetComponent<CameraShake>().Shake());
+
+    if (collision.gameObject.CompareTag("Finish"))
+      ResetSubmarine();
+
+    if (collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Wall"))
+    {
+      timeOnCollision = Time.time;
+
+      startInvincibilityFrames = true;
+      startBouncing = true;
+
+      if (!IFrames)
+        Health -= damageWall;
+
+      UpdateDamageTexture();
+
+      rb.AddForce(collision.gameObject.GetComponent<VectorContainer>().orthogonal, ForceMode.Impulse);
+
+      directionOnCollision = transform.forward;
+      directionToLerpTo = collision.gameObject.GetComponent<VectorContainer>().forward;
+
+      TurnCamStraight = true;
+    }
+
+    IFrames = true;
+  }
+
+  private void ResetSubmarine()
+  {
+    Debug.Log("Submarine Controller: Reset");
+    startInvincibilityFrames = false;
+    startBouncing = false;
+    TurnCamStraight = false;
+    IFrames = false;
+    spawned = true;
+
+    // needs to be changed to respawn position
+    transform.position = LastCheckpoint.transform.position;
+    transform.rotation = LastCheckpoint.transform.rotation;
+    transform.forward = LastCheckpoint.transform.forward;
+
+    Destroy(gameObject.GetComponent<SphereCollider>());
+    gameObject.AddComponent<SphereCollider>();
+
+    Destroy(firmCollider.GetComponent<SphereCollider>());
+    firmCollider.AddComponent<SphereCollider>();
+
+    Health = maxHealth;
+    UpdateDamageTexture();
+
+    rb.velocity = Vector3.zero;
+    rb.angularVelocity = Vector3.zero;
+  }
+
+  public void UpdateDamageTexture()
   {
 	  if (Health > 75f)
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial0;
