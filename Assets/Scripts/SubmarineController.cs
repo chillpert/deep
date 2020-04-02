@@ -12,6 +12,7 @@ public class SubmarineController : MonoBehaviour
   private AudioController audioController;
   private PlayerController player1;
   private PlayerController player2;
+  private PlayerController player3;
 
   [SerializeField]
   private GameObject missile = null;
@@ -110,6 +111,7 @@ public class SubmarineController : MonoBehaviour
     audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     player1 = GameObject.Find("Player1").GetComponent<PlayerController>();
     player2 = GameObject.Find("Player2").GetComponent<PlayerController>();
+    player3 = GameObject.Find("Player3").GetComponent<PlayerController>();
 
     firmCollider = GameObject.Find("FirmCollider");
     LastCheckpoint = GameObject.Find("Checkpoint1");
@@ -172,13 +174,95 @@ public class SubmarineController : MonoBehaviour
     return false;
   }
 
-  private void Update()
+  bool reload = false;
+  bool fire = false;
+
+  public enum Action { Fire, Reload }
+
+  private void DisableAction(Action action)
   {
-    if (HandleFadeAnimation())
-      return;
+    switch (Level)
+    {
+      case 2: case 5: case 8:
+        if (action == Action.Reload)
+        {
+          if (player3.OnAction)
+            player3.OnAction = false;
+        }
+
+        if (action == Action.Fire)
+        {
+          if (player1.OnAction)
+            player1.OnAction = false;
+        }
+        break;
+
+      case 3: case 6: case 9:
+        if (action == Action.Reload)
+        {
+          if (player1.OnAction)
+            player1.OnAction = false;
+        }
+
+        if (action == Action.Fire)
+        {
+          if (player2.OnAction)
+            player2.OnAction = false;
+        }
+        break;
+
+      case 4: case 7: case 10:
+        if (action == Action.Reload)
+        {
+          if (player2.OnAction)
+            player2.OnAction = false;
+        }
+
+        if (action == Action.Fire)
+        {
+          if (player3.OnAction)
+            player3.OnAction = false;
+        }
+        break;
+    }
+  }
+
+  private void HandleTorpedo()
+  {
+    switch (Level)
+    {
+      case 2: case 5: case 8:
+        reload = player3.OnAction;
+        fire = player1.OnAction;
+        break;
+
+      case 3: case 6: case 9:
+        reload = player1.OnAction;
+        fire = player2.OnAction;
+        break;
+
+      case 4: case 7: case 10:
+        reload = player2.OnAction;
+        fire = player1.OnAction;
+        break;
+    }
+
+    if (reload)
+    {
+      Debug.Log("RELOAD");
+      reload = false;
+      DisableAction(Action.Reload);
+    }
+
+    if (fire)
+    {
+      Debug.Log("Fire");
+      fire = false;
+      DisableAction(Action.Fire);
+    }
 
     // fire torpedo
-    if (player1.OnAction && player2.OnAction)
+    if (false)
     {
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
       audioController.PlayTorpedoLaunch();
@@ -186,6 +270,14 @@ public class SubmarineController : MonoBehaviour
       player1.OnAction = false;
       player2.OnAction = false;
     }
+  }
+
+  private void Update()
+  {
+    if (HandleFadeAnimation())
+      return;
+
+    HandleTorpedo();
 
     if (Input.GetKeyDown(KeyCode.Space) || TcpHost.GetComponent<TCPHost>().ConnectedClients.Count == 3)
       start = !start;

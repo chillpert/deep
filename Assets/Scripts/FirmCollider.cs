@@ -80,7 +80,9 @@ public class FirmCollider : MonoBehaviour
     if (collision.gameObject.CompareTag("LerpStopOut"))
     {
       submarineController.TurnCamStraight = false;
-      Forward = collision.gameObject.transform.parent.GetComponent<MeshGenerator>().next.gameObject.transform.forward;
+
+      if (collision.gameObject.transform.parent.GetComponent<MeshGenerator>() != null)
+        Forward = collision.gameObject.transform.parent.GetComponent<MeshGenerator>().next.gameObject.transform.forward;
     }
 
     if (collision.gameObject.CompareTag("Destructables"))

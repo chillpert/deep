@@ -84,12 +84,10 @@ public class PlayerController : MonoBehaviour
       {
         case 1:
           RotateSubmarine(Axis.Y, Acceleration.x);
-          UpdateRotationDummy(dummyNameH);
           break;
 
         case 2:
           RotateSubmarine(Axis.X, -Acceleration.z);
-          UpdateRotationDummy(dummyNameV);
           break;
 
         case 3:
@@ -98,12 +96,10 @@ public class PlayerController : MonoBehaviour
 
         case 4:
           RotateSubmarine(Axis.Y, Acceleration.x);
-          UpdateRotationDummy(dummyNameH);
           break;
 
         case 5:
           RotateSubmarine(Axis.X, -Acceleration.z);
-          UpdateRotationDummy(dummyNameV);
           break;
       }
     }
@@ -116,7 +112,6 @@ public class PlayerController : MonoBehaviour
       {
         case 1:
           RotateSubmarine(Axis.X, -Acceleration.z);
-          UpdateRotationDummy(dummyNameV);
           break;
 
         case 2:
@@ -125,12 +120,10 @@ public class PlayerController : MonoBehaviour
 
         case 3:
           RotateSubmarine(Axis.Y, Acceleration.x);
-          UpdateRotationDummy(dummyNameH);
           break;
 
         case 4:
           RotateSubmarine(Axis.X, -Acceleration.z);
-          UpdateRotationDummy(dummyNameV);
           break;
 
         case 5:
@@ -148,12 +141,11 @@ public class PlayerController : MonoBehaviour
 
         case 2:
           RotateSubmarine(Axis.Y, Acceleration.x);
-          UpdateRotationDummy(dummyNameH);
+          
           break;
 
         case 3:
           RotateSubmarine(Axis.X, -Acceleration.z);
-          UpdateRotationDummy(dummyNameV);
           break;
 
         case 4:
@@ -162,7 +154,6 @@ public class PlayerController : MonoBehaviour
 
         case 5:
           RotateSubmarine(Axis.Y, Acceleration.x);
-          UpdateRotationDummy(dummyNameH);
           break;
       }
     }
@@ -177,11 +168,13 @@ public class PlayerController : MonoBehaviour
     {
       dir.y = acceleration;
       dirAxis = dir.y;
+      UpdateRotationDummy(dummyNameH);
     }
     else if (axis == Axis.X)
     {
       dir.x = acceleration;
       dirAxis = dir.x;
+      UpdateRotationDummy(dummyNameV);
     }
     else
       Debug.LogWarning("PlayerController: Input on axis " + axis.ToString() + " not supported");

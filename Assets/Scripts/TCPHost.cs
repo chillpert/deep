@@ -283,14 +283,17 @@ public class TCPHost : MonoBehaviour
   {
     if (role == RoleType.OppsCommander)
     {
+      Debug.Log("1");
       return player1.GetComponent<PlayerController>();
     }
     else if (role == RoleType.WeaponsOfficer)
     {
+      Debug.Log("2");
       return player2.GetComponent<PlayerController>();
     }
     else if (role == RoleType.Captain)
     {
+      Debug.Log("3");
       return player3.GetComponent<PlayerController>();
     }
 
