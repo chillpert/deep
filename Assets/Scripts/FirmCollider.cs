@@ -86,7 +86,7 @@ public class FirmCollider : MonoBehaviour
 
     // audio
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
-      audioController.PlayDamageSound();
+      audioController.PlayDamageVoice();
 
     if (collision.gameObject.name.Equals("FoundCave1"))
       audioController.PlayFoundCave1();

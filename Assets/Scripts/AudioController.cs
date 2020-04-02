@@ -26,6 +26,8 @@ public class AudioController : MonoBehaviour
   private PlayableDirector enterCave1;
 
   private float timeOnHitWall = 0f;
+  private float timeOnStoryAudio = 0f;
+  private double muteDamageDuration = 0d;
 
   private void Start()
   {
@@ -51,7 +53,16 @@ public class AudioController : MonoBehaviour
     }
   }
 
-  public void PlayDamageSound()
+  private void Update()
+  {
+    if (muteDamage)
+    {
+      if (Time.time - timeOnStoryAudio > muteDamageDuration)
+        muteDamage = false;
+    }
+  }
+
+  public void PlayDamageVoice()
   {
     if (muteDamage)
       return;
@@ -87,16 +98,29 @@ public class AudioController : MonoBehaviour
     }
   }
 
+  private void MuteDamageVoice(double duration)
+  {
+    muteDamageDuration = duration;
+    timeOnStoryAudio = Time.time;
+    muteDamage = true;
+  }
+
   public void PlayFoundCave1()
   {
-    if (!muteStory)
-      foundCave1.Play();
+    if (muteStory)
+      return;
+
+    foundCave1.Play();
+    MuteDamageVoice(foundCave1.duration);
   }
 
   public void PlayEnterCave1()
   {
-    if (!muteStory)
-      enterCave1.Play();
+    if (muteStory)
+      return;
+
+    enterCave1.Play();
+    MuteDamageVoice(enterCave1.duration);
   }
 
   public void PlayTorpedoLaunch()
