@@ -21,10 +21,11 @@ public class SubmarineController : MonoBehaviour
 
   private CoolBool reload = new CoolBool();
   private CoolBool fire = new CoolBool();
+  private bool printReload = true;
+  private bool printFire = true;
   #endregion
 
   #region Black Screen
-  [SerializeField]
   private Image blackScreen;
   private const float fadeInSpeed = 0.5f;
   private const float fadeOutSpeed = 0.5f;
@@ -123,7 +124,7 @@ public class SubmarineController : MonoBehaviour
     firmCollider = GameObject.Find("FirmCollider");
     LastCheckpoint = GameObject.Find("Checkpoint1");
     blackScreen = GameObject.Find("BlackScreen").GetComponent<Image>();
-      
+
     blackScreen.color = new Color(0f, 0f, 0f, alpha);
     blackScreen.enabled = true;
 
@@ -191,36 +192,50 @@ public class SubmarineController : MonoBehaviour
         break;
 
       case 3: case 6: case 9:
-        reload = player1.OnAction;
-        fire = player2.OnAction;
+        reload = player2.OnAction;
+        fire = player3.OnAction;
         break;
 
       case 4: case 7: case 10:
-        reload = player2.OnAction;
-        fire = player1.OnAction;
+        reload = player1.OnAction;
+        fire = player2.OnAction;
         break;
     }
 
-    if (reload.Value)
+    if (fire.Cool)
     {
-      Debug.Log("RELOAD");
-      reload.Value = false;
+      Debug.Log("Submarine Controller: Fire registered");
     }
 
-    if (fire.Value)
+    if (reload.Cool)
     {
-      Debug.Log("Fire");
-      fire.Value = false;
+      if (printReload)
+      {
+        Debug.Log("Submarine Controller: Reload registered");
+        printReload = false;
+      }
+
+      if (Time.time - reload.TimeOnTrue > 5f)
+      {
+        reload.Cool = false;
+        printReload = true;
+        Debug.Log("Submarine Controller: Reload time window closed");
+      }
+      else
+      {
+        if (fire.Cool)
+        {
+          Debug.Log("Submarine Controller: Fire Missile");
+          fire.Cool = false;
+
+          Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
+          audioController.PlayTorpedoLaunch();
+        }
+      }
     }
-
-    // fire torpedo
-    if (false)
+    else
     {
-      Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-      audioController.PlayTorpedoLaunch();
-
-      player1.OnAction.Value = false;
-      player2.OnAction.Value = false;
+      fire.Cool = false;
     }
   }
 

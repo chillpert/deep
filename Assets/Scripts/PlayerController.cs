@@ -9,9 +9,20 @@ public enum RoleType
 
 public enum Axis { X, Y, Z }
 
+// they say this bool is the coolest one around!
 public class CoolBool
 {
-  public bool Value { get; set; }
+  private bool cool;
+  public bool Cool
+  {
+    get { return cool;  }
+    set 
+    {
+      cool = value;
+      TimeOnTrue = Time.time;
+    } 
+  }
+  public float TimeOnTrue = 0f;
 }
 
 public class PlayerController : MonoBehaviour

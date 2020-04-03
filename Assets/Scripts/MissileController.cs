@@ -10,9 +10,11 @@ public class MissileController : MonoBehaviour
 	public GameObject explosionFX = null;
 	[SerializeField]
 	float controlSpeed = 1.5f;
+	private AudioController audioController = null;
 	
   void Start()
   {
+		audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
 		Destroy(transform.root.gameObject, 10);
 	}
 
@@ -41,7 +43,7 @@ public class MissileController : MonoBehaviour
 	
 	void explode()
 	{
-		GetComponent<AudioSource>().Play();
+		audioController.PlayTorpedoImpact();
 		explosionFX.SetActive(true);
 		trailFX.SetActive(false);
 		transform.localScale = new Vector3(0, 0, 0);

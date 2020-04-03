@@ -629,7 +629,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
-  blackScreen: {fileID: 0}
   invincible: 0
   damageTunnelMesh: 2
   damageWall: 10
@@ -652,8 +651,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110186716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.17998447, z: -0, w: 0.9836695}
+  m_LocalPosition: {x: 282.35, y: -110.38, z: 574.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 915865986}
@@ -664,7 +663,7 @@ Transform:
   - {fileID: 1464250334}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 20.738, z: 0}
 --- !u!135 &110186724
 SphereCollider:
   m_ObjectHideFlags: 0

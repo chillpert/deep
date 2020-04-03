@@ -273,7 +273,7 @@ public class TCPHost : MonoBehaviour
         player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-          GetPlayerByEnum(enumValue).OnAction.Value = true;
+          GetPlayerByEnum(enumValue).OnAction.Cool = true;
         });
         break;
     }
