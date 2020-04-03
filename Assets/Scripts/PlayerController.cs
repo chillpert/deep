@@ -207,7 +207,10 @@ public class PlayerController : MonoBehaviour
       rotationDummy.transform.Rotate(dir * speed * Time.deltaTime);
 
       if (Vector3.Angle(firmCollider.Forward, rotationDummy.transform.forward) < clampAngle)
+      {
         submarine.transform.Rotate(dir * speed * Time.deltaTime);
+        //submarine.transform.rotation = Quaternion.Euler(dir * speed * Time.deltaTime);
+      }
     }
   }
 
