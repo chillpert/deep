@@ -208,8 +208,12 @@ public class PlayerController : MonoBehaviour
 
       if (Vector3.Angle(firmCollider.Forward, rotationDummy.transform.forward) < clampAngle)
       {
-        submarine.transform.Rotate(dir * speed * Time.deltaTime);
+        //Quaternion rotation = Quaternion.AngleAxis(dir.y * speed * Time.deltaTime, new Vector3(1f, 0f, 0f));
+        //submarine.transform.rotation = rotation;
         //submarine.transform.rotation = Quaternion.Euler(dir * speed * Time.deltaTime);
+
+        // this works
+        submarine.transform.Rotate(dir * speed * Time.deltaTime);
       }
     }
   }

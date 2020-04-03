@@ -66,6 +66,9 @@ public class GyroscopeController : MonoBehaviour
     smoothing = tempSmoothing;
   }
 
+  private float journeyLength;
+  private float startTime;
+
   private void ApplyGyroRotation()
   {
     Quaternion currentValue = new Quaternion(
@@ -77,12 +80,13 @@ public class GyroscopeController : MonoBehaviour
 
     if (useInterpolation)
     {
-      float distCovered = Time.time * 1f;
+      float distCovered = (Time.time - startTime) * 1f;
       float fractionOfJourney = distCovered / capturingPeriod;
 
       // only use new value every x seconds
       if (Time.time > timeStepFix)
       {
+        //Debug.Log("Take value");
         timeStepFix += capturingPeriod;
 
         if (takeFirstValue)
@@ -95,6 +99,8 @@ public class GyroscopeController : MonoBehaviour
           takeFirstValue = true;
           currentInterpolationGoal = currentValue;
         }
+
+        startTime = Time.time; 
       }
 
       // interpolate
