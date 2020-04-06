@@ -22,8 +22,21 @@ public class AudioController : MonoBehaviour
   private AudioSource torpedoLaunch;
   private AudioSource torpedoImpact;
 
-  private PlayableDirector foundCave1;
-  private PlayableDirector enterCave1;
+  private PlayableDirector introduction;
+  private PlayableDirector victory;
+
+  private PlayableDirector startLevel1;
+  private PlayableDirector startLevel2;
+  private PlayableDirector startLevel3;
+  private PlayableDirector startLevel4;
+
+  private PlayableDirector cave1Bouy;
+  private PlayableDirector cave2Bouy;
+  private PlayableDirector cave3Bouy;
+
+  private PlayableDirector cave1Enter;
+  private PlayableDirector cave2Enter;
+  private PlayableDirector cave3Enter;
 
   private float timeOnHitWall = 0f;
   private float timeOnStoryAudio = 0f;
@@ -42,8 +55,21 @@ public class AudioController : MonoBehaviour
     torpedoLaunch = GameObject.Find("AudioTorpedoLaunch").GetComponent<AudioSource>();
     torpedoImpact = GameObject.Find("AudioTorpedoImpact").GetComponent<AudioSource>();
 
-    foundCave1 = GameObject.Find("AudioFoundCave1").GetComponent<PlayableDirector>();
-    enterCave1 = GameObject.Find("AudioEnterCave1").GetComponent<PlayableDirector>();
+    introduction = GameObject.Find("AudioIntroduction").GetComponent<PlayableDirector>();
+    victory = GameObject.Find("AudioVictory").GetComponent<PlayableDirector>();
+
+    startLevel1 = GameObject.Find("AudioStart_Level1").GetComponent<PlayableDirector>();
+    startLevel2 = GameObject.Find("AudioStart_Level2").GetComponent<PlayableDirector>();
+    startLevel3 = GameObject.Find("AudioStart_Level3").GetComponent<PlayableDirector>();
+    startLevel4 = GameObject.Find("AudioStart_Level4").GetComponent<PlayableDirector>();
+
+    cave1Bouy = GameObject.Find("AudioCave1_Bouy").GetComponent<PlayableDirector>();
+    cave2Bouy = GameObject.Find("AudioCave2_Bouy").GetComponent<PlayableDirector>();
+    cave3Bouy = GameObject.Find("AudioCave3_Bouy").GetComponent<PlayableDirector>();
+
+    cave1Enter = GameObject.Find("AudioCave1_Enter").GetComponent<PlayableDirector>();
+    cave2Enter = GameObject.Find("AudioCave2_Enter").GetComponent<PlayableDirector>();
+    cave3Enter = GameObject.Find("AudioCave3_Enter").GetComponent<PlayableDirector>();
 
     if (muteAmbient)
     {
@@ -105,13 +131,31 @@ public class AudioController : MonoBehaviour
     muteDamage = true;
   }
 
-  public void PlayFoundCave1()
+  public void PlayBouyCave1()
   {
     if (muteStory)
       return;
 
-    foundCave1.Play();
-    MuteDamageVoice(foundCave1.duration);
+    cave1Bouy.Play();
+    MuteDamageVoice(cave1Bouy.duration);
+  }
+
+  public void PlayBouyCave2()
+  {
+    if (muteStory)
+      return;
+
+    cave2Bouy.Play();
+    MuteDamageVoice(cave2Bouy.duration);
+  }
+
+  public void PlayBouyCave3()
+  {
+    if (muteStory)
+      return;
+
+    cave3Bouy.Play();
+    MuteDamageVoice(cave3Bouy.duration);
   }
 
   public void PlayEnterCave1()
@@ -119,8 +163,53 @@ public class AudioController : MonoBehaviour
     if (muteStory)
       return;
 
-    enterCave1.Play();
-    MuteDamageVoice(enterCave1.duration);
+    cave1Enter.Play();
+    MuteDamageVoice(cave1Enter.duration);
+  }
+
+  public void PlayEnterCave2()
+  {
+    if (muteStory)
+      return;
+
+    cave2Enter.Play();
+    MuteDamageVoice(cave2Enter.duration);
+  }
+
+  public void PlayEnterCave3()
+  {
+    if (muteStory)
+      return;
+
+    cave3Enter.Play();
+    MuteDamageVoice(cave3Enter.duration);
+  }
+
+  public void PlayEnterLevel1()
+  {
+    if (muteStory)
+      return;
+
+    startLevel1.Play();
+    MuteDamageVoice(startLevel1.duration);
+  }
+
+  public void PlayEnterLevel2()
+  {
+    if (muteStory)
+      return;
+
+    startLevel2.Play();
+    MuteDamageVoice(startLevel2.duration);
+  }
+
+  public void PlayEnterLevel3()
+  {
+    if (muteStory)
+      return;
+
+    startLevel3.Play();
+    MuteDamageVoice(startLevel3.duration);
   }
 
   public void PlayTorpedoLaunch()

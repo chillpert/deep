@@ -22,7 +22,6 @@ public class SubmarineController : MonoBehaviour
   private CoolBool reload = new CoolBool();
   private CoolBool fire = new CoolBool();
   private bool printReload = true;
-  private bool printFire = true;
   #endregion
 
   #region Black Screen

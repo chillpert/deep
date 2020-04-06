@@ -99,11 +99,32 @@ public class FirmCollider : MonoBehaviour
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
       audioController.PlayDamageVoice();
 
-    if (collision.gameObject.name.Equals("FoundCave1"))
-      audioController.PlayFoundCave1();
-
     if (collision.gameObject.name.Equals("EnterCave1"))
       audioController.PlayEnterCave1();
+
+    if (collision.gameObject.name.Equals("EnterCave2"))
+      audioController.PlayEnterCave2();
+
+    if (collision.gameObject.name.Equals("EnterCave3"))
+      audioController.PlayEnterCave3();
+
+    if (collision.gameObject.name.Equals("BouyCave1"))
+      audioController.PlayBouyCave1();
+
+    if (collision.gameObject.name.Equals("BouyCave2"))
+      audioController.PlayBouyCave2();
+
+    if (collision.gameObject.name.Equals("BouyCave3"))
+      audioController.PlayBouyCave3();
+
+    if (collision.gameObject.name.Equals("EnterLevel1"))
+      audioController.PlayEnterLevel1();
+
+    if (collision.gameObject.name.Equals("EnterLevel2"))
+      audioController.PlayEnterLevel2();
+
+    if (collision.gameObject.name.Equals("EnterLevel3"))
+      audioController.PlayEnterLevel3();
 
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
   }
