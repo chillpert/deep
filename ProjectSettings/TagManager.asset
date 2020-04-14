@@ -17,6 +17,7 @@ TagManager:
   - EnterCave
   - EnterLevel
   - FoundCave
+  - EnterCaveTransition
   layers:
   - Default
   - TransparentFX

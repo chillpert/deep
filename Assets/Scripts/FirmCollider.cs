@@ -55,8 +55,26 @@ public class FirmCollider : MonoBehaviour
 
   private void OnCollisionEnter(Collision collision)
   {
+    if (collision.gameObject.name.Equals("EnterCave1Transition"))
+    {
+      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave1");      
+      submarineController.Transition = true;
+    }
+
+    if (collision.gameObject.name.Equals("EnterCave2Transition"))
+    {
+      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave2");
+      submarineController.Transition = true;
+    }
+
+    if (collision.gameObject.name.Equals("EnterCave3Transition"))
+    {
+      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave3");
+      submarineController.Transition = true;
+    }
+
     if (collision.gameObject.CompareTag("EnterCave"))
-      EnterCave(collision);
+      EnterCave();
 
     if (collision.gameObject.CompareTag("EnterLevel"))
       EnterLevel(++submarineController.Level);
@@ -129,7 +147,7 @@ public class FirmCollider : MonoBehaviour
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
   }
 
-  private void EnterCave(Collision collision)
+  private void EnterCave()
   {
     submarineController.InCave = true;
 
@@ -155,9 +173,11 @@ public class FirmCollider : MonoBehaviour
 
     // set start object
     var customPath = path.GetComponent<CustomPathCreator>();
-    customPath.start = collision.contacts[0].point;
+    customPath.start = submarineController.TransitionGoal.transform.position;
+    submarineController.Transition = false;
 
     string name = "PathCave" + submarineController.Level.ToString();
+    Debug.Log("FirmCollider: Using way points: " + name);
     GameObject newPath = GameObject.Find(name);
 
     List<Transform> newWayPoints = new List<Transform>(newPath.transform.childCount);
