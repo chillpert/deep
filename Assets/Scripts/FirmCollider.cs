@@ -113,7 +113,10 @@ public class FirmCollider : MonoBehaviour
       Destroy(collision.gameObject); // or play destruction animation or similar effects
     }
 
-    // audio
+    if (collision.gameObject.CompareTag("Finish"))
+      submarineController.Health = 0;
+
+      // audio
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
       audioController.PlayDamageVoice();
 
