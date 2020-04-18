@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
   private void Start()
   {
+    Available = true;
     OnAction = new CoolBool();
 
     submarine = GameObject.Find("Submarine");
