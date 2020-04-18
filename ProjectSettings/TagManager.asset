@@ -29,7 +29,7 @@ TagManager:
   - 
   - Submarine
   - LerpStop
-  - 
+  - LookAtInteractive
   - TunnelMesh
   - Torpedo
   - Destructables
