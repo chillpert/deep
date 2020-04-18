@@ -6,6 +6,7 @@ public class DebugSpawner : MonoBehaviour
   {
     Level1, Level2, Level3, Level4,
     Cave1, Cave2, Cave3,
+    Free
   }
 
   [SerializeField]
@@ -51,6 +52,10 @@ public class DebugSpawner : MonoBehaviour
       case Spawn.Cave3:
         SetTransform(GameObject.Find("Cave3Position"));
         controller.Level = 3;
+        break;
+
+      case Spawn.Free:
+        controller.Level = 1;
         break;
     }
   }
