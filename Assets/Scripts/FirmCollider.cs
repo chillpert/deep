@@ -74,7 +74,7 @@ public class FirmCollider : MonoBehaviour
     }
 
     if (collision.gameObject.CompareTag("EnterCave"))
-      EnterCave();
+      EnterCave(collision);
 
     if (collision.gameObject.CompareTag("EnterLevel"))
       EnterLevel(++submarineController.Level);
@@ -150,7 +150,7 @@ public class FirmCollider : MonoBehaviour
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
   }
 
-  private void EnterCave()
+  private void EnterCave(Collision collision)
   {
     submarineController.InCave = true;
 
@@ -177,6 +177,7 @@ public class FirmCollider : MonoBehaviour
     // set start object
     var customPath = path.GetComponent<CustomPathCreator>();
     customPath.start = submarineController.TransitionGoal.transform.position;
+    //customPath.start = collision.contacts[0].point;
     submarineController.Transition = false;
 
     string name = "PathCave" + submarineController.Level.ToString();
@@ -187,6 +188,8 @@ public class FirmCollider : MonoBehaviour
 
     for (int i = 0; i < newPath.transform.childCount; ++i)
       newWayPoints.Add(newPath.transform.GetChild(i));
+
+    Debug.Log("waypoints: " + newWayPoints.ToString());
 
     customPath.waypoints = newWayPoints;
     customPath.updateWaypoints();

@@ -259,8 +259,8 @@ public class SubmarineController : MonoBehaviour
 
     if (Transition)
     {
-      transform.position = Vector3.Lerp(transform.position, TransitionGoal.transform.position, Time.deltaTime * 0.5f);
-      transform.rotation = Quaternion.Slerp(transform.rotation, TransitionGoal.transform.rotation, Time.deltaTime * 1.2f);
+      transform.position = Vector3.Lerp(transform.position, TransitionGoal.transform.position, Time.deltaTime * 2f);
+      transform.rotation = Quaternion.Slerp(transform.rotation, TransitionGoal.transform.rotation, Time.deltaTime * 5f);
       //transform.forward = Vector3.Lerp(transform.forward, TransitionGoal.transform.forward, Time.deltaTime * 1.2f);
     }
 

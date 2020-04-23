@@ -26,17 +26,17 @@ public class DebugSpawner : MonoBehaviour
 
       case Spawn.Level2:
         SetTransform(GameObject.Find("Level2Position"));
-        controller.Level = 2;
+        controller.Level = 1;
         break;
 
       case Spawn.Level3:
         SetTransform(GameObject.Find("Level3Position"));
-        controller.Level = 3;
+        controller.Level = 2;
         break;
 
       case Spawn.Level4:
         SetTransform(GameObject.Find("Level4Position"));
-        controller.Level = 4;
+        controller.Level = 3;
         break;
 
       case Spawn.Cave1:
@@ -62,8 +62,7 @@ public class DebugSpawner : MonoBehaviour
 
   private void Update()
   {
-    GameObject submarine = GameObject.Find("Submarine");
-    SubmarineController controller = submarine.GetComponent<SubmarineController>();
+
   }
 
   private void SetTransform(GameObject gameobject)
