@@ -136,6 +136,9 @@ public class SubmarineController : MonoBehaviour
     Health = maxHealth;
     
     rb = GetComponent<Rigidbody>();
+
+    // disable the entire level geometry, it will be disabled depending on the selected spawn point in debug spawner script
+    LevelGeometry.SetAll(false);
   }
 
   private void FadeIn()

@@ -193,12 +193,73 @@ public class FirmCollider : MonoBehaviour
 
     customPath.waypoints = newWayPoints;
     customPath.updateWaypoints();
+
+    // enable next level and cave geometry
+    switch (submarineController.Level)
+    {
+      case 1:
+        LevelGeometry.Level2.SetActive(true);
+        break;
+
+      case 2:
+        LevelGeometry.Level3.SetActive(true);
+        break;
+
+      case 3:
+        LevelGeometry.Level4.SetActive(true);
+        break;
+    }
   }
 
   private void EnterLevel(int level)
   {
     string name = "Checkpoint" + level.ToString();
+    Debug.Log("FirmCollider: Reached Checkpoint: " + name);
     submarineController.LastCheckpoint = GameObject.Find(name);
+
+    switch (level)
+    {
+      case 2:
+        // delete Level1
+        GameObject.Destroy(LevelGeometry.Level1);
+
+        LevelGeometry.Cave2.SetActive(true);
+        break;
+
+      case 3:
+        // delete Level1 if not already done
+        if (LevelGeometry.Level1 != null)
+          GameObject.Destroy(LevelGeometry.Level1);
+
+        // delete Cave1
+        GameObject.Destroy(LevelGeometry.Cave1);
+
+        // delete Level2
+        GameObject.Destroy(LevelGeometry.Level2);
+
+        LevelGeometry.Cave3.SetActive(true);
+        break;
+
+      case 4:
+        // delete Level1 if not already done
+        if (LevelGeometry.Level1 != null)
+          GameObject.Destroy(LevelGeometry.Level1);
+
+        // delete Cave1 if not already done
+        if (LevelGeometry.Cave1 != null)
+          GameObject.Destroy(LevelGeometry.Cave1);
+
+        // delete Level2 if not already done
+        if (LevelGeometry.Level2 != null)
+          GameObject.Destroy(LevelGeometry.Level2);
+
+        // delete Cave2
+        GameObject.Destroy(LevelGeometry.Cave2);
+
+        // delete Level3
+        GameObject.Destroy(LevelGeometry.Level3);
+        break;
+    }
 
     submarineController.InCave = false;
 

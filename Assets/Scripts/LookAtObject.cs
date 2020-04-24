@@ -17,7 +17,9 @@ public class LookAtObject : MonoBehaviour
   {
     // only apply ray casting when inside a cave
     //if (!submarineController.InCave)
-      //return;
+    //return;
+
+    Debug.LogWarning("Ray casting is currently enabled in tunnels. This needs to be disabled later on");
 
     // only use layer "LookAtInteractive" on position 10
     int layerMask = 1 << 10;
