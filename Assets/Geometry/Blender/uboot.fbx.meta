@@ -3,12 +3,42 @@ guid: 3d36e2d15393327419aa852d873420fe
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ladder.001
+    second: {fileID: 2100000, guid: 812595f1196800240817d627594d3c09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: framework
+    second: {fileID: 2100000, guid: 807ae1f86b665984d9e36c27f607a1f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: framework.001
+    second: {fileID: 2100000, guid: d0ee4095624f95446a45c2ebf3ef745c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ubootgrey1.001
+    second: {fileID: 2100000, guid: 8cbb89bde652cf945ae03da17d8777a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ubootgrey2.001
+    second: {fileID: 2100000, guid: 61f0dd20aa0a8e642aa3cd241c4ed60a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ubootgrey3.001
+    second: {fileID: 2100000, guid: d49194713c4578241bbb7336c4bf6a13, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

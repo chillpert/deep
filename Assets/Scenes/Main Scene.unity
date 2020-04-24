@@ -5787,7 +5787,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 3d36e2d15393327419aa852d873420fe,
         type: 3}
       propertyPath: m_Name
-      value: LookAtTest
+      value: CrashedSub
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 3d36e2d15393327419aa852d873420fe,
         type: 3}
@@ -5797,7 +5797,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 3d36e2d15393327419aa852d873420fe,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 3d36e2d15393327419aa852d873420fe,
         type: 3}
@@ -6562,6 +6562,26 @@ Transform:
   m_Father: {fileID: 914489756}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 1.0940001, y: -86.285, z: 0}
+--- !u!1 &845427091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 3d36e2d15393327419aa852d873420fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 733535273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &845427092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845427091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64df0b014838e2f43bd0249f65c11526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineWidth: 0.3
+  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &847765369
 GameObject:
   m_ObjectHideFlags: 0
