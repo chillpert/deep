@@ -2,6 +2,9 @@
 
 public class LookAtObject : MonoBehaviour
 {
+  [SerializeField]
+  private float viewingDistance = 30f;
+
   private SubmarineController submarineController;
   private GameObject lastObjectHit;
 
@@ -21,7 +24,7 @@ public class LookAtObject : MonoBehaviour
 
     RaycastHit hit;
 
-    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, viewingDistance, layerMask))
     {
       Debug.Log(hit.collider.gameObject.name);
 

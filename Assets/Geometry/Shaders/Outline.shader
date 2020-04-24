@@ -47,7 +47,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 				Tags { "LightMode" = "Always" }
 				Cull Off
 				ZWrite Off
-				ZTest Always
+				//ZTest Always
 				ColorMask RGB // alpha not used
 
 				// you can choose what kind of blending mode you want for the outline
@@ -70,7 +70,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 			Pass {
 				Name "BASE"
 				ZWrite On
-				ZTest LEqual
+				//ZTest LEqual
 				Blend SrcAlpha OneMinusSrcAlpha
 				Material {
 					Diffuse[_Color]
@@ -95,7 +95,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 				Tags { "LightMode" = "Always" }
 				Cull Front
 				ZWrite Off
-				ZTest Always
+				//ZTest Always
 				ColorMask RGB
 
 		// you can choose what kind of blending mode you want for the outline
@@ -115,7 +115,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 	Pass {
 		Name "BASE"
 		ZWrite On
-		ZTest LEqual
+		//ZTest LEqual
 		Blend SrcAlpha OneMinusSrcAlpha
 		Material {
 			Diffuse[_Color]

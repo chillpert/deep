@@ -16,12 +16,18 @@ public class OutlineController : MonoBehaviour
 
   public void ShowOutline()
   {
-    meshRenderer.material.SetFloat("_Outline", outlineWidth);
-    meshRenderer.material.SetColor("_OutlineColor", outlineColor);
+    foreach (var mat in meshRenderer.materials)
+    {
+      mat.SetFloat("_Outline", outlineWidth);
+      mat.SetColor("_OutlineColor", outlineColor);
+    }
   }
 
   public void HideOutline()
   {
-    meshRenderer.material.SetFloat("_Outline", 0f);
+    foreach (var mat in meshRenderer.materials)
+    {
+      mat.SetFloat("_Outline", 0f);
+    }
   }
 }
