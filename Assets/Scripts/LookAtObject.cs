@@ -42,7 +42,9 @@ public class LookAtObject : MonoBehaviour
     {
       if (lastObjectHit != null)
       {
-        lastObjectHit.GetComponent<OutlineController>().HideOutline();
+        var temp = lastObjectHit.GetComponent<OutlineController>();
+        if (temp != null)
+          temp.HideOutline();
       }
     }
   }
