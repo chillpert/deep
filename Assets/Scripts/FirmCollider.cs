@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class FirmCollider : MonoBehaviour
 {
+  #region Transition Data
+  public static float TimeOnTransitionEnter = 0f;
+  public static Vector3 PositionOnTransitionEnter = Vector3.zero;
+  public static Quaternion RotationOnTransitionEnter = Quaternion.identity;
+  public static float JourneyLength = 0f;
+  #endregion
+
   public Vector3 Forward { get; set; }
 
   [SerializeField]
@@ -56,22 +63,13 @@ public class FirmCollider : MonoBehaviour
   private void OnCollisionEnter(Collision collision)
   {
     if (collision.gameObject.name.Equals("EnterCave1Transition"))
-    {
-      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave1");      
-      submarineController.Transition = true;
-    }
+      EnterTransition("WayPointStartCave1");
 
     if (collision.gameObject.name.Equals("EnterCave2Transition"))
-    {
-      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave2");
-      submarineController.Transition = true;
-    }
+      EnterTransition("WayPointStartCave2");
 
     if (collision.gameObject.name.Equals("EnterCave3Transition"))
-    {
-      submarineController.TransitionGoal = GameObject.Find("WayPointStartCave3");
-      submarineController.Transition = true;
-    }
+      EnterTransition("WayPointStartCave3");
 
     if (collision.gameObject.CompareTag("EnterCave"))
       EnterCave(collision);
@@ -148,6 +146,16 @@ public class FirmCollider : MonoBehaviour
       audioController.PlayEnterLevel3();
 
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+  }
+
+  private void EnterTransition(string wayPointStart)
+  {
+    submarineController.TransitionGoal = GameObject.Find(wayPointStart);
+    submarineController.Transition = true;
+
+    TimeOnTransitionEnter = Time.time;
+    PositionOnTransitionEnter = submarine.transform.position;
+    JourneyLength = Vector3.Distance(PositionOnTransitionEnter, submarineController.TransitionGoal.transform.position);
   }
 
   private void EnterCave(Collision collision)

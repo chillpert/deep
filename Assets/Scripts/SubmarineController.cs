@@ -14,6 +14,9 @@ public class SubmarineController : MonoBehaviour
   private PlayerController player2;
   private PlayerController player3;
 
+  [SerializeField]
+  private bool printCurrentLevel = false;
+
   #region Torpedo
   [SerializeField]
   private GameObject missile = null;
@@ -249,6 +252,9 @@ public class SubmarineController : MonoBehaviour
 
   private void Update()
   {
+    if (printCurrentLevel)
+      Debug.Log("SubmarineController: Current level: " + Level.ToString());
+
     if (HandleFadeAnimation())
       return;
 
@@ -260,15 +266,22 @@ public class SubmarineController : MonoBehaviour
     if (!start)
       return;
 
-    if (Transition)
-    {
-      transform.position = Vector3.Lerp(transform.position, TransitionGoal.transform.position, Time.deltaTime * 2f);
-      transform.rotation = Quaternion.Slerp(transform.rotation, TransitionGoal.transform.rotation, Time.deltaTime * 5f);
-      //transform.forward = Vector3.Lerp(transform.forward, TransitionGoal.transform.forward, Time.deltaTime * 1.2f);
-    }
+    if (InCave)
+      invincible = true;
+    else
+      invincible = false;
 
     if (invincible)
       Health = maxHealth;
+
+    if (Transition)
+    {
+      float distCovered = (Time.time - FirmCollider.TimeOnTransitionEnter) * constantVelocity;
+      float fractionOfJourney = distCovered / FirmCollider.JourneyLength;
+      transform.position = Vector3.Lerp(FirmCollider.PositionOnTransitionEnter, TransitionGoal.transform.position, fractionOfJourney);
+      transform.rotation = Quaternion.Slerp(transform.rotation, TransitionGoal.transform.rotation, Time.deltaTime * 2.5f);
+      return;
+    }
 
     if (Time.time > invincibilityTimeOffset)
     {
