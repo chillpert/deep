@@ -112,7 +112,7 @@ public class FirmCollider : MonoBehaviour
     }
 
     if (collision.gameObject.CompareTag("Finish"))
-      submarineController.Health = 0;
+      submarineController.CompletedGame = true;
 
       // audio
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))

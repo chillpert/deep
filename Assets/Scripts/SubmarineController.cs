@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class SubmarineController : MonoBehaviour
 {
+  public bool CompletedGame { get; set; }
   public int Level { get; set; }
   public bool InCave { get; set; }
   public TCPHost TcpHost { get; set; }
@@ -115,6 +116,7 @@ public class SubmarineController : MonoBehaviour
   private void Start()
   {
     // Level = 1;
+    CompletedGame = false;
     InCave = false;
     IFrames = false;
     TurnCamStraight = false;
@@ -144,13 +146,13 @@ public class SubmarineController : MonoBehaviour
     LevelGeometry.SetAll(false);
   }
 
-  private void FadeIn()
+  public void FadeIn(Color col)
   {
     if (blackScreen.color.a <= 1f)
     {
       alpha += Time.deltaTime * fadeInSpeed;
-      Color color = blackScreen.color;
-      blackScreen.color = new Color(color.r, color.g, color.b, alpha);
+
+      blackScreen.color = new Color(col.r, col.g, col.b, alpha);
     }
     else
     {
@@ -159,13 +161,13 @@ public class SubmarineController : MonoBehaviour
     }
   }
 
-  private void FadeOut()
+  public void FadeOut(Color col)
   {
     if (blackScreen.color.a >= 0f)
     {
       alpha -= Time.deltaTime * fadeOutSpeed;
-      Color color = blackScreen.color;
-      blackScreen.color = new Color(color.r, color.g, color.b, alpha);
+ 
+      blackScreen.color = new Color(col.r, col.g, col.b, alpha);
     }
     else
       spawned = false;
@@ -180,13 +182,13 @@ public class SubmarineController : MonoBehaviour
   {
     if (died)
     {
-      FadeIn();
+      FadeIn(Color.black);
       return true;
     }
 
     if (spawned)
     {
-      FadeOut();
+      FadeOut(Color.black);
       return true;
     }
 
@@ -254,6 +256,21 @@ public class SubmarineController : MonoBehaviour
   {
     if (printCurrentLevel)
       Debug.Log("SubmarineController: Current level: " + Level.ToString());
+
+    // fade to white
+    if (CompletedGame)
+    {
+      /*if (blackScreen.color.a <= 1f)
+      {
+        alpha += Time.deltaTime * fadeInSpeed;
+        Color col = Color.white;
+        blackScreen.color = new Color(col.r, col.g, col.b, alpha);
+      }*/
+
+      FadeIn(Color.white);
+
+      return;
+    }
 
     if (HandleFadeAnimation())
       return;
@@ -359,9 +376,6 @@ public class SubmarineController : MonoBehaviour
   private void OnCollisionStay(Collision collision)
   {
     StartCoroutine(Cam.GetComponent<CameraShake>().Shake());
-
-    if (collision.gameObject.CompareTag("Finish"))
-      ResetSubmarine();
 
     if (collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Wall"))
     {
