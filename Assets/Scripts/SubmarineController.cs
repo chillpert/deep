@@ -260,15 +260,7 @@ public class SubmarineController : MonoBehaviour
     // fade to white
     if (CompletedGame)
     {
-      /*if (blackScreen.color.a <= 1f)
-      {
-        alpha += Time.deltaTime * fadeInSpeed;
-        Color col = Color.white;
-        blackScreen.color = new Color(col.r, col.g, col.b, alpha);
-      }*/
-
       FadeIn(Color.white);
-
       return;
     }
 
