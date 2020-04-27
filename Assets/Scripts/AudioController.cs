@@ -57,6 +57,7 @@ public class AudioController : MonoBehaviour
 
     introduction = GameObject.Find("AudioIntroduction").GetComponent<PlayableDirector>();
     victory = GameObject.Find("AudioVictory").GetComponent<PlayableDirector>();
+    Debug.Log("setting");
 
     startLevel1 = GameObject.Find("AudioStart_Level1").GetComponent<PlayableDirector>();
     startLevel2 = GameObject.Find("AudioStart_Level2").GetComponent<PlayableDirector>();
@@ -210,6 +211,24 @@ public class AudioController : MonoBehaviour
 
     startLevel3.Play();
     MuteDamageVoice(startLevel3.duration);
+  }
+
+  public void PlayEnterLevel4()
+  {
+    if (muteStory)
+      return;
+
+    startLevel4.Play();
+    MuteDamageVoice(startLevel4.duration);
+  }
+
+  public void PlayIntroduction()
+  {
+    if (muteStory)
+      return;
+
+    introduction.Play();
+    MuteDamageVoice(introduction.duration);
   }
 
   public void PlayTorpedoLaunch()

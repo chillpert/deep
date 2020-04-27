@@ -23,6 +23,10 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Level1Position"));
         LevelGeometry.Level1.SetActive(true);
         LevelGeometry.Cave1.SetActive(true);
+
+        AudioController audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
+        audioController.PlayIntroduction();
+
         controller.Level = 1;
         break;
 

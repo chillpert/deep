@@ -145,6 +145,9 @@ public class FirmCollider : MonoBehaviour
     if (collision.gameObject.name.Equals("EnterLevel3"))
       audioController.PlayEnterLevel3();
 
+    if (collision.gameObject.name.Equals("EnterLevel4"))
+      audioController.PlayEnterLevel4();
+
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
   }
 
