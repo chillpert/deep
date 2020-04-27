@@ -20408,6 +20408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SinglePlayer: 0
+  instructions: {fileID: 1819723998}
+  pressToStart: {fileID: 134800008}
 --- !u!1 &1510972903
 GameObject:
   m_ObjectHideFlags: 0

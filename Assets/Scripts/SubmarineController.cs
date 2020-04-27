@@ -16,6 +16,7 @@ public class SubmarineController : MonoBehaviour
   private PlayerController player2;
   private PlayerController player3;
   private bool everyoneConnected = false;
+  private PlayMode playMode = null;
 
   [SerializeField]
   private bool printCurrentLevel = false;
@@ -131,6 +132,7 @@ public class SubmarineController : MonoBehaviour
     player1 = GameObject.Find("Player1").GetComponent<PlayerController>();
     player2 = GameObject.Find("Player2").GetComponent<PlayerController>();
     player3 = GameObject.Find("Player3").GetComponent<PlayerController>();
+    playMode = GameObject.Find("Players").GetComponent<PlayMode>();
 
     firmCollider = GameObject.Find("FirmCollider");
     LastCheckpoint = GameObject.Find("Checkpoint1");
@@ -145,7 +147,6 @@ public class SubmarineController : MonoBehaviour
     Health = maxHealth;
     
     rb = GetComponent<Rigidbody>();
-    pressSpaceToStart.gameObject.SetActive(false);
 
     // disable the entire level geometry, it will be disabled depending on the selected spawn point in debug spawner script
     LevelGeometry.SetAll(false);
@@ -281,7 +282,7 @@ public class SubmarineController : MonoBehaviour
 
     if (SkipIntroduction || Time.time > 27f)
     {
-      if (!start)
+      if (!start && playMode.SinglePlayer)
         pressSpaceToStart.gameObject.SetActive(true);
 
       if (Input.GetKeyDown(KeyCode.Space) || everyoneConnected)
