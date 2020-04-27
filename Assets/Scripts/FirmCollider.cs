@@ -292,6 +292,9 @@ public class FirmCollider : MonoBehaviour
 
   public void UpdateLevel()
   {
+    if (GameObject.Find("Players").GetComponent<PlayMode>().SinglePlayer)
+      return;
+
     Package levelUpdate = new Package(PackageType.Level, null);
 
     if (submarineController.InCave)

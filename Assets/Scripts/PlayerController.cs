@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
   private const string dummyNameH = "RotationDummyHorizontal";
   private const string dummyNameV = "RotationDummyVertical";
 
+  private PlayMode playMode = null;
+
   private void Start()
   {
     Available = true;
@@ -77,6 +79,8 @@ public class PlayerController : MonoBehaviour
     submarineController = submarine.GetComponent<SubmarineController>();
     gyroscopeController = transform.GetComponent<GyroscopeController>();
     firmCollider = GameObject.Find("FirmCollider").GetComponent<FirmCollider>();
+
+    playMode = GameObject.Find("Players").GetComponent<PlayMode>();
   }
 
   private void UpdateRotationDummy(string name)
@@ -96,6 +100,12 @@ public class PlayerController : MonoBehaviour
     {
       if (InCave())
         return;
+
+      if (playMode.SinglePlayer)
+      {
+        RotateSubmarine(Axis.Y, Acceleration.x);
+        return;
+      }
 
       switch (submarineController.Level)
       {
@@ -125,6 +135,12 @@ public class PlayerController : MonoBehaviour
       if (InCave())
         return;
 
+      if (playMode.SinglePlayer)
+      {
+        RotateSubmarine(Axis.X, -Acceleration.z);
+        return;
+      }
+
       switch (submarineController.Level)
       {
         case 1:
@@ -150,6 +166,12 @@ public class PlayerController : MonoBehaviour
     }
     else if (role == RoleType.Captain)
     {
+      if (playMode.SinglePlayer)
+      {
+        RotateHeadlight();
+        return;
+      }
+
       switch (submarineController.Level)
       {
         case 1:
