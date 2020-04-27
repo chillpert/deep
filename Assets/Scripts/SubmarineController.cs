@@ -15,6 +15,7 @@ public class SubmarineController : MonoBehaviour
   private PlayerController player1;
   private PlayerController player2;
   private PlayerController player3;
+  private bool everyoneConnected = false;
 
   [SerializeField]
   private bool printCurrentLevel = false;
@@ -256,8 +257,6 @@ public class SubmarineController : MonoBehaviour
     }
   }
 
-  private bool everyoneConnected = false;
-
   private void Update()
   {
     if (printCurrentLevel)
@@ -292,8 +291,8 @@ public class SubmarineController : MonoBehaviour
       }
     } 
 
-    if (!start)
-      return;
+    //if (!start)
+      //return;
 
     if (InCave)
       invincible = true;
@@ -354,7 +353,8 @@ public class SubmarineController : MonoBehaviour
         TurnCamStraight = false;
     }
 
-    transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
+    if (start)
+      transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
 
     // debug keyboard controller
     if (Input.GetKey("up") || Input.GetKey("w"))

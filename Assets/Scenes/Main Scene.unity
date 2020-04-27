@@ -1792,7 +1792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 1
+  spawn: 0
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -20407,7 +20407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000b4f1fe08b14942922cccb721db75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SinglePlayer: 1
+  SinglePlayer: 0
 --- !u!1 &1510972903
 GameObject:
   m_ObjectHideFlags: 0
