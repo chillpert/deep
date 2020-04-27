@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class SubmarineController : MonoBehaviour
 {
+  public bool SkipIntroduction { get; set; }
   public bool CompletedGame { get; set; }
   public int Level { get; set; }
   public bool InCave { get; set; }
@@ -17,6 +18,8 @@ public class SubmarineController : MonoBehaviour
 
   [SerializeField]
   private bool printCurrentLevel = false;
+  [SerializeField]
+  private Button pressSpaceToStart = null;
 
   #region Torpedo
   [SerializeField]
@@ -141,6 +144,7 @@ public class SubmarineController : MonoBehaviour
     Health = maxHealth;
     
     rb = GetComponent<Rigidbody>();
+    pressSpaceToStart.gameObject.SetActive(false);
 
     // disable the entire level geometry, it will be disabled depending on the selected spawn point in debug spawner script
     LevelGeometry.SetAll(false);
@@ -252,6 +256,8 @@ public class SubmarineController : MonoBehaviour
     }
   }
 
+  private bool everyoneConnected = false;
+
   private void Update()
   {
     if (printCurrentLevel)
@@ -269,8 +275,22 @@ public class SubmarineController : MonoBehaviour
 
     HandleTorpedo();
 
-    if (Input.GetKeyDown(KeyCode.Space) || TcpHost.GetComponent<TCPHost>().ConnectedClients.Count == 3)
-      start = !start;
+    if (TcpHost.GetComponent<TCPHost>().ConnectedClients.Count == 3)
+    {
+      everyoneConnected = true;
+    }
+
+    if (SkipIntroduction || Time.time > 27f)
+    {
+      if (!start)
+        pressSpaceToStart.gameObject.SetActive(true);
+
+      if (Input.GetKeyDown(KeyCode.Space) || everyoneConnected)
+      {
+        pressSpaceToStart.gameObject.SetActive(false);
+        start = !start;
+      }
+    } 
 
     if (!start)
       return;

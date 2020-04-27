@@ -57,7 +57,6 @@ public class AudioController : MonoBehaviour
 
     introduction = GameObject.Find("AudioIntroduction").GetComponent<PlayableDirector>();
     victory = GameObject.Find("AudioVictory").GetComponent<PlayableDirector>();
-    Debug.Log("setting");
 
     startLevel1 = GameObject.Find("AudioStart_Level1").GetComponent<PlayableDirector>();
     startLevel2 = GameObject.Find("AudioStart_Level2").GetComponent<PlayableDirector>();

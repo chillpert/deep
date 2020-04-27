@@ -27,6 +27,7 @@ public class DebugSpawner : MonoBehaviour
         AudioController audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
         audioController.PlayIntroduction();
 
+        controller.SkipIntroduction = false;
         controller.Level = 1;
         break;
 
@@ -34,6 +35,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Level2Position"));
         LevelGeometry.Level2.SetActive(true);
         LevelGeometry.Cave1.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 1;
         break;
 
@@ -41,6 +43,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Level3Position"));
         LevelGeometry.Level3.SetActive(true);
         LevelGeometry.Cave2.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 2;
         break;
 
@@ -48,6 +51,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Level4Position"));
         LevelGeometry.Level4.SetActive(true);
         LevelGeometry.Cave3.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 3;
         break;
 
@@ -55,6 +59,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Cave1Position"));
         LevelGeometry.Cave1.SetActive(true);
         LevelGeometry.Level1.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 1;
         break;
 
@@ -62,6 +67,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Cave2Position"));
         LevelGeometry.Cave2.SetActive(true);
         LevelGeometry.Level2.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 2;
         break;
 
@@ -69,6 +75,7 @@ public class DebugSpawner : MonoBehaviour
         SetTransform(GameObject.Find("Cave3Position"));
         LevelGeometry.Cave3.SetActive(true);
         LevelGeometry.Level3.SetActive(true);
+        controller.SkipIntroduction = true;
         controller.Level = 3;
         break;
 
