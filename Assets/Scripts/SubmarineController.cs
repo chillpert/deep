@@ -265,6 +265,9 @@ public class SubmarineController : MonoBehaviour
 
   private void Update()
   {
+    if (CustomFollowerPath.Stop)
+      return;
+    
     if (printCurrentLevel)
       Debug.Log("SubmarineController: Current level: " + Level.ToString());
 

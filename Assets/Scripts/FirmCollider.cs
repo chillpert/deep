@@ -114,7 +114,20 @@ public class FirmCollider : MonoBehaviour
     if (collision.gameObject.CompareTag("Finish"))
       submarineController.CompletedGame = true;
 
-      // audio
+    if (!LookAtObject.FoundObject && collision.gameObject.CompareTag("PausePathAnimation"))
+    {
+      var cfp = submarine.GetComponent<CustomFollowerPath>();
+
+      if (cfp != null)
+      {
+        CustomFollowerPath.Stop = true;
+        Debug.Log("Pausing");
+      }
+      else
+        Debug.Log("MASAKA!");
+    }
+
+    // audio
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
       audioController.PlayDamageVoice();
 
@@ -163,6 +176,8 @@ public class FirmCollider : MonoBehaviour
 
   private void EnterCave(Collision collision)
   {
+    LookAtObject.FoundObject = false;
+
     submarineController.InCave = true;
 
     UpdateLevel();
@@ -224,6 +239,8 @@ public class FirmCollider : MonoBehaviour
 
   private void EnterLevel(int level)
   {
+    LookAtObject.FoundObject = false;
+
     string name = "Checkpoint" + level.ToString();
     Debug.Log("FirmCollider: Reached Checkpoint: " + name);
     submarineController.LastCheckpoint = GameObject.Find(name);

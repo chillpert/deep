@@ -18,6 +18,7 @@ TagManager:
   - EnterLevel
   - FoundCave
   - EnterCaveTransition
+  - PausePathAnimation
   layers:
   - Default
   - TransparentFX

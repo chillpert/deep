@@ -8,6 +8,8 @@ public class LookAtObject : MonoBehaviour
   private SubmarineController submarineController;
   private GameObject lastObjectHit;
 
+  public static bool FoundObject = false;
+
   private void Start()
   {
     submarineController = GameObject.Find("Submarine").GetComponent<SubmarineController>();
@@ -19,7 +21,7 @@ public class LookAtObject : MonoBehaviour
   {
     // only apply ray casting when inside a cave
     if (!submarineController.InCave)
-    return;
+      return;
 
     // only use layer "LookAtInteractive" on position 10
     int layerMask = 1 << 10;
@@ -29,6 +31,8 @@ public class LookAtObject : MonoBehaviour
     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, viewingDistance, layerMask))
     {
       Debug.Log(hit.collider.gameObject.name);
+      FoundObject = true;
+      CustomFollowerPath.Stop = false;
 
       lastObjectHit = hit.collider.gameObject;
       var outlineController = lastObjectHit.GetComponent<OutlineController>();
