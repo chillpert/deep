@@ -235,6 +235,7 @@ public class FirmCollider : MonoBehaviour
         GameObject.Destroy(LevelGeometry.Level1);
 
         LevelGeometry.Cave2.SetActive(true);
+        submarineController.TorpedoAvailable = true;
         break;
 
       case 3:

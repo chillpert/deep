@@ -31,6 +31,7 @@ public class SubmarineController : MonoBehaviour
   private CoolBool reload = new CoolBool();
   private CoolBool fire = new CoolBool();
   private bool printReload = true;
+  public bool TorpedoAvailable { get; set; }
   #endregion
 
   #region Black Screen
@@ -121,6 +122,7 @@ public class SubmarineController : MonoBehaviour
   private void Start()
   {
     // Level = 1;
+    TorpedoAvailable = false;
     CompletedGame = false;
     InCave = false;
     IFrames = false;
@@ -220,6 +222,9 @@ public class SubmarineController : MonoBehaviour
         fire = player2.OnAction;
         break;
     }
+
+    if (!TorpedoAvailable)
+      return;
 
     if (fire.Cool)
     {
@@ -375,16 +380,27 @@ public class SubmarineController : MonoBehaviour
       Health = 0f;
     }
 
+    if (fireCooldown && Time.time - timeOnFire > fireCoolDownPeriod)
+      fireCooldown = false;
+
     // Fire the missile
-    if (Input.GetKeyDown("f"))
+    if (!fireCooldown && TorpedoAvailable && Input.GetKeyDown("f"))
     {
+      timeOnFire = Time.time;
+      fireCooldown = true;
+
       Instantiate(missile, transform.position + transform.forward + new Vector3(0, -2, 0), transform.rotation);
-      GetComponent<AudioSource>().Play();
+      audioController.PlayTorpedoLaunch();
     }
+
 
     // lock z-axis
     transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0f);
   }
+
+  float timeOnFire = 0f;
+  bool fireCooldown = false;
+  float fireCoolDownPeriod = 5f; 
 
   private void OnCollisionStay(Collision collision)
   {
