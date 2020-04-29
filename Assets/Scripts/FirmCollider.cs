@@ -112,7 +112,10 @@ public class FirmCollider : MonoBehaviour
     }
 
     if (collision.gameObject.CompareTag("Finish"))
+    {
       submarineController.CompletedGame = true;
+      audioController.PlayVictory();
+    }
 
     if (!LookAtObject.FoundObject && collision.gameObject.CompareTag("PausePathAnimation"))
     {
@@ -123,8 +126,6 @@ public class FirmCollider : MonoBehaviour
         CustomFollowerPath.Stop = true;
         Debug.Log("FirmCollider: Pausing until players found object of interest");
       }
-      else
-        Debug.Log("MASAKA!");
     }
 
     // audio

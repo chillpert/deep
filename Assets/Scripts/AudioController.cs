@@ -221,6 +221,15 @@ public class AudioController : MonoBehaviour
     MuteDamageVoice(startLevel4.duration);
   }
 
+  public void PlayVictory()
+  {
+    if (muteStory)
+      return;
+
+    victory.Play();
+    MuteDamageVoice(victory.duration);
+  }
+
   public void PlayIntroduction()
   {
     if (muteStory)
