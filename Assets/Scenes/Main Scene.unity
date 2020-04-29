@@ -22351,6 +22351,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ac4f1718bc4e9b147a022eda9e0f3824, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 0585749a9ebff6648ac843e41ad27f44,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0585749a9ebff6648ac843e41ad27f44, type: 3}
 --- !u!1 &1300183931
@@ -27893,6 +27898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1693887441}
   - component: {fileID: 1693887442}
+  - component: {fileID: 1693887443}
   m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
@@ -27974,6 +27980,19 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1693887443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693887440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448e803f73df0254a8df2286c93f3e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkingPeriod: 1
 --- !u!1001 &1712241965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29223,6 +29242,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ac4f1718bc4e9b147a022eda9e0f3824, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 0585749a9ebff6648ac843e41ad27f44,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0585749a9ebff6648ac843e41ad27f44, type: 3}
 --- !u!1 &1812510166
@@ -30149,6 +30173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1877823733}
   - component: {fileID: 1877823734}
+  - component: {fileID: 1877823735}
   m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
@@ -30230,6 +30255,19 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1877823735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877823732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448e803f73df0254a8df2286c93f3e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkingPeriod: 1
 --- !u!1001 &1879778569
 PrefabInstance:
   m_ObjectHideFlags: 0
