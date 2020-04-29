@@ -184,6 +184,9 @@ public class SubmarineController : MonoBehaviour
   private void OnDeath()
   {
     died = true;
+    audioController.PlayCrack2();
+    audioController.PlayCollisionLong();
+    audioController.PlayCollisionShort();
   }
 
   private bool HandleFadeAnimation()
@@ -434,12 +437,15 @@ public class SubmarineController : MonoBehaviour
 
   private void ResetSubmarine()
   {
-    Debug.Log("Submarine Controller: Reset");
+    Debug.Log("Submarine Controller: Reset to " + LastCheckpoint.name);
     startInvincibilityFrames = false;
     startBouncing = false;
     TurnCamStraight = false;
     IFrames = false;
     spawned = true;
+
+    if (Level != 1)
+      --Level;
 
     // needs to be changed to respawn position
     transform.position = LastCheckpoint.transform.position;
@@ -461,6 +467,8 @@ public class SubmarineController : MonoBehaviour
 
   public void UpdateDamageTexture()
   {
+    audioController.PlayCrack1();
+
 	  if (Health > 75f)
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial0;
 

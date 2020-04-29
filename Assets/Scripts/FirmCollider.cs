@@ -79,6 +79,8 @@ public class FirmCollider : MonoBehaviour
 
     if (collision.gameObject.CompareTag("TunnelMesh"))
     {
+      audioController.PlayCollisionShort();
+
       StartCoroutine(submarineController.Cam.Shake());
 
       if (!submarineController.IFrames)
@@ -130,7 +132,10 @@ public class FirmCollider : MonoBehaviour
 
     // audio
     if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bridge") || collision.gameObject.CompareTag("Destructables"))
+    {
       audioController.PlayDamageVoice();
+      audioController.PlayCollisionLong();
+    }
 
     if (collision.gameObject.name.Equals("EnterCave1"))
       audioController.PlayEnterCave1();

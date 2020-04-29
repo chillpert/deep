@@ -43,13 +43,11 @@ public class BlinkingEffect : MonoBehaviour
     {
       float res = Mathf.Lerp(1f, 0.5f, fracJourney);
       GetComponent<Light>().intensity = res;
-      Debug.Log(res);
     }
     else if (makeBrighter)
     {
       float res = Mathf.Lerp(0.5f, 1f, fracJourney);
       GetComponent<Light>().intensity = res;
-      Debug.Log(res);
     }
   }
 }

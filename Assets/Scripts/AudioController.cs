@@ -38,6 +38,13 @@ public class AudioController : MonoBehaviour
   private PlayableDirector cave2Enter;
   private PlayableDirector cave3Enter;
 
+  private AudioSource crack1;
+  private AudioSource crack2;
+
+  private AudioSource collisionShort;
+  private AudioSource collisionLong;
+  private AudioSource collisionScratchLong;
+
   private float timeOnHitWall = 0f;
   private float timeOnStoryAudio = 0f;
   private double muteDamageDuration = 0d;
@@ -70,6 +77,13 @@ public class AudioController : MonoBehaviour
     cave1Enter = GameObject.Find("AudioCave1_Enter").GetComponent<PlayableDirector>();
     cave2Enter = GameObject.Find("AudioCave2_Enter").GetComponent<PlayableDirector>();
     cave3Enter = GameObject.Find("AudioCave3_Enter").GetComponent<PlayableDirector>();
+
+    crack1 = GameObject.Find("AudioCrack1").GetComponent<AudioSource>();
+    crack2 = GameObject.Find("AudioCrack2").GetComponent<AudioSource>();
+
+    collisionShort = GameObject.Find("AudioCollisionShort").GetComponent<AudioSource>();
+    collisionLong = GameObject.Find("AudioCollisionLong").GetComponent<AudioSource>();
+    collisionScratchLong = GameObject.Find("AudioCollisionScratchLong").GetComponent<AudioSource>();
 
     if (muteAmbient)
     {
@@ -247,5 +261,30 @@ public class AudioController : MonoBehaviour
   public void PlayTorpedoImpact()
   {
     torpedoImpact.Play();
+  }
+
+  public void PlayCrack1()
+  {
+    crack1.Play();
+  }
+
+  public void PlayCrack2()
+  {
+    crack2.Play();
+  }
+
+  public void PlayCollisionShort()
+  {
+    collisionShort.Play();
+  }
+
+  public void PlayCollisionLong()
+  {
+    collisionLong.Play();
+  }
+
+  public void PlayCollisionScratchLong()
+  {
+    collisionScratchLong.Play();
   }
 }
