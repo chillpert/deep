@@ -40,7 +40,7 @@ public class LookAtObject : MonoBehaviour
 
     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, viewingDistance, layerMask))
     {
-      // Debug.Log("LookAtObject: " + hit.collider.gameObject.name);
+      //Debug.Log("LookAtObject: " + hit.collider.gameObject.name);
 
       if (firstRun)
       {
@@ -57,22 +57,22 @@ public class LookAtObject : MonoBehaviour
           FoundObject = true;
           CustomFollowerPath.Stop = false;
           hit.collider.gameObject.layer = 0;
+
+          switch (hit.collider.gameObject.name)
+          {
+            case "Buoy1":
+              audioController.PlayBouyCave1();
+              break;
+
+            case "Buoy2":
+              audioController.PlayBouyCave2();
+              break;
+
+            case "CrashedSubmarine":
+              audioController.PlayBouyCave3();
+              break;
+          }
         }
-      }
-
-      switch (hit.collider.gameObject.name)
-      {
-        case "Buoy1":
-          audioController.PlayBouyCave1();
-          break;
-
-        case "Buoy2":
-          audioController.PlayBouyCave2();
-          break;
-
-        case "CrashedSubmarine":
-          audioController.PlayBouyCave3();
-          break;
       }
 
       lastObjectHit = hit.collider.gameObject;

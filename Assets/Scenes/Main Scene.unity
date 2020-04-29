@@ -4971,6 +4971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewingDistance: 100
+  timeToLookAt: 1.5
 --- !u!1 &279141416
 GameObject:
   m_ObjectHideFlags: 0
@@ -10064,17 +10065,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4fd723d7a1c41f1419baeb432d75ff12,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -363.57
+      value: -419
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4fd723d7a1c41f1419baeb432d75ff12,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 164.78
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4fd723d7a1c41f1419baeb432d75ff12,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 286.54
+      value: 273
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4fd723d7a1c41f1419baeb432d75ff12,
         type: 3}
@@ -14690,6 +14691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewingDistance: 100
+  timeToLookAt: 1.5
 --- !u!1001 &877059851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16908,6 +16910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewingDistance: 100
+  timeToLookAt: 1.5
 --- !u!1001 &1031323360
 PrefabInstance:
   m_ObjectHideFlags: 0
