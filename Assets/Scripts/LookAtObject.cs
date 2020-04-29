@@ -55,8 +55,8 @@ public class LookAtObject : MonoBehaviour
         {
           Debug.Log("FirmCollider: Discovered " + hit.collider.gameObject.name);
           FoundObject = true;
-          CustomFollowerPath.Stop = false;
-          hit.collider.gameObject.layer = 0;
+          //CustomFollowerPath.Stop = false;
+          //hit.collider.gameObject.layer = 0;
 
           switch (hit.collider.gameObject.name)
           {
