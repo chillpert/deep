@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 5
+  spawn: 3
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -12174,8 +12174,24 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_RenderingPath
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_AllowMSAA
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_HDR
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2080024, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080024, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
+      propertyPath: m_HDR
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 154380, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16, type: 3}
@@ -17066,7 +17082,7 @@ MeshCollider:
   m_GameObject: {fileID: 1039235861}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -24920,7 +24936,7 @@ MeshCollider:
   m_GameObject: {fileID: 1485069626}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -26744,6 +26760,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 669089337}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1612020808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612020806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 34786c933956f9a42ba0dcc2fccb8ef1, type: 2}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!114 &1612020812
 MonoBehaviour:
   m_ObjectHideFlags: 0
