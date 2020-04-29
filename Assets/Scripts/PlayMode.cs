@@ -17,6 +17,14 @@ public class PlayMode : MonoBehaviour
     {
       instructions.gameObject.SetActive(false);
     }
+    else
+    {
+      var headlight1 = GameObject.Find("Headlight1").GetComponent<LookAtObject>();
+      headlight1.enabled = false;
+
+      var headlight2 = GameObject.Find("Headlight2").GetComponent<LookAtObject>();
+      headlight2.enabled = false;
+    }
 
     pressToStart.gameObject.SetActive(false);
   }

@@ -10176,7 +10176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64df0b014838e2f43bd0249f65c11526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineWidth: 2.5
+  outlineWidth: 0.3
   outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!65 &538113739
 BoxCollider:

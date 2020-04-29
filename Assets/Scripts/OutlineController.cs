@@ -18,9 +18,11 @@ public class OutlineController : MonoBehaviour
   {
     foreach (var mat in meshRenderer.materials)
     {
-      Debug.Log(mat.name);
-      mat.SetFloat("_Outline", outlineWidth);
-      mat.SetColor("_OutlineColor", outlineColor);
+      if (mat.shader.name == "Outlined/Silhouetted Diffuse")
+      {
+        mat.SetFloat("_Outline", outlineWidth);
+        mat.SetColor("_OutlineColor", outlineColor);
+      }
     }
   }
 
@@ -28,7 +30,11 @@ public class OutlineController : MonoBehaviour
   {
     foreach (var mat in meshRenderer.materials)
     {
-      mat.SetFloat("_Outline", 0f);
+      if (mat.shader.name == "Outlined/Silhouetted Diffuse")
+      {
+        mat.SetFloat("_Outline", 0f);
+        mat.SetColor("_OutlineColor", new Color(0f, 0f, 0f, 0f));
+      }
     }
   }
 }
