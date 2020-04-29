@@ -2103,7 +2103,7 @@ MonoBehaviour:
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
   invincible: 0
   damageTunnelMesh: 2
-  damageWall: 50
+  damageWall: 10
   damageDestructables: 20
   invincibilityPeriod: 2
   speedControls: 20

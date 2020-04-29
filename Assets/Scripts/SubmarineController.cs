@@ -465,20 +465,53 @@ public class SubmarineController : MonoBehaviour
     rb.angularVelocity = Vector3.zero;
   }
 
+  private bool playCrackSound = false;
+  private bool health75first = true;
+  private bool health50first = true;
+  private bool health25first = true;
+  private bool health0first = true;
+
   public void UpdateDamageTexture()
   {
-    audioController.PlayCrack1();
-
 	  if (Health > 75f)
+    {
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial0;
-
+    }
 	  else if (Health <= 75f && Health > 50f)
+    {
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial1;
 
+      if (health50first)
+      {
+        playCrackSound = true;
+        health50first = false;
+      }
+    }
 	  else if (Health <= 50f && Health > 25f)
+    {
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial2;
-	  
+
+      if (health25first)
+      {
+        playCrackSound = true;
+        health25first = false;
+      }
+    }
     else
+    {
 		  damageSphere.GetComponent<Renderer>().material = damageMaterial3;
+
+      if (health0first)
+      {
+        playCrackSound = true;
+        health0first = false;
+      }
+    }
+
+    if (playCrackSound)
+    {
+      audioController.PlayCrack1();
+      playCrackSound = false;
+    }
   }  
 }
