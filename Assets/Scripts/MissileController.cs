@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
@@ -11,10 +9,14 @@ public class MissileController : MonoBehaviour
 	[SerializeField]
 	float controlSpeed = 1.5f;
 	private AudioController audioController = null;
+	private SubmarineController submarineController = null;
+
+	public static int HitCounter = 0;
 	
   void Start()
   {
 		audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
+		submarineController = GameObject.Find("Submarine").GetComponent<SubmarineController>();
 		Destroy(transform.root.gameObject, 10);
 	}
 
@@ -26,10 +28,26 @@ public class MissileController : MonoBehaviour
     
 	void OnCollisionStay(Collision collision)
 	{
-		if(collision.gameObject.tag == "Destructables")
+		Debug.Log(collision.gameObject.name);
+
+		if (collision.gameObject.CompareTag("Destructables"))
 		{
 			Object.Destroy(collision.gameObject);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+		}
+
+		if (collision.gameObject.CompareTag("Finish"))
+		{
+			++HitCounter;
+			Debug.Log("MissileController: Hit, " + HitCounter);
+			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+
+			if (HitCounter >= 3)
+			{
+				// won game
+				submarineController.CompletedGame = true;
+				audioController.PlayVictory();
+			}
 		}
 
 		/*
@@ -38,6 +56,7 @@ public class MissileController : MonoBehaviour
 		else
 			explode();
 		*/
+
 		explode();
 	}
 	

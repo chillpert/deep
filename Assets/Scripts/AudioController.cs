@@ -240,6 +240,8 @@ public class AudioController : MonoBehaviour
     if (muteStory)
       return;
 
+    startLevel4.Stop();
+
     victory.Play();
     MuteDamageVoice(victory.duration);
   }

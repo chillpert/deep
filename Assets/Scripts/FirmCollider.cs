@@ -115,8 +115,10 @@ public class FirmCollider : MonoBehaviour
 
     if (collision.gameObject.CompareTag("Finish"))
     {
-      submarineController.CompletedGame = true;
-      audioController.PlayVictory();
+      //submarineController.CompletedGame = true;
+      //audioController.PlayVictory();
+
+      submarineController.Health = 0f;
     }
 
     if (!LookAtObject.FoundObject && collision.gameObject.CompareTag("PausePathAnimation"))

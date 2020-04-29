@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 1
+  spawn: 3
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -4602,7 +4602,7 @@ GameObject:
   - component: {fileID: 272289984}
   - component: {fileID: 272289983}
   - component: {fileID: 272289982}
-  m_Layer: 14
+  m_Layer: 17
   m_Name: Reset
   m_TagString: Finish
   m_Icon: {fileID: 0}
@@ -4617,7 +4617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272289980}
   m_LocalRotation: {x: 0.07711709, y: -0.077116914, z: -0.7028882, w: 0.70288986}
-  m_LocalPosition: {x: 55.5, y: -169.1, z: 906}
+  m_LocalPosition: {x: 56.1, y: -169.1, z: 906.1}
   m_LocalScale: {x: 4.672515, y: 4.672515, z: 4.672515}
   m_Children: []
   m_Father: {fileID: 1195058860}

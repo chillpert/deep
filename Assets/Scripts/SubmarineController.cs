@@ -107,6 +107,11 @@ public class SubmarineController : MonoBehaviour
   private Material damageMaterial2 = null;
   [SerializeField]
   private Material damageMaterial3 = null;
+
+  private bool playCrackSound = false;
+  private bool health50first = true;
+  private bool health25first = true;
+  private bool health0first = true;
   #endregion
 
   #region Transform
@@ -165,7 +170,9 @@ public class SubmarineController : MonoBehaviour
     else
     {
       died = false;
-      ResetSubmarine();
+
+      if (!CompletedGame)
+        ResetSubmarine();
     }
   }
 
@@ -443,6 +450,7 @@ public class SubmarineController : MonoBehaviour
     TurnCamStraight = false;
     IFrames = false;
     spawned = true;
+    MissileController.HitCounter = 0;
 
     if (Level != 1)
       --Level;
@@ -464,12 +472,6 @@ public class SubmarineController : MonoBehaviour
     rb.velocity = Vector3.zero;
     rb.angularVelocity = Vector3.zero;
   }
-
-  private bool playCrackSound = false;
-  private bool health75first = true;
-  private bool health50first = true;
-  private bool health25first = true;
-  private bool health0first = true;
 
   public void UpdateDamageTexture()
   {
