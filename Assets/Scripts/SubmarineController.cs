@@ -32,6 +32,10 @@ public class SubmarineController : MonoBehaviour
   private CoolBool fire = new CoolBool();
   private bool printReload = true;
   public bool TorpedoAvailable { get; set; }
+
+  float timeOnFire = 0f;
+  bool fireCooldown = false;
+  float fireCoolDownPeriod = 5f;
   #endregion
 
   #region Black Screen
@@ -94,6 +98,11 @@ public class SubmarineController : MonoBehaviour
   private float timeOnCollision;
   private bool startInvincibilityFrames = false;
   private bool startBouncing = false;
+  private bool accelerate = true;
+
+  private float timeOnStartDriving = 0f;
+  [SerializeField]
+  private float accelerationPeriod = 5f;
   #endregion
 
   #region Damage texture
@@ -206,6 +215,9 @@ public class SubmarineController : MonoBehaviour
 
     if (spawned)
     {
+      accelerate = true;
+      timeOnStartDriving = Time.time;
+
       FadeOut(Color.black);
       return true;
     }
@@ -373,7 +385,25 @@ public class SubmarineController : MonoBehaviour
     }
 
     if (start)
-      transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
+    {
+      if (accelerate)
+      {
+        if (Time.time - timeOnStartDriving < accelerationPeriod)
+        {
+          float distCovered = (Time.time - timeOnStartDriving) * 1f;
+          float fractionOfJourney = distCovered / accelerationPeriod;
+
+          float res = Mathf.Lerp(0f, constantVelocity, fractionOfJourney);
+          transform.Translate(0f, 0f, res * Time.deltaTime);
+        }
+        else
+        {
+          accelerate = false;
+        }
+      }
+      else
+        transform.Translate(0f, 0f, constantVelocity * Time.deltaTime);
+    }
 
     // debug keyboard controller
     if (Input.GetKey("up") || Input.GetKey("w"))
@@ -410,10 +440,6 @@ public class SubmarineController : MonoBehaviour
     // lock z-axis
     transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0f);
   }
-
-  float timeOnFire = 0f;
-  bool fireCooldown = false;
-  float fireCoolDownPeriod = 5f; 
 
   private void OnCollisionStay(Collision collision)
   {

@@ -2111,6 +2111,7 @@ MonoBehaviour:
   invincibilityTime: 1.5
   lerpDuration: 2
   bouncePeriod: 0.5
+  accelerationPeriod: 5
   damageSphere: {fileID: 85788963}
   damageMaterial0: {fileID: 2100000, guid: 5ba3162953ad06f83a32262b77c56f4d, type: 2}
   damageMaterial1: {fileID: 2100000, guid: f732793f2985af958958e4d5662851ef, type: 2}
@@ -2128,7 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 3
+  spawn: 2
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -15867,7 +15868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935679926}
   m_LocalRotation: {x: -0, y: 0.5800371, z: -0, w: 0.8145901}
-  m_LocalPosition: {x: 541.08, y: -58.83, z: 1063.11}
+  m_LocalPosition: {x: 542.72, y: -54.16, z: 1058.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1452377407}
