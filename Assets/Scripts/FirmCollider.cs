@@ -121,7 +121,7 @@ public class FirmCollider : MonoBehaviour
       if (cfp != null)
       {
         CustomFollowerPath.Stop = true;
-        Debug.Log("Pausing");
+        Debug.Log("FirmCollider: Pausing until players found object of interest");
       }
       else
         Debug.Log("MASAKA!");
@@ -140,6 +140,7 @@ public class FirmCollider : MonoBehaviour
     if (collision.gameObject.name.Equals("EnterCave3"))
       audioController.PlayEnterCave3();
 
+    /*
     if (collision.gameObject.name.Equals("BouyCave1"))
       audioController.PlayBouyCave1();
 
@@ -148,6 +149,7 @@ public class FirmCollider : MonoBehaviour
 
     if (collision.gameObject.name.Equals("BouyCave3"))
       audioController.PlayBouyCave3();
+    */
 
     if (collision.gameObject.name.Equals("EnterLevel1"))
       audioController.PlayEnterLevel1();
@@ -177,6 +179,7 @@ public class FirmCollider : MonoBehaviour
   private void EnterCave(Collision collision)
   {
     LookAtObject.FoundObject = false;
+    submarineController.TorpedoAvailable = false;
 
     submarineController.InCave = true;
 
@@ -267,6 +270,7 @@ public class FirmCollider : MonoBehaviour
         GameObject.Destroy(LevelGeometry.Level2);
 
         LevelGeometry.Cave3.SetActive(true);
+        submarineController.TorpedoAvailable = true;
         break;
 
       case 4:
@@ -287,6 +291,7 @@ public class FirmCollider : MonoBehaviour
 
         // delete Level3
         GameObject.Destroy(LevelGeometry.Level3);
+        submarineController.TorpedoAvailable = true;
         break;
     }
 

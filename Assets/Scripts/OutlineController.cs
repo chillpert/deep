@@ -18,6 +18,7 @@ public class OutlineController : MonoBehaviour
   {
     foreach (var mat in meshRenderer.materials)
     {
+      Debug.Log(mat.name);
       mat.SetFloat("_Outline", outlineWidth);
       mat.SetColor("_OutlineColor", outlineColor);
     }

@@ -69,6 +69,7 @@ public class DebugSpawner : MonoBehaviour
         LevelGeometry.Level2.SetActive(true);
         controller.SkipIntroduction = true;
         controller.Level = 2;
+        controller.TorpedoAvailable = true;
         break;
 
       case Spawn.Cave3:
@@ -77,6 +78,7 @@ public class DebugSpawner : MonoBehaviour
         LevelGeometry.Level3.SetActive(true);
         controller.SkipIntroduction = true;
         controller.Level = 3;
+        controller.TorpedoAvailable = true;
         break;
 
       case Spawn.Free:

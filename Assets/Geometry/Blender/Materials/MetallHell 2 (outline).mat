@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MetallHell2
+  m_Name: MetallHell 2 (outline)
   m_Shader: {fileID: 4800000, guid: 079dcdd9516590047b434e93ab87efd6, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4

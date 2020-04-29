@@ -7,12 +7,14 @@ public class LookAtObject : MonoBehaviour
 
   private SubmarineController submarineController;
   private GameObject lastObjectHit;
+  private AudioController audioController;
 
   public static bool FoundObject = false;
 
   private void Start()
   {
     submarineController = GameObject.Find("Submarine").GetComponent<SubmarineController>();
+    audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
 
     //Debug.LogWarning("Ray casting is currently enabled in tunnels. This needs to be disabled later on");
   }
@@ -20,8 +22,8 @@ public class LookAtObject : MonoBehaviour
   private void Update()
   {
     // only apply ray casting when inside a cave
-    if (!submarineController.InCave)
-      return;
+    //if (!submarineController.InCave)
+     // return;
 
     // only use layer "LookAtInteractive" on position 10
     int layerMask = 1 << 10;
@@ -30,7 +32,23 @@ public class LookAtObject : MonoBehaviour
 
     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, viewingDistance, layerMask))
     {
-      Debug.Log(hit.collider.gameObject.name);
+      Debug.Log("LookAtObject: " + hit.collider.gameObject.name);
+
+      switch (hit.collider.gameObject.name)
+      {
+        case "Buoy1":
+          audioController.PlayBouyCave1();
+          break;
+
+        case "Buoy2":
+          audioController.PlayBouyCave2();
+          break;
+
+        case "CrashedSubmarine":
+          audioController.PlayBouyCave3();
+          break;
+      }
+
       FoundObject = true;
       CustomFollowerPath.Stop = false;
 
