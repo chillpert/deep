@@ -36,14 +36,24 @@ public class MissileController : MonoBehaviour
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 		}
 
-		if (collision.gameObject.CompareTag("Finish"))
+		if (collision.gameObject.CompareTag("Finish") || collision.gameObject.layer == 18)
 		{
 			++HitCounter;
 			Debug.Log("MissileController: Hit, " + HitCounter);
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 
-			if (HitCounter >= 3)
+			if (HitCounter == 1)
 			{
+				GameObject.Find("LightRay1").GetComponent<Light>().enabled = true;
+			}
+			else if (HitCounter == 2)
+			{
+				GameObject.Find("LightRay2").GetComponent<Light>().enabled = true;
+			}
+			else if (HitCounter >= 3)
+			{
+				GameObject.Find("LightRay3").GetComponent<Light>().enabled = true;
+
 				// won game
 				submarineController.CompletedGame = true;
 				audioController.PlayVictory();

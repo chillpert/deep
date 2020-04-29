@@ -4617,7 +4617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272289980}
   m_LocalRotation: {x: 0.07711709, y: -0.077116914, z: -0.7028882, w: 0.70288986}
-  m_LocalPosition: {x: 56.1, y: -169.1, z: 906.1}
+  m_LocalPosition: {x: 56.44, y: -169.1, z: 906.17}
   m_LocalScale: {x: 4.672515, y: 4.672515, z: 4.672515}
   m_Children: []
   m_Father: {fileID: 1195058860}
@@ -4656,7 +4656,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272289980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8155,7 +8155,7 @@ GameObject:
   - component: {fileID: 427637316}
   - component: {fileID: 427637315}
   - component: {fileID: 427637314}
-  m_Layer: 14
+  m_Layer: 18
   m_Name: LastWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17262,7 +17262,7 @@ GameObject:
   - component: {fileID: 1039235865}
   - component: {fileID: 1039235864}
   - component: {fileID: 1039235863}
-  m_Layer: 11
+  m_Layer: 18
   m_Name: CavePart4 (1)
   m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
@@ -25425,7 +25425,7 @@ GameObject:
   - component: {fileID: 1485069630}
   - component: {fileID: 1485069629}
   - component: {fileID: 1485069628}
-  m_Layer: 11
+  m_Layer: 18
   m_Name: CavePart4
   m_TagString: TunnelMesh
   m_Icon: {fileID: 0}
@@ -27718,6 +27718,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083563470784161473, guid: 6b04726d59693b348abe5d8f901498da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279652192770107516, guid: 6b04726d59693b348abe5d8f901498da,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b04726d59693b348abe5d8f901498da, type: 3}
