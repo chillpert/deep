@@ -82,7 +82,10 @@ public class DebugSpawner : MonoBehaviour
         break;
 
       case Spawn.Free:
-        controller.Level = 1;
+        controller.Level = 2;
+        controller.SkipIntroduction = true;
+        controller.TorpedoAvailable = true;
+        LevelGeometry.SetAll(true);
         break;
     }
   }
