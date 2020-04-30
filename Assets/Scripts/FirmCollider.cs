@@ -117,7 +117,6 @@ public class FirmCollider : MonoBehaviour
     {
       //submarineController.CompletedGame = true;
       //audioController.PlayVictory();
-
       submarineController.Health = 0f;
     }
 
