@@ -58,6 +58,9 @@ public class MissileController : MonoBehaviour
 				// won game
 				submarineController.CompletedGame = true;
 				audioController.PlayVictory();
+
+				Package triggerCredits = new Package(PackageType.Credits, null);
+				submarineController.TcpHost.GetComponent<TCPHost>().Send(triggerCredits);
 			}
 		}
 

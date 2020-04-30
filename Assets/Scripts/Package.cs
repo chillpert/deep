@@ -15,7 +15,8 @@ public enum PackageType
   Calibrate1,
   Calibrate2,
   Action,
-  Level
+  Level,
+  Credits
 }
 
 [Serializable]
