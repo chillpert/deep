@@ -3,7 +3,7 @@ Deep is a Unity-based video game intended for a full dome projection environment
 
 
 
-## How to play the game (single player version for computer screen/ multi player version vor full dome) 
+## How to play the game (single player version for computer screen) 
 
  1. Download the single player version of DEEP **for your operating system** **[here]()**.
  2. Download and install the companion android app onto your smartphone. You can find it **[here](https://github.com/chillpert/unity-phone-controller/releases)**.
