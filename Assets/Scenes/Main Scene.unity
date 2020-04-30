@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 6
+  spawn: 0
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -18224,7 +18224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e52074e469f5344888c052603ea80a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caveAnimationSpeed: 5
 --- !u!54 &915865988
 Rigidbody:
   m_ObjectHideFlags: 0

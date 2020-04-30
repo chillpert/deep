@@ -55,21 +55,25 @@ public class LookAtObject : MonoBehaviour
         {
           Debug.Log("FirmCollider: Discovered " + hit.collider.gameObject.name);
           FoundObject = true;
-          CustomFollowerPath.Stop = false;
+
+          CustomFollowerPath.FullyStopped = false;
           hit.collider.gameObject.layer = 0;
 
           switch (hit.collider.gameObject.name)
           {
             case "Buoy1":
               audioController.PlayBouyCave1();
+              CustomFollowerPath.TimeOnContinue = Time.time;
               break;
 
             case "Buoy2":
               audioController.PlayBouyCave2();
+              CustomFollowerPath.TimeOnContinue = Time.time;
               break;
 
             case "CrashedSubmarine":
               audioController.PlayBouyCave3();
+              CustomFollowerPath.TimeOnContinue = Time.time;
               break;
           }
         }

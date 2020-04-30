@@ -12,9 +12,6 @@ public class FirmCollider : MonoBehaviour
 
   public Vector3 Forward { get; set; }
 
-  [SerializeField]
-  private float caveAnimationSpeed = 5f;
-  
   private SubmarineController submarineController;
   private AudioController audioController;
   private GameObject submarine;
@@ -127,6 +124,7 @@ public class FirmCollider : MonoBehaviour
       if (cfp != null)
       {
         CustomFollowerPath.Stop = true;
+        CustomFollowerPath.TimeOnStop = Time.time;
         Debug.Log("FirmCollider: Pausing until players found object of interest");
       }
     }
@@ -183,7 +181,6 @@ public class FirmCollider : MonoBehaviour
       submarine.AddComponent<CustomFollowerPath>();
       var temp = submarine.GetComponent<CustomFollowerPath>();
       temp.EndOfPathInstruction = PathCreation.EndOfPathInstruction.Stop;
-      temp.Speed = caveAnimationSpeed;
     }
 
     // set waypoints
