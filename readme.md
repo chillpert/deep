@@ -6,7 +6,7 @@ Deep is a Unity-based video game intended for a full dome projection environment
 
  1. Download the single player version of DEEP **for your operating system** **[here]()**.
  2. Download and install the companion android app onto your smartphone. You can find it **[here](https://github.com/chillpert/unity-phone-controller/releases/download/2.2.2/unity-phone-controller.apk)**.
- 3. The PC and the smatphone need to be **connected to the same WIFI network**.
+ 3. Computer and  smatphone need to be **connected to the same WIFI network**.
  4. Start the android app. Chose **Manual** via the connect to dropdown menu and fill in the IP of your computer. **Don't press connect yet.**
  5.  Execute the game on your computer first and then press connect on your smartphone.
  6. Chose **Captain** out of the three roles shown, hit **Calibration** and follow the instructions shown.
