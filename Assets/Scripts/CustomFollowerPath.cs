@@ -56,7 +56,6 @@ public class CustomFollowerPath : MonoBehaviour
           {
             if (Time.time - TimeOnContinue < period)
             {
-              Debug.Log("faster god damn it");
               // accelerate
               float distCovered = (Time.time - TimeOnContinue) * 1f;
               float fractionOfJourney = distCovered / period;
