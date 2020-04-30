@@ -319,6 +319,9 @@ public class SubmarineController : MonoBehaviour
       {
         pressSpaceToStart.gameObject.SetActive(false);
         start = !start;
+
+        accelerate = true;
+        timeOnStartDriving = Time.time;
       }
     } 
 
