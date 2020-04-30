@@ -71,12 +71,21 @@ public class UDPParser : UDPListener
       string cut = uncut.Substring(0, uncut.IndexOf("}") - 1);
       string[] quat = cut.Split(',');
 
+      
       SetPlayer().Rotation = new Quaternion(
         float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat),
         float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat),
         float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat),
         float.Parse(quat[3], CultureInfo.InvariantCulture.NumberFormat)
       );
+      
+      /*
+      SetPlayer().RotationRate = new Vector3(
+        -float.Parse(quat[0], CultureInfo.InvariantCulture.NumberFormat),
+        -float.Parse(quat[1], CultureInfo.InvariantCulture.NumberFormat),
+        -float.Parse(quat[2], CultureInfo.InvariantCulture.NumberFormat)
+      );
+      */
     }
   }
 }

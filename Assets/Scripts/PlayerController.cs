@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
   public bool Available { get; set; }
   public Vector3 Acceleration { get; set; }
   public Quaternion Rotation { get; set; }
+  public Vector3 RotationRate { get; set; }
 
   private bool capturePhoneStraight;
   public bool CapturePhoneStraight
@@ -245,7 +246,8 @@ public class PlayerController : MonoBehaviour
   {
     if (submarineController.InCave)
     {
-      gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+      //gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+      gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight);
       return true;
     }
 
@@ -255,6 +257,7 @@ public class PlayerController : MonoBehaviour
 
   private void RotateHeadlight()
   {
-    gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+    //gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
+    gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight);
   }
 }
