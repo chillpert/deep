@@ -315,7 +315,7 @@ public class SubmarineController : MonoBehaviour
       if (!start && playMode.SinglePlayer)
         pressSpaceToStart.gameObject.SetActive(true);
 
-      if (Input.GetKeyDown(KeyCode.Space) || everyoneConnected)
+      if ((Input.GetKeyDown(KeyCode.Space) || everyoneConnected) && !InCave)
       {
         pressSpaceToStart.gameObject.SetActive(false);
         start = !start;
