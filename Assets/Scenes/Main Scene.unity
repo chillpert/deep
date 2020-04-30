@@ -1113,7 +1113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &55169556
 Transform:
   m_ObjectHideFlags: 0
@@ -3041,7 +3041,7 @@ RectTransform:
   m_GameObject: {fileID: 134800006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6161702, y: 0.6161702, z: 0.6161702}
+  m_LocalScale: {x: 0.80613554, y: 0.80613554, z: 0.80613554}
   m_Children:
   - {fileID: 1274787128}
   m_Father: {fileID: 415894141}
@@ -9574,7 +9574,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1612020813}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -33191,6 +33191,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Resolution: 1
   DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
+--- !u!20 &1612020813 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2058622, guid: 8c8a8f77e8699403ab6c0d4b8fe24c16,
+    type: 3}
+  m_PrefabInstance: {fileID: 669089337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621967973
 GameObject:
   m_ObjectHideFlags: 0
@@ -36656,15 +36662,15 @@ RectTransform:
   m_GameObject: {fileID: 1819723996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.64964175, y: 0.64964175, z: 0.64964175}
+  m_LocalScale: {x: 0.64964175, y: 0.64964175, z: 0}
   m_Children: []
   m_Father: {fileID: 415894141}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -503, y: 291}
-  m_SizeDelta: {x: 302.29, y: 129}
+  m_AnchoredPosition: {x: -443, y: 321}
+  m_SizeDelta: {x: 476.8, y: 248.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819723998
 MonoBehaviour:
@@ -36688,10 +36694,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -36699,9 +36705,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "For computer single player:\r\n\n- select \"Captain\" on your smartphone
-    app to control the light\r\n- use WASD or  arrow keys to navigate the submarine\r\n-
-    use F key to fire a torpedo missile"
+  m_Text: "Player controls:\r\n - navigate submarine with WASD keys\r\n - use F key
+    to fire torpedo missle\r\n - rotate your smartphone to light your environment
+    and \n   activate objects in caves\r\n - hit space bar to start"
 --- !u!222 &1819723999
 CanvasRenderer:
   m_ObjectHideFlags: 0
