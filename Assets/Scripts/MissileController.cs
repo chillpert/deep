@@ -11,7 +11,6 @@ public class MissileController : MonoBehaviour
 	private AudioController audioController = null;
 	private SubmarineController submarineController = null;
 
-	private GameObject lightRays1;
 	private GameObject lightRays2;
 
 	public static int HitCounter = 0;
@@ -21,7 +20,6 @@ public class MissileController : MonoBehaviour
 		audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
 		submarineController = GameObject.Find("Submarine").GetComponent<SubmarineController>();
 
-		lightRays1 = GameObject.Find("LightRays1");
 		lightRays2 = GameObject.Find("LightRays2");
 		
 		Destroy(transform.root.gameObject, 10);
@@ -49,12 +47,10 @@ public class MissileController : MonoBehaviour
 
 			if (HitCounter == 1)
 			{
-				lightRays1.transform.GetChild(0).gameObject.SetActive(true);
+				lightRays2.transform.GetChild(0).gameObject.SetActive(true);
 			}
 			else if (HitCounter >= 2)
 			{
-				lightRays2.transform.GetChild(0).gameObject.SetActive(true);
-
 				// won game
 				submarineController.CompletedGame = true;
 				audioController.PlayVictory();
