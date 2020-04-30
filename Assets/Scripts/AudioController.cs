@@ -241,6 +241,7 @@ public class AudioController : MonoBehaviour
       return;
 
     startLevel4.Stop();
+    cave3Bouy.Stop();
 
     victory.Play();
     MuteDamageVoice(victory.duration);

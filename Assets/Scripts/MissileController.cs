@@ -25,7 +25,7 @@ public class MissileController : MonoBehaviour
 		transform.Rotate(-Input.GetAxis("Controller Vertical") * Time.deltaTime * controlSpeed, Input.GetAxis("Controller Horizontal") * Time.deltaTime * controlSpeed, 0f, Space.World);
 		transform.Translate(-10.0f * Time.deltaTime, 0f, 0f); // This speed should be coherent with the exhaust particle speed
   }
-    
+
 	void OnCollisionStay(Collision collision)
 	{
 		Debug.Log(collision.gameObject.name);
@@ -46,13 +46,9 @@ public class MissileController : MonoBehaviour
 			{
 				GameObject.Find("LightRay1").GetComponent<Light>().enabled = true;
 			}
-			else if (HitCounter == 2)
+			else if (HitCounter >= 2)
 			{
 				GameObject.Find("LightRay2").GetComponent<Light>().enabled = true;
-			}
-			else if (HitCounter >= 3)
-			{
-				GameObject.Find("LightRay3").GetComponent<Light>().enabled = true;
 
 				// won game
 				submarineController.CompletedGame = true;
