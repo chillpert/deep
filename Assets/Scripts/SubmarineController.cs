@@ -395,6 +395,8 @@ public class SubmarineController : MonoBehaviour
 
           float res = Mathf.Lerp(0f, constantVelocity, fractionOfJourney);
           transform.Translate(0f, 0f, res * Time.deltaTime);
+
+          //Debug.Log("Accerlerate");
         }
         else
         {

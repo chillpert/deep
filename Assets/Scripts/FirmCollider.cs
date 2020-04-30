@@ -139,36 +139,22 @@ public class FirmCollider : MonoBehaviour
       audioController.PlayCollisionLong();
     }
 
-    if (collision.gameObject.name.Equals("EnterCave1"))
+    if (collision.gameObject.name.Equals("AudioEnterCave1"))
       audioController.PlayEnterCave1();
 
-    if (collision.gameObject.name.Equals("EnterCave2"))
+    if (collision.gameObject.name.Equals("AudioEnterCave2"))
       audioController.PlayEnterCave2();
 
-    if (collision.gameObject.name.Equals("EnterCave3"))
+    if (collision.gameObject.name.Equals("AudioEnterCave3"))
       audioController.PlayEnterCave3();
 
-    /*
-    if (collision.gameObject.name.Equals("BouyCave1"))
-      audioController.PlayBouyCave1();
-
-    if (collision.gameObject.name.Equals("BouyCave2"))
-      audioController.PlayBouyCave2();
-
-    if (collision.gameObject.name.Equals("BouyCave3"))
-      audioController.PlayBouyCave3();
-    */
-
-    if (collision.gameObject.name.Equals("EnterLevel1"))
-      audioController.PlayEnterLevel1();
-
-    if (collision.gameObject.name.Equals("EnterLevel2"))
+    if (collision.gameObject.name.Equals("AudioEnterLevel2"))
       audioController.PlayEnterLevel2();
 
-    if (collision.gameObject.name.Equals("EnterLevel3"))
+    if (collision.gameObject.name.Equals("AudioEnterLevel3"))
       audioController.PlayEnterLevel3();
 
-    if (collision.gameObject.name.Equals("EnterLevel4"))
+    if (collision.gameObject.name.Equals("AudioEnterLevel4"))
       audioController.PlayEnterLevel4();
 
     Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
