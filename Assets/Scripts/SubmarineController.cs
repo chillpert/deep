@@ -296,7 +296,7 @@ public class SubmarineController : MonoBehaviour
     // fade to white
     if (CompletedGame)
     {
-      FadeIn(Color.white);
+      FadeIn(new Color(0.5865966f, 0.735849f, 0.7192654f));
       return;
     }
 
