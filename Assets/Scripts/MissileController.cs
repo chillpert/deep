@@ -31,7 +31,7 @@ public class MissileController : MonoBehaviour
 		transform.Translate(-10.0f * Time.deltaTime, 0f, 0f); // This speed should be coherent with the exhaust particle speed
   }
 
-	void OnCollisionStay(Collision collision)
+	void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Destructables"))
 		{
