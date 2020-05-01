@@ -31320,7 +31320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000b4f1fe08b14942922cccb721db75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SinglePlayer: 0
+  SinglePlayer: 1
   instructions: {fileID: 1819723998}
   pressToStart: {fileID: 134800008}
 --- !u!1 &1510191681

@@ -13,13 +13,15 @@ public class CustomFollowerPath : MonoBehaviour
 
   private float distanceTravelled = 0f;
 
-  private bool slower = true;
+  public static bool Slower = true;
   private bool faster = false;
 
   private float period = 5f;
   public static float TimeOnStop = 0f;
   public static float TimeOnContinue = 0f;
   public static bool FullyStopped = false;
+
+  public static bool FoundDuringDeceleration = false;
 
   private void Update()
   {
@@ -32,10 +34,16 @@ public class CustomFollowerPath : MonoBehaviour
         {
           if (FullyStopped)
           {
+            if (FoundDuringDeceleration)
+            {
+              TimeOnContinue = Time.time;
+              faster = true;
+              FullyStopped = false;
+            }
             return;
           }
-
-          if (slower)
+          
+          if (Slower)
           {
             if (Time.time - TimeOnStop < period)
             {
@@ -43,13 +51,15 @@ public class CustomFollowerPath : MonoBehaviour
               float distCovered = (Time.time - TimeOnStop) * 1f;
               float fractionOfJourney = distCovered / period;
 
-              speed = Mathf.Lerp(constSpeed, 0f, fractionOfJourney);
+              speed = Mathf.Lerp(constSpeed, 0f, fractionOfJourney);      
             }
             else
             {
-              slower = false;
+              Slower = false;
               faster = true;
               FullyStopped = true;
+
+              Debug.Log("fully decelerated");
             }
           }
           else if (faster)
@@ -66,6 +76,8 @@ public class CustomFollowerPath : MonoBehaviour
             {
               faster = false;
               Stop = false;
+
+              Debug.Log("fully accelerated");
             }
           }
         }

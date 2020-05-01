@@ -56,7 +56,13 @@ public class LookAtObject : MonoBehaviour
           Debug.Log("FirmCollider: Discovered " + hit.collider.gameObject.name);
           FoundObject = true;
 
+          if (CustomFollowerPath.Slower)
+          {
+            CustomFollowerPath.FoundDuringDeceleration = true;
+          }
+
           CustomFollowerPath.FullyStopped = false;
+
           hit.collider.gameObject.layer = 0;
 
           switch (hit.collider.gameObject.name)
