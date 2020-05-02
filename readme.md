@@ -18,4 +18,4 @@ Tip: Use your right hand for your smartphone and your left for the keyboard.
 
 
 ## Notice
-This game is designed to be played on a full dome projection. The single-player version for computer screens differs in controlls, graphics settings and the actual gameplay.
+This game is designed to be played on a full dome projection. The single-player version for computer screens differs in controls, graphics settings and the actual gameplay.
