@@ -140,7 +140,7 @@ public class TCPHost : MonoBehaviour
         PlayerController player = null;
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-          if (ConnectedClients.Count < roles.Length)
+          if (ConnectedClients.Count <= roles.Length)
           {
             if (enumValue == RoleType.OppsCommander)
             {

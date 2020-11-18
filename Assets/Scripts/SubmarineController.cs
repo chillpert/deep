@@ -315,13 +315,22 @@ public class SubmarineController : MonoBehaviour
       if (!start && playMode.SinglePlayer)
         pressSpaceToStart.gameObject.SetActive(true);
 
-      if ((Input.GetKeyDown(KeyCode.Space) || everyoneConnected) && !InCave)
+      if (Input.GetKeyDown(KeyCode.Space) && !InCave)
       {
         pressSpaceToStart.gameObject.SetActive(false);
-        start = !start;
-
         accelerate = true;
         timeOnStartDriving = Time.time;
+
+        start = !start;
+      }
+
+      if (everyoneConnected && !InCave && !start)
+      {
+        Debug.Log("Acceleration triggered");
+        accelerate = true;
+        timeOnStartDriving = Time.time;
+
+        start = true;
       }
     } 
 
