@@ -367,11 +367,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 301164679}
     m_Modifications:
-    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
-        type: 3}
-      propertyPath: m_Name
-      value: Square1 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3373322511179654411, guid: 099697ce22310b2409f34b499c4b44ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -441,6 +436,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1000.0011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Square1 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 099697ce22310b2409f34b499c4b44ff, type: 3}
@@ -19164,16 +19164,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182496931}
     m_Modifications:
-    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
-        type: 3}
-      propertyPath: m_Name
-      value: Square1 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3373322511179654411, guid: 099697ce22310b2409f34b499c4b44ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19243,6 +19233,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Square1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 099697ce22310b2409f34b499c4b44ff, type: 3}
@@ -26955,11 +26955,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1094267464}
     m_Modifications:
-    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
-        type: 3}
-      propertyPath: m_Name
-      value: Square1 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3373322511179654411, guid: 099697ce22310b2409f34b499c4b44ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27029,6 +27024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1000.0011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Square1 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 099697ce22310b2409f34b499c4b44ff, type: 3}
@@ -31324,7 +31324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000b4f1fe08b14942922cccb721db75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SinglePlayer: 1
+  SinglePlayer: 0
   instructions: {fileID: 1819723998}
   pressToStart: {fileID: 134800008}
 --- !u!1 &1510191681
@@ -32171,11 +32171,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1946491847}
     m_Modifications:
-    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
-        type: 3}
-      propertyPath: m_Name
-      value: Square1 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3373322511179654411, guid: 099697ce22310b2409f34b499c4b44ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32245,6 +32240,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1000.0011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768554744104081176, guid: 099697ce22310b2409f34b499c4b44ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Square1 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 099697ce22310b2409f34b499c4b44ff, type: 3}

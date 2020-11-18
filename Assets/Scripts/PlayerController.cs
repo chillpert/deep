@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     {
       if (InCave())
         return;
-
+        
       if (playMode.SinglePlayer)
       {
         RotateSubmarine(Axis.Y, Acceleration.x);

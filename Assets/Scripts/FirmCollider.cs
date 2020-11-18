@@ -16,13 +16,24 @@ public class FirmCollider : MonoBehaviour
   private AudioController audioController;
   private GameObject submarine;
 
+  private GameObject headLight1;
+  private GameObject headLight2;
+  private Light light1;
+  private Light light2;
+
   private void Start()
   {
     Forward = new Vector3(0f, 0f, 1f);
     submarine = GameObject.Find("Submarine");
     audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     submarineController = submarine.GetComponent<SubmarineController>();
-  }
+
+    headLight1 = GameObject.Find("Headlight1");
+    headLight2 = GameObject.Find("Headlight2");
+
+    light1 = headLight1.GetComponent<Light>();
+    light2 = headLight2.GetComponent<Light>();
+    }
 
   private void Update()
   {
@@ -169,6 +180,9 @@ public class FirmCollider : MonoBehaviour
 
   private void EnterCave(Collision collision)
   {
+    light1.enabled = true;
+    light2.enabled = true;
+
     LookAtObject.FoundObject = false;
     submarineController.TorpedoAvailable = false;
 
@@ -232,6 +246,12 @@ public class FirmCollider : MonoBehaviour
 
   private void EnterLevel(int level)
   {
+    if ( level > 1 )
+    {
+      light1.enabled = false;
+      light2.enabled = false;
+    }
+
     LookAtObject.FoundObject = false;
 
     string name = "Checkpoint" + level.ToString();
