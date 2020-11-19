@@ -1003,7 +1003,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  headlight: {fileID: 869327501}
 --- !u!114 &52543059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,6 +1016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   role: 2
+  headlight: {fileID: 869327501}
+  mainHeadlight: {fileID: 869327501}
   clampAngle: 45
   threshold: 0.1
   speed: 25
@@ -2490,7 +2491,7 @@ MonoBehaviour:
   printCurrentLevel: 0
   pressSpaceToStart: {fileID: 134800008}
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
-  godMode: 1
+  godMode: 0
   damageTunnelMesh: 2
   damageWall: 10
   damageDestructables: 20
@@ -2518,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf235a379d126b4ebc15abadd2105c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: 0
+  spawn: 4
 --- !u!4 &110186722
 Transform:
   m_ObjectHideFlags: 0
@@ -5799,7 +5800,7 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 0.99215686, g: 0.7058824, b: 0.4627451, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.25
   m_Range: 153.00092
   m_SpotAngle: 33.755634
   m_InnerSpotAngle: 7.1381874
@@ -20270,7 +20271,7 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 0.99215686, g: 0.7058824, b: 0.4627451, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.25
   m_Range: 153.00092
   m_SpotAngle: 33.755634
   m_InnerSpotAngle: 7.1381874
@@ -35174,7 +35175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  headlight: {fileID: 1030453707}
 --- !u!114 &1718936628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35188,6 +35188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   role: 1
+  headlight: {fileID: 1030453707}
+  mainHeadlight: {fileID: 869327501}
   clampAngle: 45
   threshold: 0.1
   speed: 25
@@ -36710,7 +36712,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   submarine: {fileID: 110186716}
-  headlight: {fileID: 275641869}
 --- !u!114 &1812510170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36724,6 +36725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   role: 0
+  headlight: {fileID: 275641869}
+  mainHeadlight: {fileID: 869327501}
   clampAngle: 45
   threshold: 0.1
   speed: 25

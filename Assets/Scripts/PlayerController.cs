@@ -50,6 +50,12 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private RoleType role = RoleType.OppsCommander;
 
+  [SerializeField]
+  private GameObject headlight = null;
+
+  [SerializeField]
+  private GameObject mainHeadlight = null;
+
   public CoolBool OnAction { get; set; }
 
   private GameObject submarine;
@@ -247,7 +253,7 @@ public class PlayerController : MonoBehaviour
     if (submarineController.InCave)
     {
       //gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
-      gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight);
+      gyroscopeController.UpdateGyroscope(headlight, Rotation, ref capturePhoneStraight);
       return true;
     }
 
@@ -258,6 +264,6 @@ public class PlayerController : MonoBehaviour
   private void RotateHeadlight()
   {
     //gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
-    gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight);
+    gyroscopeController.UpdateGyroscope(mainHeadlight, Rotation, ref capturePhoneStraight);
   }
 }

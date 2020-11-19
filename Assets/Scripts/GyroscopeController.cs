@@ -5,8 +5,6 @@ public class GyroscopeController : MonoBehaviour
 {
   [SerializeField]
   private GameObject submarine = null;
-  [SerializeField]
-  private GameObject headlight = null;
 
   private Quaternion rotation;
   private Quaternion offset;
@@ -29,7 +27,7 @@ public class GyroscopeController : MonoBehaviour
    // headlight.GetComponent<Light>().enabled = false;
   }
 
-  public void UpdateGyroscope(Quaternion rot, ref bool calibrate)
+  public void UpdateGyroscope(GameObject headlight, Quaternion rot, ref bool calibrate)
   {
     rotation = GyroToUnity(rot);
 
