@@ -50,9 +50,10 @@ public class SubmarineController : MonoBehaviour
   #region Health and Damage
   public float Health { get; set; }
   public bool IFrames { get; set; }
+  private bool invincible = false;
 
   [SerializeField]
-  private bool invincible = false;
+  private bool godMode = false;
 
   [SerializeField]
   private int damageTunnelMesh;
@@ -287,6 +288,9 @@ public class SubmarineController : MonoBehaviour
 
   private void Update()
   {
+    if (godMode)
+      Health = maxHealth;
+
     if (CustomFollowerPath.Stop)
       return;
     

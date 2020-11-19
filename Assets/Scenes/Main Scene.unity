@@ -2490,7 +2490,7 @@ MonoBehaviour:
   printCurrentLevel: 0
   pressSpaceToStart: {fileID: 134800008}
   missile: {fileID: 3513528477927313092, guid: 2a22787f41ae9f2c8aa40887f2da3bb1, type: 3}
-  invincible: 0
+  godMode: 1
   damageTunnelMesh: 2
   damageWall: 10
   damageDestructables: 20
