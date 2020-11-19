@@ -37,10 +37,23 @@ public class TCPHost : MonoBehaviour
   private bool firstRun;
   private bool[] roles;
   private const int portOut = 11000;
+  static private Thread listenThread;
 
   public List<ClientData> ConnectedClients { get; set; }
 
   private int connectInt = 0;
+
+  private static void Quit()
+  {
+    Debug.Log("Aborting TCP thread.");
+    listenThread.Abort( );
+  }
+
+  [RuntimeInitializeOnLoadMethod]
+  private static void RunOnStart()
+  {
+    Application.quitting += Quit;
+  }
 
   void Start()
   {
@@ -52,7 +65,7 @@ public class TCPHost : MonoBehaviour
 
     serverSocket.Bind(new IPEndPoint(IPAddress.Parse(Package.GetIpAdress()), portOut));
 
-    Thread listenThread = new Thread(ListenThread);
+    listenThread = new Thread(ListenThread);
     listenThread.Start();
   }
 

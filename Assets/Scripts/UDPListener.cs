@@ -17,11 +17,25 @@ public class UDPListener : MonoBehaviour
   [HideInInspector]
   public string Message { get; set; }
 
+  private static Thread receiveThread;
+
+  private static void Quit()
+  {
+    Debug.Log("Aborting UDP thread.");
+    receiveThread.Abort( );
+  }
+
+  [RuntimeInitializeOnLoadMethod]
+  private static void RunOnStart()
+  {
+    Application.quitting += Quit;
+  }
+
   public void Start()
   {
     Message = "";
 
-    Thread receiveThread = new Thread(new ThreadStart(() =>
+    receiveThread = new Thread(new ThreadStart(() =>
     {
       client = new UdpClient(portIn);
       while (true)
