@@ -105,6 +105,8 @@ public class PlayerController : MonoBehaviour
 
     if (role == RoleType.OppsCommander)
     {
+      RotateHeadlight();
+
       if (InCave())
         return;
         
@@ -250,10 +252,11 @@ public class PlayerController : MonoBehaviour
 
   private bool InCave()
   {
+    gyroscopeController.UpdateGyroscope(headlight, Rotation, ref capturePhoneStraight);
+
     if (submarineController.InCave)
     {
       //gyroscopeController.UpdateGyroscope(Rotation, ref capturePhoneStraight, ref captureFlashlightStraight);
-      gyroscopeController.UpdateGyroscope(headlight, Rotation, ref capturePhoneStraight);
       return true;
     }
 
