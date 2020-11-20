@@ -105,8 +105,6 @@ public class PlayerController : MonoBehaviour
 
     if (role == RoleType.OppsCommander)
     {
-      RotateHeadlight();
-
       if (InCave())
         return;
         
